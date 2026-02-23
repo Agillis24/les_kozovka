@@ -5,7 +5,7 @@ import {
   MapPin, Mail, Phone, Youtube, Menu, X,
   PenLine, Download, ExternalLink, Gavel, PenTool, Image
 } from 'lucide-react';
-import forestWasteImage from 'figma:asset/bfc47caf5b2087a591c8fc8ab0254fb83392a2c5.png';
+import forestWasteImage from '../assets/bfc47caf5b2087a591c8fc8ab0254fb83392a2c5.png';
 import { Gallery } from './components/Gallery';
 
 export default function App() {
