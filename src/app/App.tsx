@@ -494,7 +494,7 @@ export default function App() {
             {[
               { title: 'Zapojení sociálního kurátora města Kladno', desc: 'Pro práci s bezdomovcem a nabídku sociálních služeb, které by pomohly řešit příčinu problému humánně a efektivně.' },
               { title: 'Zvýšená frekvence policejních kontrol', desc: 'Minimálně 1x týdně na daném pozemku, aby se předešlo opakování problému a zajistila prevence.' },
-              { title: 'Zahájení správního řízení OÚ ORP Kladno', desc: 'O černé skl��dce podle zákona č. 541/2020 Sb., o odpadech, s identifikací viníka a uložením sankcí.' },
+              { title: 'Zahájení správního řízení OÚ ORP Kladno', desc: 'O černé skládce podle zákona č. 541/2020 Sb., o odpadech, s identifikací viníka a uložením sankcí.' },
               { title: 'Podnět ČIŽP k šetření opakovaného porušování', desc: 'České inspekci životního prostředí k prošetření dlouhodobého porušování zákona o odpadech.' },
               { title: 'Oplocení nebo technické zabezpečení pozemku', desc: 'Vlastník (Břevnovský klášter) by měl přijmout preventivní opatření k ochraně svého majetku a prevenci znečištění.' },
               { title: 'Prošetření požáru Hasičským záchranným sborem', desc: 'Hasičský záchranný sbor Středočeského kraje by měl vyšetřit příčinu požáru a zveřejnit výsledky.' },
