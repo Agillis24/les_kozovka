@@ -246,7 +246,7 @@ export default function App() {
                 icon: Recycle 
               },
               { 
-                date: '1. března 2026', 
+                date: '23. února 2026', 
                 title: 'Spuštění webu a petice', 
                 desc: 'Vzniká web <strong>leskozovka.cz</strong> jako první systematická občanská reakce na situaci. Spouští se veřejná petice adresovaná <strong>městu Kladno, Břevnovskému klášteru, ČIŽP a Středočeskému kraji.</strong> Cílem je <strong>trvalé systémové řešení</strong> – ne další úklid za půl roku.', 
                 icon: PenLine 
