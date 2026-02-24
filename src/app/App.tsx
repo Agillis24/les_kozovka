@@ -397,6 +397,13 @@ export default function App() {
                 date: 'Leden 2026',
                 excerpt: 'Městská policie Kladno opakovaně zasahuje v lese u Kožovky. Bezdomovec se zde dlouhodobě zdržuje a hromadí odpadky. Strážníci musí zajišťovat pořádek při úklidu, muž se fyzicky brání.',
                 url: 'https://www.e-kladensko.cz/zpravy/1607-kladensti-straznici-zasahovali-proti-bezdomovci-ktery-znecistoval-les'
+              },
+              {
+                title: 'Také vám vadí nepořádek v lese na Kladně po bezdomovcích? Vznikla petice',
+                media: 'e-kladensko.cz',
+                date: 'Únor 2026',
+                excerpt: 'V lese Kožovka na okraji Kladna se už několik let opakuje nepořádek/černá skládka spojená s pobytem osoby bez domova. Iniciativa Les Kožovka proto spustila web leskozovka.cz společně s veřejnou peticí a žádá systémové řešení, nejen další opakované úklidy.',
+                url: 'https://www.e-kladensko.cz/zpravy/6531-take-vam-vadi-neporadek-v-lese-na-kladne-po-bezdomovcich-vznikla-petice'
               }
             ].map((article, idx) => (
               <a
