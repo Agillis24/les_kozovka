@@ -42,10 +42,13 @@ export default function App() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#2d5016] shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            <div className="flex items-center gap-2 text-white font-bold text-xl">
+            <button 
+              onClick={() => scrollToSection('home')}
+              className="flex items-center gap-2 text-white font-bold text-xl hover:text-white/80 transition-colors"
+            >
               <TreePine className="w-6 h-6" />
               <span>Les u Kožovky</span>
-            </div>
+            </button>
             
             {/* Desktop Menu */}
             <div className="hidden lg:flex items-center gap-6">
