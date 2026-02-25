@@ -208,12 +208,16 @@ export default function App() {
             <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
           </h2>
           
-          <div className="flex justify-center items-center">
+          {/* ZDE PŘIDÁNO: flex-wrap a gap-8 */}
+          <div className="flex flex-wrap justify-center items-center gap-8">
+            
+            {/* FK Slavoj Kladno */}
             <a
               href="https://www.slavojkladno.cz/"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center gap-4 max-w-xs"
+              {/* ZDE PŘIDÁNO: w-full sm:w-auto sm:min-w-[250px] */}
+              className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center gap-4 w-full sm:w-auto sm:min-w-[250px] max-w-xs"
             >
               <img
                 src="/slavoj.png"
@@ -222,6 +226,22 @@ export default function App() {
               />
               <h4 className="text-xl font-bold text-[#2d5016] text-center">FK Slavoj Kladno</h4>
             </a>
+            
+            {/* E-Kladensko */}
+            <a
+              href="https://www.e-kladensko.cz/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center gap-4 w-full sm:w-auto sm:min-w-[250px] max-w-xs"
+            >
+              <img
+                src="/ekladensko.png"
+                alt="e-Kladensko.cz logo"
+                className="w-32 h-32 object-contain"
+              />
+              <h4 className="text-xl font-bold text-[#2d5016] text-center">e-Kladensko.cz</h4>
+            </a>
+
           </div>
         </div>
       </section>
