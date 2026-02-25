@@ -200,7 +200,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Podporovatelé */}
+       {/* Podporovatelé */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-[#2d5016] mb-8 relative pb-4">
@@ -208,15 +208,12 @@ export default function App() {
             <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
           </h2>
           
-          {/* ZDE PŘIDÁNO: flex-wrap a gap-8 */}
           <div className="flex flex-wrap justify-center items-center gap-8">
             
-            {/* FK Slavoj Kladno */}
             <a
               href="https://www.slavojkladno.cz/"
               target="_blank"
               rel="noopener noreferrer"
-              {/* ZDE PŘIDÁNO: w-full sm:w-auto sm:min-w-[250px] */}
               className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center gap-4 w-full sm:w-auto sm:min-w-[250px] max-w-xs"
             >
               <img
@@ -227,7 +224,6 @@ export default function App() {
               <h4 className="text-xl font-bold text-[#2d5016] text-center">FK Slavoj Kladno</h4>
             </a>
             
-            {/* E-Kladensko */}
             <a
               href="https://www.e-kladensko.cz/"
               target="_blank"
