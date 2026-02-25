@@ -396,6 +396,13 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
+                title: 'U kladenského poustevníka zasahovala úklidová četa. Pod dohledem strážníků',
+                media: 'Kladenský deník',
+                date: '13. prosince 2022',
+                excerpt: 'V prosinci 2022 proběhl v kladenském lese rozsáhlý úklid nepořádku, který tam dlouhodobě hromadil muž bez domova. Pracovníci úklidové firmy museli za asistence městských strážníků z pozemku odvézt dva velkokapacitní kontejnery plné odpadu, staré elektroniky a dokonce i uhynulých zvířat.',
+                url: 'https://kladensky.denik.cz/zpravy_region/u-kladenskeho-poustevnika-zasahovala-uklidova-ceta-pod-dohledem-strazniku-202212.html'
+              },
+              {
                 title: 'V lese na okraji Kladna hořelo. Požár zřejmě založil bezdomovec',
                 media: 'Kladenský deník',
                 date: '12. dubna 2025',
