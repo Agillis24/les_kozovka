@@ -52,10 +52,10 @@ export default function App() {
             
             {/* Desktop Menu */}
             <div className="hidden lg:flex items-center gap-6">
-              {['Úvod', 'O problému', 'Historie', 'Galerie', 'Média', 'Aktéři', 'Požadavky', 'Dokumenty', 'Petice', 'Kontakt'].map((item, idx) => (
+              {['Úvod', 'O problému', 'Podporovatelé', 'Historie', 'Galerie', 'Média', 'Aktéři', 'Požadavky', 'Dokumenty', 'Petice', 'Kontakt'].map((item, idx) => (
                 <button
                   key={idx}
-                  onClick={() => scrollToSection(['home', 'problem', 'timeline', 'gallery', 'media', 'actors', 'demands', 'documents', 'petition', 'contact'][idx])}
+                  onClick={() => scrollToSection(['home', 'problem', 'supporters', 'timeline', 'gallery', 'media', 'actors', 'demands', 'documents', 'petition', 'contact'][idx])}
                   className="text-white/90 hover:text-white transition-colors text-sm font-medium"
                 >
                   {item}
@@ -76,10 +76,10 @@ export default function App() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="lg:hidden pb-4">
-            {['Úvod', 'O problému', 'Historie', 'Galerie', 'Média', 'Aktéři', 'Požadavky', 'Dokumenty', 'Petice', 'Kontakt'].map((item, idx) => (
+            {['Úvod', 'O problému', 'Podporovatelé', 'Historie', 'Galerie', 'Média', 'Aktéři', 'Požadavky', 'Dokumenty', 'Petice', 'Kontakt'].map((item, idx) => (
               <button
                 key={idx}
-                onClick={() => scrollToSection(['home', 'problem', 'timeline', 'gallery', 'media', 'actors', 'demands', 'documents', 'petition', 'contact'][idx])}
+                onClick={() => scrollToSection(['home', 'problem', 'supporters', 'timeline', 'gallery', 'media', 'actors', 'demands', 'documents', 'petition', 'contact'][idx])}
                 className="block w-full text-left text-white/90 hover:text-white py-2 px-4 transition-colors"
               >
                 {item}
@@ -87,7 +87,6 @@ export default function App() {
             ))}
           </div>
         )}
-      </nav>
 
       {/* Hero Section */}
       <section id="home" className="relative h-screen min-h-[600px] flex items-center justify-center text-center text-white pt-20">
@@ -204,7 +203,7 @@ export default function App() {
       </section>
 
        {/* Podporovatelé */}
-      <section className="py-16 bg-gray-50">
+      <section id="supporters" className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-[#2d5016] mb-8 relative pb-4">
             Podporují nás
