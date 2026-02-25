@@ -617,7 +617,7 @@ export default function App() {
               <div>
                 <h4 className="text-xl font-bold mb-3">Právní základ žádostí</h4>
                 <p className="mb-4 opacity-90 leading-relaxed">
-                  Všechny žádosti byly podány v souladu se <strong>zákonem č. 106/1999 Sb., o svobodném přístupu k informacím, ve znění pozdějších předpisů.</strong> Tento zákon zaručuje právo každého občana požadovat informace od státních orgánů a orgánů územní samosprávy.
+                  Všechny žádosti, vyjma žádosti určené vlastníkovi pozemku, byly podány v souladu se <strong>zákonem č. 106/1999 Sb., o svobodném přístupu k informacím, ve znění pozdějších předpisů.</strong> Tento zákon zaručuje právo každého občana požadovat informace od státních orgánů a orgánů územní samosprávy.
                 </p>
                 <p className="text-sm opacity-80">
                   Povinné subjekty mají zákonnou lhůtu <strong>15 dnů</strong> na poskytnutí informací nebo odůvodnění odmítnutí. Odpovědi budeme průběžně zveřejňovat na tomto webu.
