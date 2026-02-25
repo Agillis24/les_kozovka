@@ -210,7 +210,7 @@ export default function App() {
           
           <div className="flex justify-center items-center">
             <a
-              href="https://www.fkslavojkladno.cz"
+              href="https://www.slavojkladno.cz/"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center gap-4 max-w-xs"
