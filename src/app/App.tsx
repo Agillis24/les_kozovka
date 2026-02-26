@@ -448,7 +448,7 @@ export default function App() {
                 Veškerá fotodokumentace (černá skládka, nelegální pobyt, požár a úklidové akce) je volně dostupná na Google Disku. Fotografie dokumentují závažnost situace a jsou k dispozici pro média, úřady i veřejnost.
               </p>
               <a 
-                href="https://drive.google.com/drive/folders/1mgzH9geW9sDTxL8pHUWVcPxMysPE5i?usp=sharing" 
+                href="https://drive.google.com/drive/folders/1mgzH9geW9sDTxL8pHUWV_cPxMy_sPE5i?usp=drive_link" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 bg-white text-[#2d5016] px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:-translate-y-1 shadow-lg hover:bg-gray-100"
