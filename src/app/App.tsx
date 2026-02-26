@@ -697,61 +697,63 @@ export default function App() {
       </section>
 
       {/* Požadavky */}
-      <section id="demands" className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-12 relative pb-4">
-            Naše požadavky
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
-          </h2>
+<section id="demands" className="py-20 bg-white">
+  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-12 relative pb-4">
+      Naše požadavky
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
+    </h2>
 
-          <div className="space-y-6">
-            {[
-              {
-                title: 'Zapojení sociálního kurátora města Kladno',
-                desc: 'Pro práci s bezdomovcem a nabídku sociálních služeb, které by pomohly řešit příčinu problému humánně a efektivně.'
-              },
-              {
-                title: 'Zvýšení frekvence policejních kontrol',
-                desc: 'Minimálně 1x týdně na daném pozemku, aby se předešlo opakování problému a zajistila prevence.'
-              },
-              {
-                title: 'Zahájení správního řízení (OŽP ORP Kladno)',
-                desc: 'O černé skládce podle zákona č. 541/2020 Sb., o odpadech, s identifikací viníka a uložením sankcí.'
-              },
-              {
-                title: 'Podnět ČIŽP k šetření opakovaného porušování',
-                desc: 'České inspekci životního prostředí k prošetření dlouhodobého porušování zákona o odpadech.'
-              },
-              {
-                title: 'Oplocení nebo technické zabezpečení pozemku',
-                desc: 'Vlastník (Břevnovský klášter) by měl přijmout preventivní opatření k ochraně svého majetku a prevenci znečištění.'
-              },
-              {
-                title: 'Prošetření požáru Hasičským záchranným sborem',
-                desc: 'Hasičský záchranný sbor Středočeského kraje by měl vyšetřit příčinu požáru a zveřejnit výsledky.'
-              },
-              {
-                title: 'Veřejná zpráva o výsledcích ze strany Magistrátu',
-                desc: 'Město Kladno by mělo zveřejnit souhrnnou zprávu o přijatých opatřeních a plánovaných krocích k trvalému řešení.'
-              },
-              {
-                title: 'Další preventivní a systémová opatření',
-                desc: 'Přijetí konkrétních kroků k trvalému zamezení opakování situace (například instalace fotopastí nebo kamerového monitoringu pro identifikaci původců znečišťování, fyzické zábrany proti navezení odpadu do lokality (závory, kládové prahy, kameny na výjezdech), výrazné zákazové tabule a označení zákazu rozdělávání ohně, zavedení závazné lhůty pro rychlý úklid (max. 7–14 dnů od nahlášení) s jasně určeným odpovědným kontaktem na straně vlastníka i města, a vytvoření veřejného kontaktního kanálu pro hlášení incidentů s průběžnou mapou událostí). Veškerá tato opatření by měla být zakotvena v písemné dohodě mezi vlastníkem pozemku (Benediktinské arciopatství sv. Vojtěcha a sv. Markéty v Praze) a Magistrátem města Kladna.'
-              }
-            ].map((demand, idx) => (
-              <div key={idx} className="flex gap-6 items-start bg-white p-6 rounded-lg shadow-lg hover:translate-x-2 transition-transform">
-                <div className="w-12 h-12 flex-shrink-0 bg-[#4a7c2c] rounded-full flex items-center justify-center text-white font-bold text-xl">
-                  {idx + 1}
-                </div>
-                <div>
-                  <h5 className="text-lg font-bold text-[#2d5016] mb-2">{demand.title}</h5>
-                  <p className="text-gray-600">{demand.desc}</p>
-                </div>
-              </div>
-            ))}
+    <div className="space-y-6">
+      {[
+        { title: 'Zapojení sociálního kurátora města Kladno', desc: 'Pro práci s bezdomovcem a nabídku sociálních služeb, které by pomohly řešit příčinu problému humánně a efektivně.' },
+        { title: 'Zvýšená frekvence policejních kontrol', desc: 'Minimálně 1x týdně na daném pozemku, aby se předešlo opakování problému a zajistila prevence.' },
+        { title: 'Zahájení správního řízení OÚ ORP Kladno', desc: 'O černé skládce podle zákona č. 541/2020 Sb., o odpadech, s identifikací viníka a uložením sankcí.' },
+        { title: 'Podnět ČIŽP k šetření opakovaného porušování', desc: 'České inspekci životního prostředí k prošetření dlouhodobého porušování zákona o odpadech.' },
+        { title: 'Oplocení nebo technické zabezpečení pozemku', desc: 'Vlastník (Břevnovský klášter) by měl přijmout preventivní opatření k ochraně svého majetku a prevenci znečištění.' },
+        { title: 'Prošetření požáru Hasičským záchranným sborem', desc: 'Hasičský záchranný sbor Středočeského kraje by měl vyšetřit příčinu požáru a zveřejnit výsledky.' },
+        { title: 'Veřejná zpráva o výsledcích ze strany Magistrátu', desc: 'Město Kladno by mělo zveřejnit souhrnnou zprávu o přijatých opatřeních a plánovaných krocích k trvalému řešení.' },
+        { title: 'Další preventivní a systémová opatření', desc: 'Přijetí konkrétních kroků k trvalému zamezení opakování situace – například instalace fotopastí nebo kamerového monitoringu pro identifikaci původců znečišťování, fyzické zábrany proti navezení odpadu do lokality (zábrany, kládový práh, kameny na vjezdech), výrazné zákazové tabule a označení zákazu rozdělávání ohně, zavedení závazné lhůty pro rychlý úklid (max. 7–14 dní od nahlášení) s jasně určeným odpovědným kontaktem na straně vlastníka i města, a vytvoření veřejného kontaktního kanálu pro hlášení incidentů s průběžnou mapou událostí. Veškerá tato opatření by měla být zakotvena v písemné dohodě mezi vlastníkem pozemku (Benediktinské arciopatství sv. Vojtěcha a sv. Markéty v Praze) a Magistrátem města Kladna.' }
+      ].map((demand, idx) => (
+        <div key={idx} className="flex gap-6 items-start bg-white p-6 rounded-lg shadow-lg hover:translate-x-2 transition-transform">
+          <div className="w-12 h-12 flex-shrink-0 bg-[#4a7c2c] rounded-full flex items-center justify-center text-white font-bold text-xl">
+            {idx + 1}
+          </div>
+          <div>
+            <h5 className="text-lg font-bold text-[#2d5016] mb-2">{demand.title}</h5>
+            <p className="text-gray-600">{demand.desc}</p>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+
+    {/* Odkaz na podrobný dokument */}
+    <div className="mt-12 max-w-3xl mx-auto">
+      <div className="bg-gradient-to-r from-[#2d5016] to-[#4a7c2c] p-8 rounded-lg shadow-xl text-white">
+        <div className="flex items-start gap-6">
+          <div className="w-16 h-16 flex-shrink-0 bg-white/20 rounded-full flex items-center justify-center">
+            <FileDown className="w-8 h-8" />
+          </div>
+          <div className="flex-1">
+            <h4 className="text-2xl font-bold mb-3">Podrobný dokument s požadavky</h4>
+            <p className="mb-6 opacity-90 text-lg">
+              Stáhněte si kompletní rozpis všech požadavků včetně právního zdůvodnění, odkazů na relevantní legislativu a konkrétních návrhů řešení.
+            </p>
+            <a
+              href="https://drive.google.com/file/d/1Wpqf1lug1pW9y5yUEwZ3WXsfKEo6FgqB/view?usp=drive_link"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 bg-white text-[#2d5016] px-6 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all shadow-lg hover:shadow-xl hover:scale-105"
+            >
+              <FileDown className="w-6 h-6" />
+              Stáhnout podrobné požadavky (PDF)
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Žádosti o informace */}
       <section id="documents" className="py-20 bg-gray-50">
