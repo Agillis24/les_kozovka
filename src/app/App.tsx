@@ -1,5 +1,29 @@
 import { useState, useEffect } from 'react';
-import { TreePine, Eye, FileText, Recycle, Flame, Ruler, Footprints, Church, Building2, Leaf, Shield, Users, Bird, ChevronDown, MapPin, Mail, Phone, Youtube, Menu, X, PenLine, Download, ExternalLink, Gavel, PenTool, Image } from 'lucide-react';
+import {
+  TreePine,
+  Eye,
+  FileText,
+  Recycle,
+  Flame,
+  Ruler,
+  Footprints,
+  Church,
+  Building2,
+  Leaf,
+  Shield,
+  Users,
+  Bird,
+  MapPin,
+  Mail,
+  Youtube,
+  Menu,
+  X,
+  PenLine,
+  Download,
+  ExternalLink,
+  Gavel,
+  Image,
+} from 'lucide-react';
 import forestWasteImage from '../assets/bfc47caf5b2087a591c8fc8ab0254fb83392a2c5.png';
 import Gallery from './components/Gallery';
 
@@ -12,7 +36,7 @@ export default function App() {
       const petitionSection = document.getElementById('petition');
       if (petitionSection) {
         const rect = petitionSection.getBoundingClientRect();
-        const isVisible = (rect.top <= window.innerHeight) && (rect.bottom >= 0);
+        const isVisible = rect.top <= window.innerHeight && rect.bottom >= 0;
         setShowFloatingButton(!isVisible);
       }
     };
@@ -27,10 +51,10 @@ export default function App() {
       const offset = 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
-      
+
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
     setIsMenuOpen(false);
@@ -42,20 +66,48 @@ export default function App() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#2d5016] shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            <button 
+            <button
               onClick={() => scrollToSection('home')}
               className="flex items-center gap-2 text-white font-bold text-xl hover:text-white/80 transition-colors"
             >
               <TreePine className="w-6 h-6" />
               <span>Les u Kožovky</span>
             </button>
-            
+
             {/* Desktop Menu */}
             <div className="hidden lg:flex items-center gap-6">
-              {['Úvod', 'O problému', 'Podporovatelé', 'Historie', 'Galerie', 'Média', 'Aktéři', 'Požadavky', 'Dokumenty', 'Petice', 'Kontakt'].map((item, idx) => (
+              {[
+                'Úvod',
+                'O problému',
+                'Podporovatelé',
+                'Historie',
+                'Galerie',
+                'Média',
+                'Aktéři',
+                'Požadavky',
+                'Dokumenty',
+                'Petice',
+                'Kontakt',
+              ].map((item, idx) => (
                 <button
                   key={idx}
-                  onClick={() => scrollToSection(['home', 'problem', 'supporters', 'timeline', 'gallery', 'media', 'actors', 'demands', 'documents', 'petition', 'contact'][idx])}
+                  onClick={() =>
+                    scrollToSection(
+                      [
+                        'home',
+                        'problem',
+                        'supporters',
+                        'timeline',
+                        'gallery',
+                        'media',
+                        'actors',
+                        'demands',
+                        'documents',
+                        'petition',
+                        'contact',
+                      ][idx]
+                    )
+                  }
                   className="text-white/90 hover:text-white transition-colors text-sm font-medium"
                 >
                   {item}
@@ -64,10 +116,7 @@ export default function App() {
             </div>
 
             {/* Mobile Menu Button */}
-            <button 
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden text-white p-2"
-            >
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden text-white p-2">
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
@@ -76,10 +125,38 @@ export default function App() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="lg:hidden pb-4">
-            {['Úvod', 'O problému', 'Podporovatelé', 'Historie', 'Galerie', 'Média', 'Aktéři', 'Požadavky', 'Dokumenty', 'Petice', 'Kontakt'].map((item, idx) => (
+            {[
+              'Úvod',
+              'O problému',
+              'Podporovatelé',
+              'Historie',
+              'Galerie',
+              'Média',
+              'Aktéři',
+              'Požadavky',
+              'Dokumenty',
+              'Petice',
+              'Kontakt',
+            ].map((item, idx) => (
               <button
                 key={idx}
-                onClick={() => scrollToSection(['home', 'problem', 'supporters', 'timeline', 'gallery', 'media', 'actors', 'demands', 'documents', 'petition', 'contact'][idx])}
+                onClick={() =>
+                  scrollToSection(
+                    [
+                      'home',
+                      'problem',
+                      'supporters',
+                      'timeline',
+                      'gallery',
+                      'media',
+                      'actors',
+                      'demands',
+                      'documents',
+                      'petition',
+                      'contact',
+                    ][idx]
+                  )
+                }
                 className="block w-full text-left text-white/90 hover:text-white py-2 px-4 transition-colors"
               >
                 {item}
@@ -87,30 +164,36 @@ export default function App() {
             ))}
           </div>
         )}
+      </nav>
+      {/* ✅ DŮLEŽITÉ: uzavření nav přidáno */}
 
       {/* Hero Section */}
       <section id="home" className="relative h-screen min-h-[600px] flex items-center justify-center text-center text-white pt-20">
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center bg-fixed"
           style={{
-            backgroundImage: 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1920")',
+            backgroundImage:
+              'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1920")',
           }}
         />
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 drop-shadow-lg leading-tight">
-            Les u Kladna v ohrožení:<br/>opakující se černá skládka
+            Les u Kladna v ohrožení:<br />
+            opakující se černá skládka
           </h1>
           <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 font-light drop-shadow-md max-w-3xl mx-auto leading-relaxed">
-            Lesní pozemek ve vlastnictví Benediktinského arciopatství sv. Vojtěcha a sv. Markéty v Praze čelí opakovanému znečištění černou skládkou a nelegálnímu pobytu bezdomovce. Příroda trpí, zvěř je ohrožena a úřady jen nečinně přihlížejí.
+            Lesní pozemek ve vlastnictví Benediktinského arciopatství sv. Vojtěcha a sv. Markéty v Praze čelí opakovanému
+            znečištění černou skládkou a nelegálnímu pobytu bezdomovce. Příroda trpí, zvěř je ohrožena a úřady jen nečinně
+            přihlížejí.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
-            <button 
+            <button
               onClick={() => scrollToSection('problem')}
               className="bg-[#4a7c2c] hover:bg-[#5a9c3c] px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg transition-all transform hover:-translate-y-1 shadow-lg w-full sm:w-auto"
             >
               Zjistit více
             </button>
-            <a 
+            <a
               href="https://gov.cz/e-petice/1569-petice-proti-opakovane-cerne-skladce-a-nelegalnimu-znecistovani-lesniho-pozemku-v-lokalite-v-kozovech-u-kladna"
               target="_blank"
               rel="noopener noreferrer"
@@ -122,6 +205,7 @@ export default function App() {
         </div>
       </section>
 
+      {/* ... zbytek souboru nechávám stejný jako v paste.txt ... */}
       {/* O problému */}
       <section id="problem" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -129,26 +213,36 @@ export default function App() {
             Co se děje v lese u Kožovky na Kladně?
             <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
           </h2>
-          
+
           <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
             <div className="space-y-4">
               <p className="text-lg font-medium text-gray-700">
-                Lesní pozemek ve vlastnictví <strong>Benediktinského arciopatství sv. Vojtěcha a sv. Markéty v Praze</strong>, v lokalitě <strong>V Kožovech u Kladna</strong> ve směru na Kožovu horu, čelí vážnému a opakujícímu se problému.
+                Lesní pozemek ve vlastnictví <strong>Benediktinského arciopatství sv. Vojtěcha a sv. Markéty v Praze</strong>,
+                v lokalitě <strong>V Kožovech u Kladna</strong> ve směru na Kožovu horu, čelí vážnému a opakujícímu se problému.
               </p>
               <p className="text-gray-600">
-                <strong>Muž bez domova, který se zde dlouhodobě zdržuje, v lese soustavně hromadí odpadky a igelitové tašky a zakládá černou skládku.</strong> Pozemek byl opakovaně vyčištěn za přítomnosti městských strážníků i odpadové firmy — <strong>bezdomovec se však vždy vrátí a vše opakuje od začátku.</strong> Situace ohrožuje místní faunu, kontaminuje lesní půdu a představuje riziko požáru v bezprostřední blízkosti obytné zástavby.
+                <strong>Muž bez domova, který se zde dlouhodobě zdržuje, v lese soustavně hromadí odpadky a igelitové tašky a zakládá
+                černou skládku.</strong>{' '}
+                Pozemek byl opakovaně vyčištěn za přítomnosti městských strážníků i odpadové firmy —{' '}
+                <strong>bezdomovec se však vždy vrátí a vše opakuje od začátku.</strong> Situace ohrožuje místní faunu, kontaminuje
+                lesní půdu a představuje riziko požáru v bezprostřední blízkosti obytné zástavby.
               </p>
               <p className="text-gray-600">
-                <strong>V sobotu 12. dubna 2025 ráno v lokalitě skutečně vypukl požár.</strong> Hasiči Středočeského kraje zasahovali přímo v lesním porostu — hořely hromady odpadků a igelitu nashromážděné bezdomovcem. Na místo byli přivoláni i policisté. Podle mluvčího středočeských hasičů Ladislava Holomka <strong>"požár zřejmě založil sám muž, který se v lokalitě dlouhodobě zdržuje."</strong>
+                <strong>V sobotu 12. dubna 2025 ráno v lokalitě skutečně vypukl požár.</strong> Hasiči Středočeského kraje zasahovali
+                přímo v lesním porostu — hořely hromady odpadků a igelitu nashromážděné bezdomovcem. Na místo byli přivoláni i policisté.
+                Podle mluvčího středočeských hasičů Ladislava Holomka{' '}
+                <strong>"požár zřejmě založil sám muž, který se v lokalitě dlouhodobě zdržuje."</strong>
               </p>
               <p className="text-gray-600">
-                Přestože situaci opakovaně řeší městská policie, Policie ČR i smluvní odpadová firma, žádná ze zúčastněných institucí dosud nepřijala systémové opatření. <strong>Les hoří doslova i přeneseně a nikdo nenese odpovědnost.</strong>
+                Přestože situaci opakovaně řeší městská policie, Policie ČR i smluvní odpadová firma, žádná ze zúčastněných institucí
+                dosud nepřijala systémové opatření. <strong>Les hoří doslova i přeneseně a nikdo nenese odpovědnost.</strong>
               </p>
             </div>
+
             <div className="grid grid-cols-2 gap-4">
-              <img 
-                src={forestWasteImage} 
-                alt="Znečištěný les se skládkou odpadků" 
+              <img
+                src={forestWasteImage}
+                alt="Znečištěný les se skládkou odpadků"
                 className="w-full h-[400px] object-cover rounded-lg shadow-xl col-span-2"
               />
             </div>
@@ -159,7 +253,7 @@ export default function App() {
               { icon: Recycle, title: 'Opakované úklidy', desc: 'Pozemek vyčištěn opakovaně — problém se ale vždy vrací' },
               { icon: Flame, title: '1 požár', desc: 'Zaznamenaný požár na pozemku v roce 2025' },
               { icon: Ruler, title: '12 750 m²', desc: 'Odhadovaná rozloha zasažené oblasti' },
-              { icon: Footprints, title: 'Ohrožená zvěř', desc: 'Divoká prasata, srnci, drobní savci' }
+              { icon: Footprints, title: 'Ohrožená zvěř', desc: 'Divoká prasata, srnci, drobní savci' },
             ].map((item, idx) => (
               <div key={idx} className="bg-white p-6 rounded-lg shadow-lg hover:-translate-y-2 transition-transform text-center">
                 <item.icon className="w-12 h-12 mx-auto mb-4 text-[#4a7c2c]" />
@@ -177,12 +271,13 @@ export default function App() {
                 <div className="flex-1">
                   <h4 className="text-xl font-bold mb-2">Informace o pozemku</h4>
                   <p className="mb-4 opacity-90">
-                    Dotčený pozemek je veden v katastru nemovitostí. Veškeré informace o vlastnictví, výměře a hranicích pozemku jsou veřejně dostupné.
+                    Dotčený pozemek je veden v katastru nemovitostí. Veškeré informace o vlastnictví, výměře a hranicích pozemku jsou
+                    veřejně dostupné.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-3">
-                    <a 
-                      href="https://nahlizenidokn.cuzk.gov.cz/ZobrazObjekt.aspx?typ=parcela&id=1145895203" 
-                      target="_blank" 
+                    <a
+                      href="https://nahlizenidokn.cuzk.gov.cz/ZobrazObjekt.aspx?typ=parcela&id=1145895203"
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 bg-white text-[#2d5016] px-5 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg"
                     >
@@ -202,41 +297,32 @@ export default function App() {
         </div>
       </section>
 
-       {/* Podporovatelé */}
+      {/* Podporovatelé */}
       <section id="supporters" className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-[#2d5016] mb-8 relative pb-4">
             Podporují nás
             <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
           </h2>
-          
+
           <div className="flex flex-wrap justify-center items-center gap-8">
-            
             <a
               href="https://www.slavojkladno.cz/"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center gap-4 w-full sm:w-auto sm:min-w-[250px] max-w-xs"
             >
-              <img
-                src="/slavoj.png"
-                alt="FK Slavoj Kladno logo"
-                className="w-32 h-32 object-contain"
-              />
+              <img src="/slavoj.png" alt="FK Slavoj Kladno logo" className="w-32 h-32 object-contain" />
               <h4 className="text-xl font-bold text-[#2d5016] text-center">FK Slavoj Kladno</h4>
             </a>
-            
+
             <a
               href="https://www.e-kladensko.cz/"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center gap-4 w-full sm:w-auto sm:min-w-[250px] max-w-xs"
             >
-              <img
-                src="/ekladensko.png"
-                alt="e-Kladensko.cz logo"
-                className="w-32 h-32 object-contain"
-              />
+              <img src="/ekladensko.png" alt="e-Kladensko.cz logo" className="w-32 h-32 object-contain" />
               <h4 className="text-xl font-bold text-[#2d5016] text-center">e-Kladensko.cz</h4>
             </a>
 
@@ -246,14 +332,9 @@ export default function App() {
               rel="noopener noreferrer"
               className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center gap-4 w-full sm:w-auto sm:min-w-[250px] max-w-xs"
             >
-              <img
-                src="/uklidme.png"
-                alt="Ukliďme Česko logo"
-                className="w-32 h-32 object-contain"
-              />
+              <img src="/uklidme.png" alt="Ukliďme Česko logo" className="w-32 h-32 object-contain" />
               <h4 className="text-xl font-bold text-[#2d5016] text-center">Ukliďme Česko</h4>
             </a>
-
           </div>
         </div>
       </section>
