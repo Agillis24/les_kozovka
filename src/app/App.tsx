@@ -20,6 +20,7 @@ import {
   X,
   PenLine,
   Download,
+  FileDown,    // ← PŘIDEJTE TUTO ŘÁDKU
   ExternalLink,
   Gavel,
   Image,
