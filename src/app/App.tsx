@@ -207,95 +207,112 @@ export default function App() {
 
       {/* ... zbytek souboru nechávám stejný jako v paste.txt ... */}
       {/* O problému */}
-      <section id="problem" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-12 relative pb-4">
-            Co se děje v lese u Kožovky na Kladně?
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
-          </h2>
+<section id="problem" className="py-20 bg-white">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-12 relative pb-4">
+      Co se děje v lese u Kožovky na Kladně?
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
+    </h2>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
-            <div className="space-y-4">
-              <p className="text-lg font-medium text-gray-700">
-                Lesní pozemek ve vlastnictví <strong>Benediktinského arciopatství sv. Vojtěcha a sv. Markéty v Praze</strong>,
-                v lokalitě <strong>V Kožovech u Kladna</strong> ve směru na Kožovu horu, čelí vážnému a opakujícímu se problému.
-              </p>
-              <p className="text-gray-600">
-                <strong>Muž bez domova, který se zde dlouhodobě zdržuje, v lese soustavně hromadí odpadky a igelitové tašky a zakládá
-                černou skládku.</strong>{' '}
-                Pozemek byl opakovaně vyčištěn za přítomnosti městských strážníků i odpadové firmy —{' '}
-                <strong>bezdomovec se však vždy vrátí a vše opakuje od začátku.</strong> Situace ohrožuje místní faunu, kontaminuje
-                lesní půdu a představuje riziko požáru v bezprostřední blízkosti obytné zástavby.
-              </p>
-              <p className="text-gray-600">
-                <strong>V sobotu 12. dubna 2025 ráno v lokalitě skutečně vypukl požár.</strong> Hasiči Středočeského kraje zasahovali
-                přímo v lesním porostu — hořely hromady odpadků a igelitu nashromážděné bezdomovcem. Na místo byli přivoláni i policisté.
-                Podle mluvčího středočeských hasičů Ladislava Holomka{' '}
-                <strong>"požár zřejmě založil sám muž, který se v lokalitě dlouhodobě zdržuje."</strong>
-              </p>
-              <p className="text-gray-600">
-                Přestože situaci opakovaně řeší městská policie, Policie ČR i smluvní odpadová firma, žádná ze zúčastněných institucí
-                dosud nepřijala systémové opatření. <strong>Les hoří doslova i přeneseně a nikdo nenese odpovědnost.</strong>
-              </p>
-            </div>
+    <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
+      <div className="space-y-4">
+        <p className="text-lg font-medium text-gray-700">
+          Lesní pozemek ve vlastnictví <strong>Benediktinského arciopatství sv. Vojtěcha a sv. Markéty v Praze</strong>, v lokalitě <strong>V Kožovech u Kladna</strong> (ve směru na Kožovu horu), čelí vážnému a opakujícímu se problému.
+        </p>
+        <p className="text-gray-600">
+          <strong>Muž bez domova, který se zde dlouhodobě zdržuje, v lese soustavně hromadí odpadky a igelitové tašky a zakládá černou skládku.</strong> Pozemek byl opakovaně vyčištěn za přítomnosti městských strážníků i odpadové firmy – <strong>bezdomovec se však vždy vrátí a vše opakuje od začátku.</strong> Situace ohrožuje místní faunu, kontaminuje lesní půdu a představuje riziko požáru v bezprostřední blízkosti obytné zástavby.
+        </p>
+        <p className="text-gray-600">
+          <strong>V sobotu 12. dubna 2025 ráno v lokalitě skutečně vypukl požár.</strong> Hasiči Středočeského kraje zasahovali přímo v lesním porostu – hořely hromady odpadků a igelitu nashromážděné bezdomovcem. Na místo byli přivoláni i policisté. Podle mluvčího středočeských hasičů Ladislava Holomčíka <strong>požár zřejmě založil sám muž, který se v lokalitě dlouhodobě zdržuje.</strong>
+        </p>
+        <p className="text-gray-600">
+          Přestože situaci opakovaně řeší městská policie, Policie ČR i smluvní odpadová firma, žádná ze zúčastněných institucí dosud nepřijala systémové opatření. <strong>Les hoří doslova i přeneseně – a nikdo nenese odpovědnost.</strong>
+        </p>
+      </div>
+      <div>
+        <img
+          src={forestWasteImage}
+          alt="Znečištěný les se skládkou odpadků"
+          className="w-full h-[400px] object-cover rounded-lg shadow-xl"
+        />
+      </div>
+    </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <img
-                src={forestWasteImage}
-                alt="Znečištěný les se skládkou odpadků"
-                className="w-full h-[400px] object-cover rounded-lg shadow-xl col-span-2"
-              />
-            </div>
-          </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {[
+        { icon: Recycle, title: 'Opakované úklidy', desc: 'Pozemek vyčištěn opakovaně – problém se ale vždy vrací' },
+        { icon: Flame, title: '1 požár', desc: 'Zaznamenaný požár na pozemku v roce 2025' },
+        { icon: Ruler, title: '~12 750 m²', desc: 'Odhadovaná rozloha zasažené oblasti' },
+        { icon: Footprints, title: 'Ohrožená zvěř', desc: 'Divoká prasata, srnci, drobní savci' }
+      ].map((item, idx) => (
+        <div key={idx} className="bg-white p-6 rounded-lg shadow-lg hover:-translate-y-2 transition-transform text-center">
+          <item.icon className="w-12 h-12 mx-auto mb-4 text-[#4a7c2c]" />
+          <h4 className="text-xl font-semibold text-[#2d5016] mb-2">{item.title}</h4>
+          <p className="text-gray-600 text-sm">{item.desc}</p>
+        </div>
+      ))}
+    </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: Recycle, title: 'Opakované úklidy', desc: 'Pozemek vyčištěn opakovaně — problém se ale vždy vrací' },
-              { icon: Flame, title: '1 požár', desc: 'Zaznamenaný požár na pozemku v roce 2025' },
-              { icon: Ruler, title: '12 750 m²', desc: 'Odhadovaná rozloha zasažené oblasti' },
-              { icon: Footprints, title: 'Ohrožená zvěř', desc: 'Divoká prasata, srnci, drobní savci' },
-            ].map((item, idx) => (
-              <div key={idx} className="bg-white p-6 rounded-lg shadow-lg hover:-translate-y-2 transition-transform text-center">
-                <item.icon className="w-12 h-12 mx-auto mb-4 text-[#4a7c2c]" />
-                <h4 className="text-xl font-semibold text-[#2d5016] mb-2">{item.title}</h4>
-                <p className="text-gray-600 text-sm">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Odkaz na katastr nemovitostí */}
-          <div className="mt-12 max-w-3xl mx-auto">
-            <div className="bg-gradient-to-r from-[#2d5016] to-[#4a7c2c] p-6 rounded-lg shadow-xl text-white">
-              <div className="flex items-start gap-4">
-                <MapPin className="w-8 h-8 flex-shrink-0 mt-1" />
-                <div className="flex-1">
-                  <h4 className="text-xl font-bold mb-2">Informace o pozemku</h4>
-                  <p className="mb-4 opacity-90">
-                    Dotčený pozemek je veden v katastru nemovitostí. Veškeré informace o vlastnictví, výměře a hranicích pozemku jsou
-                    veřejně dostupné.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <a
-                      href="https://nahlizenidokn.cuzk.gov.cz/ZobrazObjekt.aspx?typ=parcela&id=1145895203"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 bg-white text-[#2d5016] px-5 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg"
-                    >
-                      <ExternalLink className="w-5 h-5" />
-                      Zobrazit v katastru nemovitostí
-                    </a>
-                    <div className="text-sm opacity-90 flex items-center">
-                      <span className="bg-white/20 px-3 py-2 rounded-full">
-                        Parcela č. <strong>3830/4</strong>, k.ú. <strong>Kročehlavy (665126)</strong>
-                      </span>
-                    </div>
-                  </div>
-                </div>
+    {/* Odkaz na katastr nemovitostí */}
+    <div className="mt-12 max-w-3xl mx-auto">
+      <div className="bg-gradient-to-r from-[#2d5016] to-[#4a7c2c] p-6 rounded-lg shadow-xl text-white">
+        <div className="flex items-start gap-4">
+          <MapPin className="w-8 h-8 flex-shrink-0 mt-1" />
+          <div className="flex-1">
+            <h4 className="text-xl font-bold mb-2">Informace o pozemku</h4>
+            <p className="mb-4 opacity-90">
+              Dotčený pozemek je veden v katastru nemovitostí. Veškeré informace o vlastnictví, výměře a hranicích pozemku jsou veřejně dostupné.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a
+                href="https://nahlizenidokn.cuzk.gov.cz/ZobrazObjekt.aspx?typ=parcela&id=1145895203"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-white text-[#2d5016] px-5 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg"
+              >
+                <ExternalLink className="w-5 h-5" />
+                Zobrazit v katastru nemovitostí
+              </a>
+              <div className="text-sm opacity-90 flex items-center">
+                <span className="bg-white/20 px-3 py-2 rounded-full">
+                  Parcela č. <strong>3830/4</strong> | k.ú. <strong>Kročehlavy [665126]</strong>
+                </span>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+
+    {/* Dopad na přírodu a chráněné druhy */}
+    <div className="mt-16 max-w-4xl mx-auto">
+      <div className="space-y-4">
+        <h3 className="text-2xl font-bold text-[#2d5016] mb-4">
+          Dopad na chráněnou přírodu a šíření nemocí
+        </h3>
+        <p className="text-gray-600">
+          <strong>V důsledku nepořádku a duševního stavu osoby neprávem okupující předmětný pozemek dochází k nekontrolovatelnému množení koček,</strong> které následně hromadně vymírají. Tato situace představuje nejen problém pro welfare zvířat, ale i <strong>potenciální riziko šíření nemocí a infekcí</strong> do okolní přírody i lidské populace.
+        </p>
+        <p className="text-gray-600">
+          <strong>V bezprostřední blízkosti znečištění se nachází přilehlá bažina</strong> (<a href="https://nahlizenidokn.cuzk.gov.cz/ZobrazObjekt.aspx?typ=parcela&id=723526203" target="_blank" rel="noopener noreferrer" className="text-[#4a7c2c] hover:text-[#2d5016] underline">parcela č. 3884, k.ú. Kročehlavy [665126], druh pozemku: vodní plocha, způsob využití: zamokřená plocha</a>) s výskytem <strong>zvláště chráněných živočichů – obojživelníků:</strong>
+        </p>
+        <ul className="list-disc list-inside text-gray-600 space-y-2 ml-4">
+          <li><strong>Čolek obecný</strong> (<em>Lissotriton vulgaris</em>) – <span className="text-orange-600 font-semibold">zranitelný a silně ohrožený druh</span></li>
+          <li><strong>Čolek horský</strong> (<em>Ichthyosaura alpestris</em>) – <span className="text-orange-600 font-semibold">zranitelný a silně ohrožený druh</span></li>
+          <li><strong>Čolek velký</strong> (<em>Triturus cristatus</em>) – <span className="text-red-600 font-semibold">silně ohrožený druh</span></li>
+          <li><strong>Ropucha zelená</strong> (<em>Bufotes viridis</em>) – <span className="text-red-600 font-semibold">silně ohrožený druh</span></li>
+          <li><strong>Skokan štíhlý</strong> (<em>Rana dalmatina</em>) – <span className="text-red-600 font-semibold">silně ohrožený druh</span></li>
+        </ul>
+        <p className="text-gray-600">
+          <strong>Všechny zmíněné druhy spadají pod přísnou ochranu podle zákona č. 114/1992 Sb., o ochraně přírody a krajiny, ve znění pozdějších předpisů (a jeho prováděcích předpisů) jako zvláště chráněné druhy a figurují v <a href="https://portal.nature.cz/cervene-seznamy#/" target="_blank" rel="noopener noreferrer" className="text-[#4a7c2c] hover:text-[#2d5016] underline">Červeném seznamu ohrožených druhů ČR</a>.</strong> Vznikem nelegální skládky dochází k přímému porušování § 50 zákona č. 114/1992 Sb., neboť je ničen a poškozován biotop druhů chráněných vyhláškou č. 395/1992 Sb. v kategorii silně ohrožené.
+        </p>
+        <p className="text-gray-600">
+          Okolí Kladna je obecně bohaté na stanoviště s výskytem <strong>zvláště chráněných rostlin a živočichů.</strong> Z rostlin se v Rozdělovských jezírcích (nedaleko dotčené oblasti) vyskytuje např. <strong>bublinatka</strong> (<em>Utricularia spec.</em>). Kontaminace půdy, šíření patogenů a narušení ekosystému tak ohrožuje celou síť chráněných biotopů v regionu.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Podporovatelé */}
       <section id="supporters" className="py-16 bg-gray-50">
