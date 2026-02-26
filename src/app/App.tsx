@@ -798,10 +798,17 @@ export default function App() {
               {
                 title: 'Benediktinské arciopatství sv. Vojtěcha a sv. Markéty v Praze',
                 icon: Church,
-                desc: 'Žádost o součinnost a koordinaci řešení opakované černé skládky a nelegálního pobytu na lesním pozemku v lokalitě "V Kožovech" u Kladna',
+                desc: 'Žádost o součinnost a koordinaci řešení opakované černé skládky a nelegálního pobytu na lesním pozemku v lokalitě "V Kožovech" u Kladna.',
                 url: 'https://drive.google.com/file/d/1ZUghYdbeRKjbJS-fgO7_xm2NmW4e04kc/view?usp=drive_link',
                 date: 'Únor 2026'
-              }
+              },
+              {
+                title: 'Krajská veterinární správa SVS pro Středočeský kraj',
+                icon: Bird,
+                desc: 'Žádost o informace k výkonu veterinárního dozoru, řešení podnětů na týrání a situaci toulavých zvířat v souvislosti s opakovanou nelegální skládkou na pozemku.',
+                url: 'https://drive.google.com/file/d/1SKdaXXLvAwJ15atkkXxgGcMXan_ZacRw/view?usp=drive_link',
+                date: 'Únor 2026'
+              },
             ].map((doc, idx) => (
               <a 
                 key={idx}
