@@ -761,7 +761,7 @@ export default function App() {
                 title: 'Statutární město Kladno',
                 icon: Building2,
                 desc: 'Žádost o informace k úklidovým akcím, nákladům, frekvenci zásahů městské policie a nabízeným sociálním službám.',
-                url: 'https://drive.google.com/file/d/19rEBCOkAPcoZChlBINUAtuo5diqUFA7/view?usp=drive_link',
+                url: 'https://drive.google.com/file/d/19rEBC_OkAPcoZChlBINUAtuo5diqUFA7/view?usp=drive_link',
                 date: 'Únor 2026'
               },
               {
@@ -775,14 +775,14 @@ export default function App() {
                 title: 'Česká inspekce životního prostředí',
                 icon: Leaf,
                 desc: 'Žádost o informace k šetřením černé skládky, provedeným kontrolám a případným správním řízením.',
-                url: 'https://drive.google.com/file/d/1P902hUw2GKqz6Yao0N70l4aVxUyLgLR/view?usp=drive_link',
+                url: 'https://drive.google.com/file/d/1P902hUw2GKqz6Ya_o0N70l4aVxUyLgLR/view?usp=drive_link',
                 date: 'Únor 2026'
               },
               {
                 title: 'Benediktinské arciopatství sv. Vojtěcha a sv. Markéty v Praze',
                 icon: Church,
                 desc: 'Žádost o součinnost a koordinaci řešení opakované černé skládky a nelegálního pobytu na lesním pozemku v lokalitě "V Kožovech" u Kladna',
-                url: 'https://drive.google.com/file/d/1ZUghYdbeRKjbJS-fgO7xm2NmW4e04kc/view?usp=drive_link',
+                url: 'https://drive.google.com/file/d/1ZUghYdbeRKjbJS-fgO7_xm2NmW4e04kc/view?usp=drive_link',
                 date: 'Únor 2026'
               }
             ].map((doc, idx) => (
