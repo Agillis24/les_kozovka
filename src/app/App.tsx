@@ -243,7 +243,7 @@ export default function App() {
         { icon: Recycle, title: 'Opakované úklidy', desc: 'Pozemek vyčištěn opakovaně – problém se ale vždy vrací' },
         { icon: Flame, title: '1 požár', desc: 'Zaznamenaný požár na pozemku v roce 2025' },
         { icon: Ruler, title: '~12 750 m²', desc: 'Odhadovaná rozloha zasažené oblasti' },
-        { icon: Footprints, title: 'Ohrožená zvěř', desc: 'Divoká prasata, srnci, drobní savci' }
+        { icon: Footprints, title: 'Ohrožená zvěř', desc: 'Divoká prasata, srnci, drobní savci, čolci, ropuchy, skokani atp.' }
       ].map((item, idx) => (
         <div key={idx} className="bg-white p-6 rounded-lg shadow-lg hover:-translate-y-2 transition-transform text-center">
           <item.icon className="w-12 h-12 mx-auto mb-4 text-[#4a7c2c]" />
