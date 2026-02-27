@@ -16,6 +16,7 @@ import {
   MapPin,
   Mail,
   Youtube,
+  Facebook,
   Menu,
   X,
   PenLine,
@@ -887,78 +888,79 @@ export default function App() {
       </section>
 
       {/* Kontakt */}
-      <section id="contact" className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-12 relative pb-4">
-            Kontakt a organizátoři
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
-          </h2>
+<section id="contact" className="py-20 bg-gray-50">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-12 relative pb-4">
+      Kontakt a organizátoři
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
+    </h2>
 
-          <div className="grid lg:grid-cols-2 gap-12">
-            <div>
-              <div className="bg-white p-8 rounded-lg shadow-lg mb-6">
-                <h4 className="text-2xl font-bold text-[#2d5016] mb-6">Kontaktní informace</h4>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-4">
-                    <Users className="w-6 h-6 text-[#4a7c2c] flex-shrink-0 mt-1" />
-                    <div>
-                      <strong className="block text-gray-800">Organizátor</strong>
-                      Ing. Dominik Žlebek, LL.M.
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <Mail className="w-6 h-6 text-[#4a7c2c] flex-shrink-0 mt-1" />
-                    <div>
-                      <strong className="block text-gray-800">E-mail pro média a úřady</strong>
-                      <a href="mailto:info@leskozovka.cz" className="text-[#4a7c2c] hover:underline">info@leskozovka.cz</a>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <MapPin className="w-6 h-6 text-[#4a7c2c] flex-shrink-0 mt-1" />
-                    <div>
-                      <strong className="block text-gray-800">Lokace problému</strong>
-                      Parcela č. 3830/4 k.ú. Kročehlavy (665126)<br/>
-                      Vlastník: Benediktinské arciopatství sv. Vojtěcha a sv. Markéty v Praze
-                    </div>
-                  </div>
-                </div>
-
-                <h5 className="text-xl font-bold text-[#2d5016] mt-8 mb-4">Sledujte nás</h5>
-                <div className="flex gap-3">
-                  {[
-                    { icon: Youtube, link: 'https://www.youtube.com/@leskozovka' },
-                    { icon: Mail, link: 'mailto:info@leskozovka.cz' }
-                  ].map((social, idx) => (
-                    <a 
-                      key={idx}
-                      href={social.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 bg-[#4a7c2c] hover:bg-[#5a9c3c] rounded-full flex items-center justify-center text-white transition-all transform hover:-translate-y-1"
-                    >
-                      <social.icon className="w-6 h-6" />
-                    </a>
-                  ))}
-                </div>
+    <div className="grid lg:grid-cols-2 gap-12">
+      <div>
+        <div className="bg-white p-8 rounded-lg shadow-lg mb-6">
+          <h4 className="text-2xl font-bold text-[#2d5016] mb-6">Kontaktní informace</h4>
+          
+          <div className="space-y-4">
+            <div className="flex items-start gap-4">
+              <Users className="w-6 h-6 text-[#4a7c2c] flex-shrink-0 mt-1" />
+              <div>
+                <strong className="block text-gray-800">Organizátor:</strong>
+                Ing. Dominik Žlebek, LL.M.
               </div>
             </div>
-
-            <div>
-              <h4 className="text-2xl font-bold text-[#2d5016] mb-4">Kde se problém nachází</h4>
-              <div className="rounded-lg overflow-hidden shadow-xl h-[400px]">
-                <iframe 
-                  src="https://maps.google.com/maps?q=50.1262367,14.1089158&t=&z=16&ie=UTF8&iwloc=&output=embed" 
-                  className="w-full h-full border-0" 
-                  allowFullScreen 
-                  loading="lazy"
-                ></iframe>
+            <div className="flex items-start gap-4">
+              <Mail className="w-6 h-6 text-[#4a7c2c] flex-shrink-0 mt-1" />
+              <div>
+                <strong className="block text-gray-800">E-mail pro média a úřady:</strong>
+                <a href="mailto:info@leskozovka.cz" className="text-[#4a7c2c] hover:underline">info@leskozovka.cz</a>
               </div>
-              <p className="text-center text-gray-500 text-sm mt-2">GPS souřadnice: 50.1262367N, 14.1089158E</p>
+            </div>
+            <div className="flex items-start gap-4">
+              <MapPin className="w-6 h-6 text-[#4a7c2c] flex-shrink-0 mt-1" />
+              <div>
+                <strong className="block text-gray-800">Lokace problému:</strong>
+                Parcela č. 3830/4 | k.ú. Kročehlavy [665126]<br />
+                Vlastník: Benediktinské arciopatství sv. Vojtcha a sv. Markéty v Praze
+              </div>
             </div>
           </div>
-        </div>
-      </section>
 
+          <h5 className="text-xl font-bold text-[#2d5016] mt-8 mb-4">Sledujte nás</h5>
+          <div className="flex gap-3">
+            {[
+              { icon: Facebook, link: 'https://www.facebook.com/profile.php?id=61587817198306' },
+              { icon: Youtube, link: 'https://www.youtube.com/@leskozovka' },
+              { icon: Mail, link: 'mailto:info@leskozovka.cz' }
+            ].map((social, idx) => (
+              <a
+                key={idx}
+                href={social.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12 bg-[#4a7c2c] hover:bg-[#5a9c3c] rounded-full flex items-center justify-center text-white transition-all transform hover:-translate-y-1"
+              >
+                <social.icon className="w-6 h-6" />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h4 className="text-2xl font-bold text-[#2d5016] mb-4">Kde se problém nachází</h4>
+        <div className="rounded-lg overflow-hidden shadow-xl h-[400px]">
+          <iframe
+            src="https://maps.google.com/maps?q=50.1262367,14.1089158&t=&z=16&ie=UTF8&iwloc=&output=embed"
+            className="w-full h-full border-0"
+            allowFullScreen
+            loading="lazy"
+          />
+        </div>
+        <p className="text-center text-gray-500 text-sm mt-2">GPS souřadnice: 50.1262367N, 14.1089158E</p>
+      </div>
+    </div>
+  </div>
+</section>
       {/* Footer */}
       <footer className="bg-[#2c3e50] text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
