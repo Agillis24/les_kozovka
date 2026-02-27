@@ -757,109 +757,153 @@ export default function App() {
   </div>
 </section>
 
-      {/* Žádosti o informace */}
-      <section id="documents" className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-12 relative pb-4">
-            Žádosti o informace
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
-          </h2>
-          
-          <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
-            V rámci snahy o transparentní řešení problému byly podány žádosti o poskytnutí informací podle ust. § 13 zákona č. 106/1999 Sb., o svobodném přístupu k informacím, ve znění pozdějších předpisů. Níže naleznete kompletní znění všech žádostí v PDF formátu.
-          </p>
+      {/* Oficiální dokumentace a korespondence */}
+<section id="documents" className="py-20 bg-white">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-12 relative pb-4">
+      Oficiální dokumentace a korespondence
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
+    </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-            {[
-              {
-                title: 'Hasičský záchranný sbor Středočeského kraje',
-                icon: Flame,
-                desc: 'Žádost o informace týkající se požáru ze dne 12. dubna 2025, příčiny vzniku, rozsahu škod a výsledků šetření.',
-                url: 'https://drive.google.com/file/d/1rNEq-7EsfFR3wjv0rL6Pj3lyl3V2M8uF/view?usp=drive_link',
-                date: 'Únor 2026'
-              },
-              {
-                title: 'Statutární město Kladno',
-                icon: Building2,
-                desc: 'Žádost o informace k úklidovým akcím, nákladům, frekvenci zásahů městské policie a nabízeným sociálním službám.',
-                url: 'https://drive.google.com/file/d/19rEBC_OkAPcoZChlBINUAtuo5diqUFA7/view?usp=drive_link',
-                date: 'Únor 2026'
-              },
-              {
-                title: 'Krajské ředitelství policie Středočeského kraje',
-                icon: Shield,
-                desc: 'Žádost o informace týkající se zásahů Policie ČR, vedených případů a přijatých opatření v dané lokalitě.',
-                url: 'https://drive.google.com/file/d/1Sss8BZJHo8zKADdXz94VOCY3pVAa7uvs/view?usp=drive_link',
-                date: 'Únor 2026'
-              },
-              {
-                title: 'Česká inspekce životního prostředí',
-                icon: Leaf,
-                desc: 'Žádost o informace k šetřením černé skládky, provedeným kontrolám a případným správním řízením.',
-                url: 'https://drive.google.com/file/d/1P902hUw2GKqz6Ya_o0N70l4aVxUyLgLR/view?usp=drive_link',
-                date: 'Únor 2026'
-              },
-              {
-                title: 'Benediktinské arciopatství sv. Vojtěcha a sv. Markéty v Praze',
-                icon: Church,
-                desc: 'Žádost o součinnost a koordinaci řešení opakované černé skládky a nelegálního pobytu na lesním pozemku v lokalitě "V Kožovech" u Kladna.',
-                url: 'https://drive.google.com/file/d/1ZUghYdbeRKjbJS-fgO7_xm2NmW4e04kc/view?usp=drive_link',
-                date: 'Únor 2026'
-              },
-              {
-                title: 'Krajská veterinární správa SVS pro Středočeský kraj',
-                icon: Bird,
-                desc: 'Žádost o informace k výkonu veterinárního dozoru, řešení podnětů na týrání a situaci toulavých zvířat v souvislosti s opakovanou nelegální skládkou na pozemku.',
-                url: 'https://drive.google.com/file/d/1SKdaXXLvAwJ15atkkXxgGcMXan_ZacRw/view?usp=drive_link',
-                date: 'Únor 2026'
-              },
-            ].map((doc, idx) => (
-              <a 
-                key={idx}
+    <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+      V rámci práva na informace podle zákona č. 106/1999 Sb. jsme oslovili příslušné orgány veřejné moci. Níže najdete kompletní dokumentaci včetně našich žádostí, obdržených odpovědí a dalších oficiálních dokumentů.
+    </p>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      {[
+        {
+          title: 'Hasičský záchranný sbor Středočeského kraje',
+          icon: Flame,
+          desc: 'Dokumenty týkající se požáru ze dne 12. dubna 2025, příčiny vzniku, rozsahu škod a výsledků šetření.',
+          documents: [
+            {
+              name: 'Žádost o informace č. 1',
+              url: 'https://drive.google.com/file/d/1rNEq-7EsfFR3wjv0rL6Pj3lyl3V2M8uF/view?usp=drive_link',
+              date: 'Únor 2026'
+            }
+          ]
+        },
+        {
+          title: 'Statutární město Kladno',
+          icon: Building2,
+          desc: 'Dokumenty k úklidovým akcím, nákladům, frekvenci zásahů městské policie a nabízeným sociálním službám.',
+          documents: [
+            {
+              name: 'Žádost o informace č. 1',
+              url: 'https://drive.google.com/file/d/19rEBC_OkAPcoZChlBINUAtuo5diqUFA7/view?usp=drive_link',
+              date: 'Únor 2026'
+            }
+          ]
+        },
+        {
+          title: 'Krajské ředitelství policie Středočeského kraje',
+          icon: Shield,
+          desc: 'Dokumenty týkající se zásahů Policie ČR, vedených případů a přijatých opatření v dané lokalitě.',
+          documents: [
+            {
+              name: 'Žádost o informace č. 1',
+              url: 'https://drive.google.com/file/d/1Sss8BZJHo8zKADdXz94VOCY3pVAa7uvs/view?usp=drive_link',
+              date: 'Únor 2026'
+            }
+          ]
+        },
+        {
+          title: 'Česká inspekce životního prostředí',
+          icon: Leaf,
+          desc: 'Dokumenty k šetřením černé skládky, provedeným kontrolám a případným správním řízením.',
+          documents: [
+            {
+              name: 'Žádost o informace č. 1',
+              url: 'https://drive.google.com/file/d/1P902hUw2GKqz6Ya_o0N70l4aVxUyLgLR/view?usp=drive_link',
+              date: 'Únor 2026'
+            }
+          ]
+        },
+        {
+          title: 'Benediktinské arciopatství sv. Vojtěcha a sv. Markéty v Praze',
+          icon: Church,
+          desc: 'Žádost o součinnost a koordinaci řešení opakované černé skládky a nelegálního pobytu na lesním pozemku v lokalitě "V Kožovech" u Kladna.',
+          documents: [
+            {
+              name: 'Dopis opatu',
+              url: 'https://drive.google.com/file/d/1ZUghYdbeRKjbJS-fgO7_xm2NmW4e04kc/view?usp=drive_link',
+              date: 'Únor 2026'
+            }
+          ]
+        },
+        {
+          title: 'Krajská veterinární správa SVS pro Středočeský kraj',
+          icon: Bird,
+          desc: 'Dokumenty k výkonu veterinárního dozoru, řešení podnětů na týrání a situaci toulavých zvířat v souvislosti s opakovanou nelegální skládkou na pozemku.',
+          documents: [
+            {
+              name: 'Žádost o informace č. 1',
+              url: 'https://drive.google.com/file/d/1SKdaXXLvAwJ15atkkXxgGcMXan_ZacRw/view?usp=drive_link',
+              date: 'Únor 2026'
+            }
+          ]
+        }
+      ].map((org, idx) => (
+        <div
+          key={idx}
+          className="bg-white p-6 rounded-lg shadow-lg"
+        >
+          <div className="flex items-start gap-4 mb-4">
+            <div className="w-12 h-12 flex-shrink-0 bg-[#4a7c2c] rounded-full flex items-center justify-center">
+              <org.icon className="w-6 h-6 text-white" />
+            </div>
+            <div className="flex-1">
+              <h5 className="text-lg font-bold text-gray-800 mb-2">
+                {org.title}
+              </h5>
+              <p className="text-sm text-gray-600 mb-3 min-h-[60px]">
+                {org.desc}
+              </p>
+            </div>
+          </div>
+          
+          <div className="border-t border-gray-200 pt-4 space-y-2">
+            {org.documents.map((doc, docIdx) => (
+              <a
+                key={docIdx}
                 href={doc.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 group"
+                className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
               >
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="w-12 h-12 flex-shrink-0 bg-[#4a7c2c] rounded-full flex items-center justify-center">
-                    <doc.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <h5 className="text-lg font-bold text-gray-800 mb-1 group-hover:text-[#2d5016] transition-colors">
-                      {doc.title}
-                    </h5>
+                <div className="flex items-center gap-3">
+                  <FileText className="w-5 h-5 text-[#4a7c2c]" />
+                  <div>
+                    <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
+                      {doc.name}
+                    </p>
                     <p className="text-xs text-gray-500">{doc.date}</p>
                   </div>
-                  <ExternalLink className="w-5 h-5 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
                 </div>
-                <p className="text-gray-600 text-sm mb-4">
-                  {doc.desc}
-                </p>
-                <div className="flex items-center gap-2 text-[#4a7c2c] text-sm font-semibold group-hover:underline">
-                  <Download className="w-4 h-4" />
-                  Stáhnout PDF dokument
-                </div>
+                <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
               </a>
             ))}
           </div>
-
-          <div className="bg-gradient-to-r from-[#2d5016] to-[#4a7c2c] p-8 rounded-lg shadow-xl text-white">
-            <div className="flex items-start gap-4">
-              <Gavel className="w-8 h-8 flex-shrink-0 mt-1" />
-              <div>
-                <h4 className="text-xl font-bold mb-3">Právní základ žádostí</h4>
-                <p className="mb-4 opacity-90 leading-relaxed">
-                  Všechny žádosti, vyjma žádosti určené vlastníkovi pozemku, byly podány v souladu se <strong>zákonem č. 106/1999 Sb., o svobodném přístupu k informacím, ve znění pozdějších předpisů.</strong> Tento zákon zaručuje právo každého občana požadovat informace od státních orgánů a orgánů územní samosprávy.
-                </p>
-                <p className="text-sm opacity-80">
-                  Povinné subjekty mají zákonnou lhůtu <strong>15 dnů</strong> na poskytnutí informací nebo odůvodnění odmítnutí. Odpovědi budeme průběžně zveřejňovat na tomto webu.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
-      </section>
+      ))}
+    </div>
+
+    <div className="bg-gradient-to-r from-[#2d5016] to-[#4a7c2c] p-8 rounded-lg shadow-xl text-white">
+      <div className="flex items-start gap-4">
+        <Gavel className="w-8 h-8 flex-shrink-0 mt-1" />
+        <div>
+          <h4 className="text-xl font-bold mb-3">Právní základ žádostí</h4>
+          <p className="mb-4 opacity-90 leading-relaxed">
+            Všechny žádosti byly podány v souladu se <strong>zákonem č. 106/1999 Sb., o svobodném přístupu k informacím, ve znění pozdějších předpisů.</strong> Tento zákon zaručuje právo každého občana požadovat informace od státních orgánů a orgánů územní samosprávy.
+          </p>
+          <p className="text-sm opacity-80">
+            Povinné subjekty mají zákonnou lhůtu <strong>15 dnů</strong> na poskytnutí informací nebo odůvodnění odmítnutí. Všechny obdržené odpovědi a dokumenty průběžně zveřejňujeme na tomto webu.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Petice */}
       <section id="petition" className="py-24 bg-gradient-to-br from-[#2d5016] to-[#4a7c2c] text-white text-center">
