@@ -780,6 +780,16 @@ export default function App() {
               name: 'Žádost o informace č. 1',
               url: 'https://drive.google.com/file/d/1rNEq-7EsfFR3wjv0rL6Pj3lyl3V2M8uF/view?usp=drive_link',
               date: 'Únor 2026'
+            },
+            {
+              name: 'Odpověď na žádost o informace č. 1',
+              url: 'https://drive.google.com/file/d/1b99fsW9whiH_IknfYuL2zsfllMnCl0fa/view?usp=drive_link',
+              date: 'Únor 2026'
+            },
+            {
+              name: 'Anonymizovaná zpráva o zásahu ze dne 12.04.2025',
+              url: 'https://drive.google.com/file/d/1hKqRpVnKxcweGe9U96KQ0dCZDne8a1yu/view?usp=drive_link',
+              date: 'Únor 2026'
             }
           ]
         },
@@ -853,10 +863,10 @@ export default function App() {
               <org.icon className="w-6 h-6 text-white" />
             </div>
             <div className="flex-1">
-              <h5 className="text-lg font-bold text-gray-800 mb-2">
+              <h5 className="text-lg font-bold text-gray-800 mb-1">
                 {org.title}
               </h5>
-              <p className="text-sm text-gray-600 mb-3 min-h-[60px]">
+              <p className="text-sm text-gray-600 mb-3">
                 {org.desc}
               </p>
             </div>
