@@ -69,6 +69,7 @@ export default function App() {
     { id: 'eVpM2Ox7lnY', title: 'Short 1' },
     { id: 'wNOZnW988Rc', title: 'Short 2' },
     { id: 'LJ7l2ErGHEc', title: 'Short 3' },
+    { id: 'XFkO-osmlI0', title: 'Short 4' },
   ];
   // show two shorts per page
   const perPage = 2;
