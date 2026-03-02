@@ -78,6 +78,22 @@ export default function App() {
   const prevPage = () => setCurrentPage(p => (p - 1 + totalPages) % totalPages);
   const nextPage = () => setCurrentPage(p => (p + 1) % totalPages);
 
+  const posts: { id: string; src: string; height: number }[] = [
+    {
+      id: 'post-1',
+      src: 'https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02bykrTF88sgo3HVfPa7ZnDNhiLTNk9HYs5FsJanNQMY9cnKJsPKsbLoDKBo6sYSs7l%26id%3D61587817198306&show_text=true&width=500',
+      height: 612,
+    },
+    {
+      id: 'post-2',
+      src: 'https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0gBx9sdcN94XCuX3jP2nDGGXeZSwiKcbHRxoNTkTzbXKrjrYQSecbtDTnLtMdCYyol%26id%3D61587817198306&show_text=true&width=500',
+      height: 622,
+    },
+  ];
+  const [activeIndex, setActiveIndex] = useState(0);
+  const prev = () => setActiveIndex((index) => (index - 1 + posts.length) % posts.length);
+  const next = () => setActiveIndex((index) => (index + 1) % posts.length);
+
 
   return (
     <div className="min-h-screen bg-white">
@@ -989,6 +1005,48 @@ export default function App() {
           <div className="mt-8 inline-block bg-white/20 px-6 py-3 rounded-full">
             <Users className="inline w-5 h-5 mr-2" />
             Buďte mezi prvními, kdo podpoří změnu!
+          </div>
+        </div>
+      </section>
+
+      {/* Aktuality z Facebooku */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-12 relative pb-4">
+            Aktuality z Facebooku
+            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
+          </h2>
+
+          <div className="max-w-2xl mx-auto">
+            <div className="bg-gray-100 rounded-lg shadow-lg p-4 sm:p-6">
+              <iframe
+                src={posts[activeIndex].src}
+                title={`Facebook post ${activeIndex + 1}`}
+                width="100%"
+                height={posts[activeIndex].height}
+                style={{ border: 'none', overflow: 'hidden' }}
+                scrolling="no"
+                allowFullScreen={true}
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              />
+
+              <div className="mt-4 flex items-center justify-center gap-3">
+                <button
+                  onClick={prev}
+                  aria-label="Předchozí Facebook post"
+                  className="w-10 h-10 rounded-full bg-white text-[#2d5016] shadow hover:bg-gray-50 transition-colors"
+                >
+                  ‹
+                </button>
+                <button
+                  onClick={next}
+                  aria-label="Další Facebook post"
+                  className="w-10 h-10 rounded-full bg-white text-[#2d5016] shadow hover:bg-gray-50 transition-colors"
+                >
+                  ›
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
