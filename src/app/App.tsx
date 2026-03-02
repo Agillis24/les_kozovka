@@ -491,7 +491,7 @@ export default function App() {
   <div className="relative max-w-5xl mx-auto">
     <div className="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
       <div
-        className="flex transition-transform duration-300"
+        className="flex gap-x-2 transition-transform duration-300"
         style={{ transform: `translateX(-${currentPage * 100}%)` }}
       >
         {shorts.map((short) => (
