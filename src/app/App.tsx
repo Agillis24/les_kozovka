@@ -1010,7 +1010,7 @@ export default function App() {
       </section>
 
       {/* Aktuality z Facebooku */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-12 relative pb-4">
             Aktuality z Facebooku
@@ -1018,30 +1018,38 @@ export default function App() {
           </h2>
 
           <div className="max-w-2xl mx-auto">
-            <div className="bg-gray-100 rounded-lg shadow-lg p-4 sm:p-6">
-              <iframe
-                src={posts[activeIndex].src}
-                title={`Facebook post ${activeIndex + 1}`}
-                width="100%"
-                height={posts[activeIndex].height}
-                style={{ border: 'none', overflow: 'hidden' }}
-                scrolling="no"
-                allowFullScreen={true}
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-              />
+            <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8">
+              <div className="flex justify-center">
+                <div className="w-full max-w-[500px] rounded-lg overflow-hidden bg-white shadow-md">
+                  <iframe
+                    src={posts[activeIndex].src}
+                    title={`Facebook post ${activeIndex + 1}`}
+                    width="100%"
+                    height={posts[activeIndex].height}
+                    className="block w-full mx-auto"
+                    style={{ border: 'none', overflow: 'hidden' }}
+                    scrolling="no"
+                    allowFullScreen={true}
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  />
+                </div>
+              </div>
 
-              <div className="mt-4 flex items-center justify-center gap-3">
+              <div className="mt-5 flex items-center justify-center gap-4">
                 <button
                   onClick={prev}
                   aria-label="Předchozí Facebook post"
-                  className="w-10 h-10 rounded-full bg-white text-[#2d5016] shadow hover:bg-gray-50 transition-colors"
+                  className="w-10 h-10 rounded-full bg-gray-100 text-[#2d5016] shadow hover:bg-gray-200 transition-colors"
                 >
                   ‹
                 </button>
+                <span className="text-sm font-medium text-gray-600 min-w-[96px] text-center">
+                  {activeIndex + 1} / {posts.length}
+                </span>
                 <button
                   onClick={next}
                   aria-label="Další Facebook post"
-                  className="w-10 h-10 rounded-full bg-white text-[#2d5016] shadow hover:bg-gray-50 transition-colors"
+                  className="w-10 h-10 rounded-full bg-gray-100 text-[#2d5016] shadow hover:bg-gray-200 transition-colors"
                 >
                   ›
                 </button>
