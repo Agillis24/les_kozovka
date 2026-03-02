@@ -70,9 +70,12 @@ export default function App() {
     { id: 'wNOZnW988Rc', title: 'Short 2' },
     { id: 'LJ7l2ErGHEc', title: 'Short 3' },
   ];
-  const [currentShortIndex, setCurrentShortIndex] = useState(0);
-  const prevShort = () => setCurrentShortIndex(i => (i - 1 + shorts.length) % shorts.length);
-  const nextShort = () => setCurrentShortIndex(i => (i + 1) % shorts.length);
+  // show two shorts per page
+  const perPage = 2;
+  const totalPages = Math.ceil(shorts.length / perPage);
+  const [currentPage, setCurrentPage] = useState(0);
+  const prevPage = () => setCurrentPage(p => (p - 1 + totalPages) % totalPages);
+  const nextPage = () => setCurrentPage(p => (p + 1) % totalPages);
 
 
   return (
@@ -488,10 +491,10 @@ export default function App() {
     <div className="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
       <div
         className="flex transition-transform duration-300"
-        style={{ transform: `translateX(-${currentShortIndex * 100}%)` }}
+        style={{ transform: `translateX(-${currentPage * 100}%)` }}
       >
         {shorts.map((short) => (
-          <div key={short.id} className="flex-shrink-0 w-full">
+          <div key={short.id} className="flex-shrink-0 w-1/2">
             <div className="aspect-[9/16]">
               <iframe
                 src={`https://www.youtube.com/embed/${short.id}`}
@@ -506,15 +509,15 @@ export default function App() {
       </div>
 
       <button
-        onClick={prevShort}
-        aria-label="Předchozí short"
+        onClick={prevPage}
+        aria-label="Předchozí shorty"
         className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-75 rounded-full p-2 shadow"
       >
         <ChevronLeft className="w-6 h-6" />
       </button>
       <button
-        onClick={nextShort}
-        aria-label="Další short"
+        onClick={nextPage}
+        aria-label="Další shorty"
         className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-75 rounded-full p-2 shadow"
       >
         <ChevronRight className="w-6 h-6" />
