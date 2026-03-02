@@ -78,16 +78,24 @@ export default function App() {
   const prevPage = () => setCurrentPage(p => (p - 1 + totalPages) % totalPages);
   const nextPage = () => setCurrentPage(p => (p + 1) % totalPages);
 
-  const posts: { id: string; src: string; height: number }[] = [
+  const posts: { id: string; src: string; height: number; url: string }[] = [
     {
       id: 'post-1',
       src: 'https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0gBx9sdcN94XCuX3jP2nDGGXeZSwiKcbHRxoNTkTzbXKrjrYQSecbtDTnLtMdCYyol%26id%3D61587817198306&show_text=true&width=500',
       height: 622,
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0gBx9sdcN94XCuX3jP2nDGGXeZSwiKcbHRxoNTkTzbXKrjrYQSecbtDTnLtMdCYyol&id=61587817198306',
     },
     {
       id: 'post-2',
       src: 'https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02bykrTF88sgo3HVfPa7ZnDNhiLTNk9HYs5FsJanNQMY9cnKJsPKsbLoDKBo6sYSs7l%26id%3D61587817198306&show_text=true&width=500',
       height: 612,
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02bykrTF88sgo3HVfPa7ZnDNhiLTNk9HYs5FsJanNQMY9cnKJsPKsbLoDKBo6sYSs7l&id=61587817198306',
+    },
+    {
+      id: 'post-3',
+      src: 'https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02AXEgNQkH9zmYpdZkLppKjscV1evmGPWncXX9FRkoieeMwLdh8FM2pTNwkYPmq9vbl%26id%3D61587817198306%26locale%3Dcs_CZ&show_text=true&width=500',
+      height: 640,
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02AXEgNQkH9zmYpdZkLppKjscV1evmGPWncXX9FRkoieeMwLdh8FM2pTNwkYPmq9vbl&id=61587817198306&locale=cs_CZ',
     },
   ];
   const [activeIndex, setActiveIndex] = useState(0);
@@ -1053,6 +1061,21 @@ export default function App() {
                 >
                   ›
                 </button>
+              </div>
+
+              <div className="mt-4 text-center">
+                <p className="text-sm text-gray-600 mb-2">
+                  Pokud se náhled nezobrazí, otevřete příspěvek přímo na Facebooku.
+                </p>
+                <a
+                  href={posts[activeIndex].url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-[#2d5016] font-semibold hover:underline"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Otevřít aktuální příspěvek
+                </a>
               </div>
             </div>
           </div>
