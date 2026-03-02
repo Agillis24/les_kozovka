@@ -464,36 +464,53 @@ export default function App() {
             </p>
           </div>
 
-          {/* YouTube Shorts videa */}
-          <div className="mt-16">
-            <h3 className="text-3xl font-bold text-center text-[#2d5016] mb-8">Videodokumentace</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-              {/* Video 1 */}
-              <div className="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
-                <div className="relative pb-[177.78%]"> {/* 16:9 aspect ratio for Shorts (9:16 inverted) = 177.78% */}
-                  <iframe 
-                    src="https://www.youtube.com/embed/eVpM2Ox7lnY" 
-                    className="absolute top-0 left-0 w-full h-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowFullScreen
-                  ></iframe>
-                </div>
-              </div>
-              
-              {/* Video 2 */}
-              <div className="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
-                <div className="relative pb-[177.78%]">
-                  <iframe 
-                    src="https://www.youtube.com/embed/wNOZnW988Rc" 
-                    className="absolute top-0 left-0 w-full h-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowFullScreen
-                  ></iframe>
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* Videodokumentace */}
+<div className="mt-16">
+  <h3 className="text-3xl font-bold text-center text-[#2d5016] mb-8">
+    Videodokumentace
+  </h3>
 
+  {/* Shorts (9:16) */}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+    {/* Video 1 */}
+    <div className="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
+      <div className="aspect-[9/16]">
+        <iframe
+          src="https://www.youtube.com/embed/eVpM2Ox7lnY"
+          className="w-full h-full"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
+    </div>
+
+    {/* Video 2 */}
+    <div className="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
+      <div className="aspect-[9/16]">
+        <iframe
+          src="https://www.youtube.com/embed/wNOZnW988Rc"
+          className="w-full h-full"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
+    </div>
+  </div>
+
+  {/* Standardní video (16:9) */}
+  <div className="max-w-4xl mx-auto mt-8">
+    <div className="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
+      <div className="aspect-video">
+        <iframe
+          src="https://www.youtube.com/embed/2GnL7_9h2zE"
+          className="w-full h-full"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
+    </div>
+  </div>
+</div>
         </div>
       </section>
 

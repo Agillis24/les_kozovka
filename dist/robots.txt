@@ -1,0 +1,14 @@
+# robots.txt pro www.leskozovka.cz
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.leskozovka.cz/sitemap.xml
+
+# Pravidla pro crawler
+Crawl-delay: 1
+
+# Zakázané cesty (pokud budou v budoucnu existovat)
+# Disallow: /admin/
+# Disallow: /private/
