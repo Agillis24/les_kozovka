@@ -25,6 +25,8 @@ import {
   ExternalLink,
   Gavel,
   Image,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import forestWasteImage from '../assets/bfc47caf5b2087a591c8fc8ab0254fb83392a2c5.png';
 import Gallery from './components/Gallery';
@@ -61,6 +63,17 @@ export default function App() {
     }
     setIsMenuOpen(false);
   };
+
+  // carousel state for YouTube shorts
+  const shorts: {id: string; title: string}[] = [
+    { id: 'eVpM2Ox7lnY', title: 'Short 1' },
+    { id: 'wNOZnW988Rc', title: 'Short 2' },
+    { id: 'LJ7l2ErGHEc', title: 'Short 3' },
+  ];
+  const [currentShortIndex, setCurrentShortIndex] = useState(0);
+  const prevShort = () => setCurrentShortIndex(i => (i - 1 + shorts.length) % shorts.length);
+  const nextShort = () => setCurrentShortIndex(i => (i + 1) % shorts.length);
+
 
   return (
     <div className="min-h-screen bg-white">
@@ -470,30 +483,42 @@ export default function App() {
     Videodokumentace
   </h3>
 
-  {/* Shorts (9:16) */}
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-    {/* Video 1 */}
+  {/* Shorts carousel */}
+  <div className="relative max-w-5xl mx-auto">
     <div className="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
-      <div className="aspect-[9/16]">
-        <iframe
-          src="https://www.youtube.com/embed/eVpM2Ox7lnY"
-          className="w-full h-full"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
+      <div
+        className="flex transition-transform duration-300"
+        style={{ transform: `translateX(-${currentShortIndex * 100}%)` }}
+      >
+        {shorts.map((short) => (
+          <div key={short.id} className="flex-shrink-0 w-full">
+            <div className="aspect-[9/16]">
+              <iframe
+                src={`https://www.youtube.com/embed/${short.id}`}
+                title={short.title}
+                className="w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        ))}
       </div>
-    </div>
 
-    {/* Video 2 */}
-    <div className="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
-      <div className="aspect-[9/16]">
-        <iframe
-          src="https://www.youtube.com/embed/wNOZnW988Rc"
-          className="w-full h-full"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
-      </div>
+      <button
+        onClick={prevShort}
+        aria-label="Předchozí short"
+        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-75 rounded-full p-2 shadow"
+      >
+        <ChevronLeft className="w-6 h-6" />
+      </button>
+      <button
+        onClick={nextShort}
+        aria-label="Další short"
+        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-75 rounded-full p-2 shadow"
+      >
+        <ChevronRight className="w-6 h-6" />
+      </button>
     </div>
   </div>
 
@@ -504,6 +529,7 @@ export default function App() {
         <iframe
           src="https://www.youtube.com/embed/2GnL7_9h2zE"
           className="w-full h-full"
+          title="Standardní video"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         />
