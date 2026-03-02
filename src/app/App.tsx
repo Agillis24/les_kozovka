@@ -78,7 +78,7 @@ export default function App() {
   const prevPage = () => setCurrentPage(p => (p - 1 + totalPages) % totalPages);
   const nextPage = () => setCurrentPage(p => (p + 1) % totalPages);
 
-  const posts: { id: string; src: string; height: number; url: string }[] = [
+  const posts: { id: string; src: string; height: number; url: string; embedEnabled?: boolean }[] = [
     {
       id: 'post-1',
       src: 'https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0gBx9sdcN94XCuX3jP2nDGGXeZSwiKcbHRxoNTkTzbXKrjrYQSecbtDTnLtMdCYyol%26id%3D61587817198306&show_text=true&width=500',
@@ -96,6 +96,7 @@ export default function App() {
       src: 'https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02AXEgNQkH9zmYpdZkLppKjscV1evmGPWncXX9FRkoieeMwLdh8FM2pTNwkYPmq9vbl%26id%3D61587817198306%26locale%3Dcs_CZ&show_text=true&width=500',
       height: 640,
       url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02AXEgNQkH9zmYpdZkLppKjscV1evmGPWncXX9FRkoieeMwLdh8FM2pTNwkYPmq9vbl&id=61587817198306&locale=cs_CZ',
+      embedEnabled: false,
     },
   ];
   const [activeIndex, setActiveIndex] = useState(0);
@@ -1029,17 +1030,38 @@ export default function App() {
             <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8">
               <div className="flex justify-center">
                 <div className="w-full max-w-[500px] rounded-lg overflow-hidden bg-white shadow-md">
-                  <iframe
-                    src={posts[activeIndex].src}
-                    title={`Facebook post ${activeIndex + 1}`}
-                    width="100%"
-                    height={posts[activeIndex].height}
-                    className="block w-full mx-auto"
-                    style={{ border: 'none', overflow: 'hidden' }}
-                    scrolling="no"
-                    allowFullScreen={true}
-                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                  />
+                  {posts[activeIndex].embedEnabled !== false ? (
+                    <iframe
+                      src={posts[activeIndex].src}
+                      title={`Facebook post ${activeIndex + 1}`}
+                      width="100%"
+                      height={posts[activeIndex].height}
+                      className="block w-full mx-auto"
+                      style={{ border: 'none', overflow: 'hidden' }}
+                      scrolling="no"
+                      allowFullScreen={true}
+                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                    />
+                  ) : (
+                    <div className="min-h-[320px] flex flex-col items-center justify-center text-center px-6 py-10 bg-gray-50">
+                      <Facebook className="w-10 h-10 text-[#2d5016] mb-4" />
+                      <p className="text-gray-700 font-semibold mb-2">
+                        Facebook omezuje náhled tohoto příspěvku.
+                      </p>
+                      <p className="text-sm text-gray-600 mb-6">
+                        Otevřete jej přímo na Facebooku.
+                      </p>
+                      <a
+                        href={posts[activeIndex].url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 bg-[#2d5016] hover:bg-[#3d6a1f] text-white px-4 py-2.5 rounded-full font-semibold transition-colors"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Otevřít příspěvek na Facebooku
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
 
