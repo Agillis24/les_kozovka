@@ -29,11 +29,19 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import forestWasteImage from '../assets/bfc47caf5b2087a591c8fc8ab0254fb83392a2c5.png';
-import Gallery from './components/Gallery';
+import { Gallery } from './components/Gallery';
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showFloatingButton, setShowFloatingButton] = useState(true);
+  const [useHeroFallback, setUseHeroFallback] = useState(false);
+
+  const heroImageDesktop = 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?fit=crop&w=1920&q=80';
+  const heroImageMobile = 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?fit=crop&w=900&q=75';
+  const heroImageDesktopAvif = `${heroImageDesktop}&fm=avif`;
+  const heroImageMobileAvif = `${heroImageMobile}&fm=avif`;
+  const heroImageDesktopWebp = `${heroImageDesktop}&fm=webp`;
+  const heroImageMobileWebp = `${heroImageMobile}&fm=webp`;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -213,13 +221,41 @@ export default function App() {
 
       {/* Hero Section */}
       <section id="home" className="relative h-screen min-h-[600px] flex items-center justify-center text-center text-white pt-20">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-fixed"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1920")',
-          }}
-        />
+        <div className="absolute inset-0">
+          {useHeroFallback ? (
+            <img
+              src={forestWasteImage}
+              alt="Les u Kožovky"
+              loading="eager"
+              fetchPriority="high"
+              className="h-full w-full object-cover object-center"
+            />
+          ) : (
+            <picture>
+              <source
+                type="image/avif"
+                srcSet={`${heroImageMobileAvif} 900w, ${heroImageDesktopAvif} 1920w`}
+                sizes="100vw"
+              />
+              <source
+                type="image/webp"
+                srcSet={`${heroImageMobileWebp} 900w, ${heroImageDesktopWebp} 1920w`}
+                sizes="100vw"
+              />
+              <img
+                src={heroImageDesktop}
+                srcSet={`${heroImageMobile} 900w, ${heroImageDesktop} 1920w`}
+                sizes="100vw"
+                alt="Les u Kožovky"
+                loading="eager"
+                fetchPriority="high"
+                className="h-full w-full object-cover object-center"
+                onError={() => setUseHeroFallback(true)}
+              />
+            </picture>
+          )}
+          <div className="absolute inset-0 bg-black/50" />
+        </div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 drop-shadow-lg leading-tight">
             Les u Kladna v ohrožení:<br />
