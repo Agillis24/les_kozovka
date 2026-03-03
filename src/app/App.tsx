@@ -85,8 +85,8 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState(0);
   const prevPage = () => setCurrentPage(p => (p - 1 + totalPages) % totalPages);
   const nextPage = () => setCurrentPage(p => (p + 1) % totalPages);
-  const facebookPageUrl = 'https://www.facebook.com/profile.php?id=61587817198306';
-  const facebookTimelineSrc = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(facebookPageUrl)}&tabs=timeline&width=500&height=740&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId`;
+  const facebookPageUrl = 'https://www.facebook.com/61587817198306';
+  const facebookTimelineSrc = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(facebookPageUrl)}&tabs=timeline&width=500&height=740&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false&locale=cs_CZ`;
 
 
   return (
