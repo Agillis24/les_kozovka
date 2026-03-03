@@ -85,37 +85,8 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState(0);
   const prevPage = () => setCurrentPage(p => (p - 1 + totalPages) % totalPages);
   const nextPage = () => setCurrentPage(p => (p + 1) % totalPages);
-
-  const posts: { id: string; src: string; height: number; url: string; embedEnabled?: boolean }[] = [
-    {
-      id: 'post-0',
-      src: 'https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid086uLNST9UNKXz4phXgrKn1R5m5oKBnrGagxdB4q3nyknDo23Poc7KeREZQVKwuPMl%26id%3D61587817198306&show_text=true&width=500',
-      height: 618,
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid086uLNST9UNKXz4phXgrKn1R5m5oKBnrGagxdB4q3nyknDo23Poc7KeREZQVKwuPMl&id=61587817198306',
-    },
-    {
-      id: 'post-1',
-      src: 'https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0gBx9sdcN94XCuX3jP2nDGGXeZSwiKcbHRxoNTkTzbXKrjrYQSecbtDTnLtMdCYyol%26id%3D61587817198306&show_text=true&width=500',
-      height: 622,
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0gBx9sdcN94XCuX3jP2nDGGXeZSwiKcbHRxoNTkTzbXKrjrYQSecbtDTnLtMdCYyol&id=61587817198306',
-    },
-    {
-      id: 'post-2',
-      src: 'https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02bykrTF88sgo3HVfPa7ZnDNhiLTNk9HYs5FsJanNQMY9cnKJsPKsbLoDKBo6sYSs7l%26id%3D61587817198306&show_text=true&width=500',
-      height: 612,
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02bykrTF88sgo3HVfPa7ZnDNhiLTNk9HYs5FsJanNQMY9cnKJsPKsbLoDKBo6sYSs7l&id=61587817198306',
-    },
-    {
-      id: 'post-3',
-      src: 'https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02AXEgNQkH9zmYpdZkLppKjscV1evmGPWncXX9FRkoieeMwLdh8FM2pTNwkYPmq9vbl%26id%3D61587817198306%26locale%3Dcs_CZ&show_text=true&width=500',
-      height: 640,
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02AXEgNQkH9zmYpdZkLppKjscV1evmGPWncXX9FRkoieeMwLdh8FM2pTNwkYPmq9vbl&id=61587817198306&locale=cs_CZ',
-      embedEnabled: false,
-    },
-  ];
-  const [activeIndex, setActiveIndex] = useState(0);
-  const prev = () => setActiveIndex((index) => (index - 1 + posts.length) % posts.length);
-  const next = () => setActiveIndex((index) => (index + 1) % posts.length);
+  const facebookPageUrl = 'https://www.facebook.com/profile.php?id=61587817198306';
+  const facebookTimelineSrc = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(facebookPageUrl)}&tabs=timeline&width=500&height=740&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId`;
 
 
   return (
@@ -1082,73 +1053,32 @@ export default function App() {
             <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8">
               <div className="flex justify-center">
                 <div className="w-full max-w-[500px] rounded-lg overflow-hidden bg-white shadow-md">
-                  {posts[activeIndex].embedEnabled !== false ? (
-                    <iframe
-                      src={posts[activeIndex].src}
-                      title={`Facebook post ${activeIndex + 1}`}
-                      width="100%"
-                      height={posts[activeIndex].height}
-                      className="block w-full mx-auto"
-                      style={{ border: 'none', overflow: 'hidden' }}
-                      scrolling="no"
-                      allowFullScreen={true}
-                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                    />
-                  ) : (
-                    <div className="min-h-[320px] flex flex-col items-center justify-center text-center px-6 py-10 bg-gray-50">
-                      <Facebook className="w-10 h-10 text-[#2d5016] mb-4" />
-                      <p className="text-gray-700 font-semibold mb-2">
-                        Facebook omezuje náhled tohoto příspěvku.
-                      </p>
-                      <p className="text-sm text-gray-600 mb-6">
-                        Otevřete jej přímo na Facebooku.
-                      </p>
-                      <a
-                        href={posts[activeIndex].url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 bg-[#2d5016] hover:bg-[#3d6a1f] text-white px-4 py-2.5 rounded-full font-semibold transition-colors"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        Otevřít příspěvek na Facebooku
-                      </a>
-                    </div>
-                  )}
+                  <iframe
+                    src={facebookTimelineSrc}
+                    title="Facebook timeline"
+                    width="100%"
+                    height={740}
+                    className="block w-full mx-auto"
+                    style={{ border: 'none', overflow: 'hidden' }}
+                    scrolling="no"
+                    allowFullScreen={true}
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  />
                 </div>
-              </div>
-
-              <div className="mt-5 flex items-center justify-center gap-4">
-                <button
-                  onClick={prev}
-                  aria-label="Předchozí Facebook post"
-                  className="w-10 h-10 rounded-full bg-gray-100 text-[#2d5016] shadow hover:bg-gray-200 transition-colors"
-                >
-                  ‹
-                </button>
-                <span className="text-sm font-medium text-gray-600 min-w-[96px] text-center">
-                  {activeIndex + 1} / {posts.length}
-                </span>
-                <button
-                  onClick={next}
-                  aria-label="Další Facebook post"
-                  className="w-10 h-10 rounded-full bg-gray-100 text-[#2d5016] shadow hover:bg-gray-200 transition-colors"
-                >
-                  ›
-                </button>
               </div>
 
               <div className="mt-4 text-center">
                 <p className="text-sm text-gray-600 mb-2">
-                  Pokud se náhled nezobrazí, otevřete příspěvek přímo na Facebooku.
+                  Sekce se aktualizuje automaticky podle nových příspěvků na Facebook stránce.
                 </p>
                 <a
-                  href={posts[activeIndex].url}
+                  href={facebookPageUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-[#2d5016] font-semibold hover:underline"
                 >
                   <ExternalLink className="w-4 h-4" />
-                  Otevřít aktuální příspěvek
+                  Otevřít Facebook stránku
                 </a>
               </div>
             </div>
