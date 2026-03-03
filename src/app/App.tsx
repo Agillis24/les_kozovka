@@ -85,8 +85,50 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState(0);
   const prevPage = () => setCurrentPage(p => (p - 1 + totalPages) % totalPages);
   const nextPage = () => setCurrentPage(p => (p + 1) % totalPages);
-  const facebookPageUrl = 'https://www.facebook.com/61587817198306';
-  const facebookTimelineSrc = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(facebookPageUrl)}&tabs=timeline&width=500&height=740&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false&locale=cs_CZ`;
+  const facebookPageUrl = 'https://www.facebook.com/profile.php?id=61587817198306';
+  const [facebookSdkReady, setFacebookSdkReady] = useState(false);
+  const [facebookTimedOut, setFacebookTimedOut] = useState(false);
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setFacebookTimedOut(true);
+    }, 7000);
+
+    const fbWindow = window as Window & {
+      FB?: {
+        XFBML?: {
+          parse: () => void;
+        };
+      };
+    };
+
+    const parsePlugin = () => {
+      fbWindow.FB?.XFBML?.parse();
+      setFacebookSdkReady(true);
+      window.clearTimeout(timeoutId);
+    };
+
+    const existingScript = document.getElementById('facebook-jssdk') as HTMLScriptElement | null;
+    if (existingScript) {
+      parsePlugin();
+      return () => window.clearTimeout(timeoutId);
+    }
+
+    const script = document.createElement('script');
+    script.id = 'facebook-jssdk';
+    script.async = true;
+    script.defer = true;
+    script.crossOrigin = 'anonymous';
+    script.src = 'https://connect.facebook.net/cs_CZ/sdk.js#xfbml=1&version=v22.0';
+    script.onload = parsePlugin;
+    script.onerror = () => {
+      setFacebookTimedOut(true);
+      window.clearTimeout(timeoutId);
+    };
+    document.body.appendChild(script);
+
+    return () => window.clearTimeout(timeoutId);
+  }, []);
 
 
   return (
@@ -1053,17 +1095,41 @@ export default function App() {
             <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8">
               <div className="flex justify-center">
                 <div className="w-full max-w-[500px] rounded-lg overflow-hidden bg-white shadow-md">
-                  <iframe
-                    src={facebookTimelineSrc}
-                    title="Facebook timeline"
-                    width="100%"
-                    height={740}
-                    className="block w-full mx-auto"
-                    style={{ border: 'none', overflow: 'hidden' }}
-                    scrolling="no"
-                    allowFullScreen={true}
-                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                  />
+                  <div id="fb-root" />
+                  <div
+                    className="fb-page"
+                    data-href={facebookPageUrl}
+                    data-tabs="timeline"
+                    data-width="500"
+                    data-height="740"
+                    data-small-header="true"
+                    data-adapt-container-width="true"
+                    data-hide-cover="false"
+                    data-show-facepile="false"
+                  >
+                    <blockquote cite={facebookPageUrl} className="fb-xfbml-parse-ignore">
+                      <a href={facebookPageUrl} target="_blank" rel="noopener noreferrer">
+                        Les u Kožovky Kladno v ohrožení
+                      </a>
+                    </blockquote>
+                  </div>
+
+                  {facebookTimedOut && !facebookSdkReady ? (
+                    <div className="px-4 pb-5 pt-3 text-center bg-gray-50 border-t border-gray-200">
+                      <p className="text-sm text-gray-700 mb-2">
+                        Facebook náhled se nepodařilo načíst v tomto prohlížeči.
+                      </p>
+                      <a
+                        href={facebookPageUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-[#2d5016] font-semibold hover:underline"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Otevřít Facebook stránku přímo
+                      </a>
+                    </div>
+                  ) : null}
                 </div>
               </div>
 
