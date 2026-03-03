@@ -88,6 +88,12 @@ export default function App() {
 
   const posts: { id: string; src: string; height: number; url: string; embedEnabled?: boolean }[] = [
     {
+      id: 'post-0',
+      src: 'https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid086uLNST9UNKXz4phXgrKn1R5m5oKBnrGagxdB4q3nyknDo23Poc7KeREZQVKwuPMl%26id%3D61587817198306&show_text=true&width=500',
+      height: 618,
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid086uLNST9UNKXz4phXgrKn1R5m5oKBnrGagxdB4q3nyknDo23Poc7KeREZQVKwuPMl&id=61587817198306',
+    },
+    {
       id: 'post-1',
       src: 'https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0gBx9sdcN94XCuX3jP2nDGGXeZSwiKcbHRxoNTkTzbXKrjrYQSecbtDTnLtMdCYyol%26id%3D61587817198306&show_text=true&width=500',
       height: 622,
