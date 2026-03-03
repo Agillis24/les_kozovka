@@ -86,49 +86,104 @@ export default function App() {
   const prevPage = () => setCurrentPage(p => (p - 1 + totalPages) % totalPages);
   const nextPage = () => setCurrentPage(p => (p + 1) % totalPages);
   const facebookPageUrl = 'https://www.facebook.com/profile.php?id=61587817198306';
-  const [facebookSdkReady, setFacebookSdkReady] = useState(false);
-  const [facebookTimedOut, setFacebookTimedOut] = useState(false);
+  const toFacebookEmbedSrc = (permalink: string) =>
+    `https://www.facebook.com/plugins/post.php?href=${encodeURIComponent(permalink)}&show_text=true&width=500`;
 
-  useEffect(() => {
-    const timeoutId = window.setTimeout(() => {
-      setFacebookTimedOut(true);
-    }, 7000);
-
-    const fbWindow = window as Window & {
-      FB?: {
-        XFBML?: {
-          parse: () => void;
-        };
-      };
-    };
-
-    const parsePlugin = () => {
-      fbWindow.FB?.XFBML?.parse();
-      setFacebookSdkReady(true);
-      window.clearTimeout(timeoutId);
-    };
-
-    const existingScript = document.getElementById('facebook-jssdk') as HTMLScriptElement | null;
-    if (existingScript) {
-      parsePlugin();
-      return () => window.clearTimeout(timeoutId);
-    }
-
-    const script = document.createElement('script');
-    script.id = 'facebook-jssdk';
-    script.async = true;
-    script.defer = true;
-    script.crossOrigin = 'anonymous';
-    script.src = 'https://connect.facebook.net/cs_CZ/sdk.js#xfbml=1&version=v22.0';
-    script.onload = parsePlugin;
-    script.onerror = () => {
-      setFacebookTimedOut(true);
-      window.clearTimeout(timeoutId);
-    };
-    document.body.appendChild(script);
-
-    return () => window.clearTimeout(timeoutId);
-  }, []);
+  const facebookPosts = [
+    {
+      id: 'fb-01',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0kyg3DVBSfUApZ2QvHdyhhHN5XYBSnSfuDD9gnwncFM2wem2T83of6BZDiDnByu6Al&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0kyg3DVBSfUApZ2QvHdyhhHN5XYBSnSfuDD9gnwncFM2wem2T83of6BZDiDnByu6Al&id=61587817198306'),
+      height: 628,
+    },
+    {
+      id: 'fb-02',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02FUZwxs6RY1mEoppaxjevuqzMQeYbcGwAdHkNdWMxQ6Q1QPwy9VD36Xm7i22TYeFcl&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02FUZwxs6RY1mEoppaxjevuqzMQeYbcGwAdHkNdWMxQ6Q1QPwy9VD36Xm7i22TYeFcl&id=61587817198306'),
+      height: 351,
+    },
+    {
+      id: 'fb-03',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02f28cZ2JMsQG8TMF1JmCbXeKJ8Lk83dx89GKEFoaNqGCU7xXZssBZNvRY9VCZa6W3l&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02f28cZ2JMsQG8TMF1JmCbXeKJ8Lk83dx89GKEFoaNqGCU7xXZssBZNvRY9VCZa6W3l&id=61587817198306'),
+      height: 580,
+    },
+    {
+      id: 'fb-04',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0wHGgVFT6rzW9LTwwv7X6NrnbKVMJRLqg8nNK7sh1xVVr8kPcQpfcQpRCktSW12mBl&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0wHGgVFT6rzW9LTwwv7X6NrnbKVMJRLqg8nNK7sh1xVVr8kPcQpfcQpRCktSW12mBl&id=61587817198306'),
+      height: 250,
+    },
+    {
+      id: 'fb-05',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0aoimJg6ucJ3aPQi7NqoJ7i9sievg1PkGFrTvFo36Wz8LBAA6htwEGsWzNZcSUy1vl&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0aoimJg6ucJ3aPQi7NqoJ7i9sievg1PkGFrTvFo36Wz8LBAA6htwEGsWzNZcSUy1vl&id=61587817198306'),
+      height: 638,
+    },
+    {
+      id: 'fb-06',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02BgWZcVJYsbeJbZE4kyogrVQPRZCGsdtxJgBTrhwtgDyoPdzaQnxSrH9aP8STmHTEl&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02BgWZcVJYsbeJbZE4kyogrVQPRZCGsdtxJgBTrhwtgDyoPdzaQnxSrH9aP8STmHTEl&id=61587817198306'),
+      height: 638,
+    },
+    {
+      id: 'fb-07',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0oXeqUsCxmMoMUjTT8s5A4BVzVf3TJR8FvSKy5ENseKJUZzzxDrEqzfWEWpRBe6c1l&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0oXeqUsCxmMoMUjTT8s5A4BVzVf3TJR8FvSKy5ENseKJUZzzxDrEqzfWEWpRBe6c1l&id=61587817198306'),
+      height: 612,
+    },
+    {
+      id: 'fb-08',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0NY7BWrcLWnRHjqXbXqXvZq7WsQ9kgo1GYYnL7gQTKqNLHWeNTtwYh3nZnNUe7Zmyl&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0NY7BWrcLWnRHjqXbXqXvZq7WsQ9kgo1GYYnL7gQTKqNLHWeNTtwYh3nZnNUe7Zmyl&id=61587817198306'),
+      height: 592,
+    },
+    {
+      id: 'fb-09',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0XxA8yRvaCiJU2M3fHTwHW2wHFUAJiXqByhxxAhgCXVP3RtZVEAKpjWKCZuo62HL1l&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0XxA8yRvaCiJU2M3fHTwHW2wHFUAJiXqByhxxAhgCXVP3RtZVEAKpjWKCZuo62HL1l&id=61587817198306'),
+      height: 612,
+    },
+    {
+      id: 'fb-10',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02k3Ps4JYBzQFCRTk8af8QH2SAraBXP8d96ces3VDoYhNE91KwuCM4Q6uCUGFEXwyyl&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02k3Ps4JYBzQFCRTk8af8QH2SAraBXP8d96ces3VDoYhNE91KwuCM4Q6uCUGFEXwyyl&id=61587817198306'),
+      height: 622,
+    },
+    {
+      id: 'fb-11',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid06ybVTF7vJoyNaRkDEM3bSBbUzvDF6N3PBWfsLvvGKYJFZ6wHgqhNoTJZ9FMzf1ktl&id=61587817198306',
+      embedEnabled: false,
+    },
+    {
+      id: 'fb-12',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0q38YYSPYEApkCFkF4JzF37jcjsQxRAaa9w1h8edgA4dZj6CiEL6kn6tgpMXdWVbMl&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0q38YYSPYEApkCFkF4JzF37jcjsQxRAaa9w1h8edgA4dZj6CiEL6kn6tgpMXdWVbMl&id=61587817198306'),
+      height: 230,
+    },
+    {
+      id: 'fb-13',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0xktgc9AQhnfaVehjkD44sAi5Mk15Lrmsg7EBJDCMxxWeq3NVoRZ6ioK4ipE7Ehw9l&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0xktgc9AQhnfaVehjkD44sAi5Mk15Lrmsg7EBJDCMxxWeq3NVoRZ6ioK4ipE7Ehw9l&id=61587817198306'),
+      height: 526,
+    },
+    {
+      id: 'fb-14',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0me1K9PTEgSdFTZdyJTsAxPZZ1RkhXmiZco6Ju7A9y336oLan81yA5pX86cU2xugjl&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0me1K9PTEgSdFTZdyJTsAxPZZ1RkhXmiZco6Ju7A9y336oLan81yA5pX86cU2xugjl&id=61587817198306'),
+      height: 512,
+    },
+    {
+      id: 'fb-15',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid086uLNST9UNKXz4phXgrKn1R5m5oKBnrGagxdB4q3nyknDo23Poc7KeREZQVKwuPMl&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid086uLNST9UNKXz4phXgrKn1R5m5oKBnrGagxdB4q3nyknDo23Poc7KeREZQVKwuPMl&id=61587817198306'),
+      height: 618,
+    },
+  ];
+  const [activeFacebookIndex, setActiveFacebookIndex] = useState(facebookPosts.length - 1);
+  const activeFacebookPost = facebookPosts[activeFacebookIndex] ?? facebookPosts[facebookPosts.length - 1];
+  const prevFacebookPost = () => setActiveFacebookIndex((index) => (index - 1 + facebookPosts.length) % facebookPosts.length);
+  const nextFacebookPost = () => setActiveFacebookIndex((index) => (index + 1) % facebookPosts.length);
 
 
   return (
@@ -1095,56 +1150,73 @@ export default function App() {
             <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8">
               <div className="flex justify-center">
                 <div className="w-full max-w-[500px] rounded-lg overflow-hidden bg-white shadow-md">
-                  <div id="fb-root" />
-                  <div
-                    className="fb-page"
-                    data-href={facebookPageUrl}
-                    data-tabs="timeline"
-                    data-width="500"
-                    data-height="740"
-                    data-small-header="true"
-                    data-adapt-container-width="true"
-                    data-hide-cover="false"
-                    data-show-facepile="false"
-                  >
-                    <blockquote cite={facebookPageUrl} className="fb-xfbml-parse-ignore">
-                      <a href={facebookPageUrl} target="_blank" rel="noopener noreferrer">
-                        Les u Kožovky Kladno v ohrožení
-                      </a>
-                    </blockquote>
-                  </div>
-
-                  {facebookTimedOut && !facebookSdkReady ? (
-                    <div className="px-4 pb-5 pt-3 text-center bg-gray-50 border-t border-gray-200">
-                      <p className="text-sm text-gray-700 mb-2">
-                        Facebook náhled se nepodařilo načíst v tomto prohlížeči.
+                  {activeFacebookPost?.embedEnabled !== false && activeFacebookPost?.src ? (
+                    <iframe
+                      src={activeFacebookPost.src}
+                      title={`Facebook post ${activeFacebookIndex + 1}`}
+                      width="100%"
+                      height={activeFacebookPost.height ?? 620}
+                      className="block w-full mx-auto"
+                      style={{ border: 'none', overflow: 'hidden' }}
+                      scrolling="no"
+                      allowFullScreen={true}
+                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                    />
+                  ) : (
+                    <div className="min-h-[320px] flex flex-col items-center justify-center text-center px-6 py-10 bg-gray-50">
+                      <Facebook className="w-10 h-10 text-[#2d5016] mb-4" />
+                      <p className="text-gray-700 font-semibold mb-2">
+                        Facebook omezuje náhled tohoto příspěvku.
+                      </p>
+                      <p className="text-sm text-gray-600 mb-6">
+                        Otevřete jej přímo na Facebooku.
                       </p>
                       <a
-                        href={facebookPageUrl}
+                        href={activeFacebookPost.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-[#2d5016] font-semibold hover:underline"
+                        className="inline-flex items-center gap-2 bg-[#2d5016] hover:bg-[#3d6a1f] text-white px-4 py-2.5 rounded-full font-semibold transition-colors"
                       >
                         <ExternalLink className="w-4 h-4" />
-                        Otevřít Facebook stránku přímo
+                        Otevřít příspěvek na Facebooku
                       </a>
                     </div>
-                  ) : null}
+                  )}
                 </div>
+              </div>
+
+              <div className="mt-5 flex items-center justify-center gap-4">
+                <button
+                  onClick={prevFacebookPost}
+                  aria-label="Předchozí Facebook post"
+                  className="w-10 h-10 rounded-full bg-gray-100 text-[#2d5016] shadow hover:bg-gray-200 transition-colors"
+                >
+                  ‹
+                </button>
+                <span className="text-sm font-medium text-gray-600 min-w-[96px] text-center">
+                  {activeFacebookIndex + 1} / {facebookPosts.length}
+                </span>
+                <button
+                  onClick={nextFacebookPost}
+                  aria-label="Další Facebook post"
+                  className="w-10 h-10 rounded-full bg-gray-100 text-[#2d5016] shadow hover:bg-gray-200 transition-colors"
+                >
+                  ›
+                </button>
               </div>
 
               <div className="mt-4 text-center">
                 <p className="text-sm text-gray-600 mb-2">
-                  Sekce se aktualizuje automaticky podle nových příspěvků na Facebook stránce.
+                  Příspěvky jsou spravované ručně a řazené od nejstaršího po nejnovější.
                 </p>
                 <a
-                  href={facebookPageUrl}
+                  href={activeFacebookPost.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-[#2d5016] font-semibold hover:underline"
                 >
                   <ExternalLink className="w-4 h-4" />
-                  Otevřít Facebook stránku
+                  Otevřít aktuální příspěvek
                 </a>
               </div>
             </div>
