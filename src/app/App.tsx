@@ -28,10 +28,10 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
-import forestWasteImage from '../assets/bfc47caf5b2087a591c8fc8ab0254fb83392a2c5.png';
 import { Gallery } from './components/Gallery';
 
 export default function App() {
+  const forestWasteImage = '/forest-waste.png';
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showFloatingButton, setShowFloatingButton] = useState(true);
   const [useHeroFallback, setUseHeroFallback] = useState(false);
@@ -710,11 +710,32 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
+                title: 'Bezdomovce u Kožovky vyklízela odpadová firma i strážníci',
+                media: 'KM Zprávy',
+                date: '12. prosince 2022',
+                excerpt: 'V úterý 7. ledna přijela k lesu u Kožovky odpadová firma AVE Kladno s bikramovou vanou. Strážníci zajišťovali pořádek při úklidu. Během dopoledne bylo vše uklizeno a odvezeno. Muži byla opět nabídnuta pomoc — opět odmítnuta.',
+                url: 'https://kmzpravy.cz/bezdomovce-u-kozovky-vyklizela-odpadova-firma-i-straznici/'
+              },
+              {
+                title: 'Strážníci prováděli dohled při úklidu lesa v Kožovech',
+                media: 'Městská policie Kladno',
+                date: '12. prosince 2022',
+                excerpt: 'Strážníci Městské policie Kladno zajišťovali pořádek a dohled při úklidu lesa v lokalitě Kožovy. Akce probíhala ve spolupráci s odpadovou firmou AVE Kladno. Muži žijícímu na pozemku byla opakovaně nabídnuta sociální pomoc.',
+                url: 'https://mpkladno.cz/straznici-provadeli-dohled-pri-uklidu-lesa-v-kozovech/d-1709'
+              },
+              {
                 title: 'U kladenského poustevníka zasahovala úklidová četa. Pod dohledem strážníků',
                 media: 'Kladenský deník',
                 date: '13. prosince 2022',
                 excerpt: 'V prosinci 2022 proběhl v kladenském lese rozsáhlý úklid nepořádku, který tam dlouhodobě hromadil muž bez domova. Pracovníci úklidové firmy museli za asistence městských strážníků z pozemku odvézt dva velkokapacitní kontejnery plné odpadu, staré elektroniky a dokonce i uhynulých zvířat.',
                 url: 'https://kladensky.denik.cz/zpravy_region/u-kladenskeho-poustevnika-zasahovala-uklidova-ceta-pod-dohledem-strazniku-202212.html'
+              },
+              {
+                title: 'Kladenští strážníci zasahovali proti bezdomovci, který znečišťoval les',
+                media: 'e-kladensko.cz',
+                date: '14. prosince 2022',
+                excerpt: 'Městská policie Kladno opakovaně zasahuje v lese u Kožovky. Bezdomovec se zde dlouhodobě zdržuje a hromadí odpadky. Strážníci musí zajišťovat pořádek při úklidu, muž se fyzicky brání.',
+                url: 'https://www.e-kladensko.cz/zpravy/1607-kladensti-straznici-zasahovali-proti-bezdomovci-ktery-znecistoval-les'
               },
               {
                 title: 'V lese na okraji Kladna hořelo. Požár zřejmě založil bezdomovec',
@@ -733,7 +754,7 @@ export default function App() {
               {
                 title: 'V lese na okraji Kladna hořelo. Požár zřejmě založil bezdomovec',
                 media: 'Silvarium.cz',
-                date: '12. dubna 2025',
+                date: '14. dubna 2025',
                 excerpt: 'Zpravodajský portál pro lesnictví a dřevařství přinesl zprávu o požáru v lese u Kladna. Požár zřejmě způsobil bezdomovec dlouhodobě žijící v lokalitě.',
                 url: 'https://silvarium.cz/zpravy-z-oboru-lesnictvi-a-drevarstvi/v-lese-na-okraji-kladna-horelo-pozar-zrejme-zalozil-bezdomovec-kladensky-denik-cz'
               },
@@ -743,27 +764,6 @@ export default function App() {
                 date: '7. ledna 2026',
                 excerpt: 'Firma AVE Kladno ve spolupráci s městskou policií provedla rozsáhlý úklid černé skládky v lese u Kožovky. Byly odvezeny dvě bikramové vany plné odpadu. Strážníci zajišťovali pořádek při akci.',
                 url: 'https://kladensky.denik.cz/zpravy_region/uklid-lesa-skladka-na-okraji-kladna-zmizela-odvezli-dve-bikramky-odpadu-20260107.html'
-              },
-              {
-                title: 'Bezdomovce u Kožovky vyklízela odpadová firma i strážníci',
-                media: 'KM Zprávy',
-                date: '7. ledna 2026',
-                excerpt: 'V úterý 7. ledna přijela k lesu u Kožovky odpadová firma AVE Kladno s bikramovou vanou. Strážníci zajišťovali pořádek při úklidu. Během dopoledne bylo vše uklizeno a odvezeno. Muži byla opět nabídnuta pomoc — opět odmítnuta.',
-                url: 'https://kmzpravy.cz/bezdomovce-u-kozovky-vyklizela-odpadova-firma-i-straznici/'
-              },
-              {
-                title: 'Strážníci prováděli dohled při úklidu lesa v Kožovech',
-                media: 'Městská policie Kladno',
-                date: '7. ledna 2026',
-                excerpt: 'Strážníci Městské policie Kladno zajišťovali pořádek a dohled při úklidu lesa v lokalitě Kožovy. Akce probíhala ve spolupráci s odpadovou firmou AVE Kladno. Muži žijícímu na pozemku byla opakovaně nabídnuta sociální pomoc.',
-                url: 'https://mpkladno.cz/straznici-provadeli-dohled-pri-uklidu-lesa-v-kozovech/d-1709'
-              },
-              {
-                title: 'Kladenští strážníci zasahovali proti bezdomovci, který znečišťoval les',
-                media: 'e-kladensko.cz',
-                date: 'Leden 2026',
-                excerpt: 'Městská policie Kladno opakovaně zasahuje v lese u Kožovky. Bezdomovec se zde dlouhodobě zdržuje a hromadí odpadky. Strážníci musí zajišťovat pořádek při úklidu, muž se fyzicky brání.',
-                url: 'https://www.e-kladensko.cz/zpravy/1607-kladensti-straznici-zasahovali-proti-bezdomovci-ktery-znecistoval-les'
               },
               {
                 title: 'Také vám vadí nepořádek v lese na Kladně po bezdomovcích? Vznikla petice',
