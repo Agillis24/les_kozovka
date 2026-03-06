@@ -534,6 +534,16 @@ export default function App() {
               <img src="/barf.png" alt="Barfshop Kladno logo" className="w-32 h-32 object-contain" />
               <h4 className="text-xl font-bold text-[#2d5016] text-center">Barfshop Kladno</h4>
             </a>
+
+            <a
+              href="https://www.behproutulky.cz/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center gap-4 w-full sm:w-auto sm:min-w-[250px] max-w-xs"
+            >
+              <img src="/pomahejme.png" alt="Pomáhejme zvířatům z.s. logo" className="w-32 h-32 object-contain" />
+              <h4 className="text-xl font-bold text-[#2d5016] text-center">Pomáhejme zvířatům z.s.</h4>
+            </a>
           </div>
         </div>
       </section>
