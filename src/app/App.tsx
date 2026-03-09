@@ -35,6 +35,7 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showFloatingButton, setShowFloatingButton] = useState(true);
   const [useHeroFallback, setUseHeroFallback] = useState(false);
+  const [isDesktopViewport, setIsDesktopViewport] = useState(false);
 
   const heroImageDesktop = 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?fit=crop&w=1920&q=80';
   const heroImageMobile = 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?fit=crop&w=900&q=75';
@@ -55,6 +56,13 @@ export default function App() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const updateViewport = () => setIsDesktopViewport(window.innerWidth >= 768);
+    updateViewport();
+    window.addEventListener('resize', updateViewport);
+    return () => window.removeEventListener('resize', updateViewport);
   }, []);
 
   const scrollToSection = (id: string) => {
@@ -86,6 +94,7 @@ export default function App() {
   const prevPage = () => setCurrentPage(p => (p - 1 + totalPages) % totalPages);
   const nextPage = () => setCurrentPage(p => (p + 1) % totalPages);
   const facebookPageUrl = 'https://www.facebook.com/profile.php?id=61587817198306';
+  const FACEBOOK_EMBED_HEIGHT = isDesktopViewport ? 820 : 760;
   const toFacebookEmbedSrc = (permalink: string) =>
     `https://www.facebook.com/plugins/post.php?href=${encodeURIComponent(permalink)}&show_text=true&width=500`;
 
@@ -201,7 +210,7 @@ export default function App() {
       id: 'fb-19',
       url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0zeKjf6XPePD5kiXSWQC5zEcgw7hz7ScPfvx3Tw4DAdMssyUG2f6vwQfbppbjf65tl&id=61587817198306',
       src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0zeKjf6XPePD5kiXSWQC5zEcgw7hz7ScPfvx3Tw4DAdMssyUG2f6vwQfbppbjf65tl&id=61587817198306'),
-      height: 250,
+      height: 680,
     },
   ];
   const [activeFacebookIndex, setActiveFacebookIndex] = useState(facebookPosts.length - 1);
@@ -1199,7 +1208,7 @@ export default function App() {
                       src={activeFacebookPost.src}
                       title={`Facebook post ${activeFacebookIndex + 1}`}
                       width="100%"
-                      height={activeFacebookPost.height ?? 620}
+                      height={FACEBOOK_EMBED_HEIGHT}
                       className="block w-full mx-auto"
                       style={{ border: 'none', overflow: 'hidden' }}
                       scrolling="no"
