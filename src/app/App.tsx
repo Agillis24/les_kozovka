@@ -632,6 +632,12 @@ export default function App() {
                 title: 'Spuštění webu a petice',
                 desc: 'Vzniká web <strong>leskozovka.cz</strong> jako první systematická občanská reakce na situaci. Spouští se veřejná petice adresovaná <strong>městu Kladno, Břevnovskému klášteru, ČIŽP a Středočeskému kraji.</strong> Cílem je <strong>trvalé systémové řešení</strong>, ne další úklid za půl roku.',
                 icon: PenLine
+              },
+              {
+                date: 'Aktuálně probíhá',
+                title: 'Sběr všech informací',
+                desc: 'Aktuálně probíhá <strong>systematický sběr všech dosavadních informací</strong> od dotčených orgánů a subjektů: Magistrát města Kladna, Policie, Hasiči, Veterina, Česká inspekce životního prostředí, vlastník pozemku i občané.',
+                icon: FileText
               }
             ].map((item, idx) => (
               <div key={idx} className="relative flex items-start gap-8">
