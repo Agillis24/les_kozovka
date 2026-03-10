@@ -212,6 +212,12 @@ export default function App() {
       src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0zeKjf6XPePD5kiXSWQC5zEcgw7hz7ScPfvx3Tw4DAdMssyUG2f6vwQfbppbjf65tl&id=61587817198306'),
       height: 680,
     },
+    {
+      id: 'fb-20',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid036S2zN7KXrw8EpG4vrxeW9LtFmoXYcMGcecp314iKG51EeLUfLsqNz1UBH62pYBcnl&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid036S2zN7KXrw8EpG4vrxeW9LtFmoXYcMGcecp314iKG51EeLUfLsqNz1UBH62pYBcnl&id=61587817198306'),
+      height: 599,
+    },
   ];
   const [activeFacebookIndex, setActiveFacebookIndex] = useState(facebookPosts.length - 1);
   const activeFacebookPost = facebookPosts[activeFacebookIndex] ?? facebookPosts[facebookPosts.length - 1];
