@@ -821,6 +821,13 @@ export default function App() {
                 date: '25. února 2026',
                 excerpt: 'V lese Kožovka na okraji Kladna se už několik let opakuje nepořádek/černá skládka spojená s pobytem osoby bez domova. Iniciativa Les Kožovka proto spustila web leskozovka.cz společně s veřejnou peticí a žádá systémové řešení, nejen další opakovaný úklid.',
                 url: 'https://silvarium.cz/zpravy-z-oboru-lesnictvi-a-drevarstvi/take-vam-vadi-neporadek-v-lese-na-kladne-po-bezdomovcich-vznikla-petice-e-kladensko-cz'
+              },
+              {
+                title: 'Skládku v lese Kožovka město dlouhodobě neřešilo',
+                media: 'e-kladensko.cz',
+                date: '10. března 2026',
+                excerpt: 'Město podle článku nechávalo problém skládky v lese Kožovka dlouhodobě bez účinného řešení, takže se po každém úklidu znovu obnovovala. Text proto zdůrazňuje potřebu systémového zásahu místo dalších jednorázových úklidů.',
+                url: 'https://www.e-kladensko.cz/zpravy/6592-skladku-v-lese-kozovka-mesto-dlouhodobe-neresilo?fbclid=IwY2xjawQcuhpleHRuA2FlbQIxMQBicmlkETEyOTFPV3VhWXU2cTZJODFWc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHjnUoHD5PDRTm0AMJdhuLk3UNirjH0IxAoBr2JlDZjd-3UmiKyPI0ec5nAUi_aem_OgmfisUfoHCaN3gn8RXL2Q'
               }
             ].map((article, idx) => (
               <a 
