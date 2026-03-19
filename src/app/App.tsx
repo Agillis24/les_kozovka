@@ -20,6 +20,7 @@ import {
   Menu,
   X,
   PenLine,
+  AlertTriangle,
   Download,
   FileDown,    // ← PŘIDEJTE TUTO ŘÁDKU
   ExternalLink,
@@ -671,7 +672,7 @@ export default function App() {
                 date: '19. března 2026',
                 title: 'Problém se přesunul k areálům sportovních klubů',
                 desc: 'Dnes jsme obdrželi zprávy od zástupců <strong>FK Slavoj Kladno</strong> a <strong>Badminton Klubu Kladno</strong>, že se problém nepodařilo skutečně vyřešit, ale pouze přesunout z původního místa k prostoru u sportovišť; i když úklid původní lokality je pozitivní krok, v novém místě se podle klubů znovu hromadí odpad, objevují se potkani a další havěť a vzniká tak <strong>nepřijatelné zdravotní riziko pro děti a mládež</strong>, což nelze považovat za systémové ani dostatečné řešení.',
-                icon: FileText
+                icon: AlertTriangle
               }
             ].map((item, idx) => (
               <div key={idx} className="relative flex items-start gap-8">
