@@ -1443,13 +1443,13 @@ export default function App() {
         <h4 className="text-2xl font-bold text-[#2d5016] mb-4">Kde se problém nachází</h4>
         <div className="rounded-lg overflow-hidden shadow-xl h-[400px]">
           <iframe
-            src="https://maps.google.com/maps?q=50.1262367,14.1089158&t=&z=16&ie=UTF8&iwloc=&output=embed"
+            src="https://maps.google.com/maps?saddr=50.1262367,14.1089158&daddr=50.1264344,14.1073522&hl=cs&z=16&output=embed"
             className="w-full h-full border-0"
             allowFullScreen
             loading="lazy"
           />
         </div>
-        <p className="text-center text-gray-500 text-sm mt-2">GPS souřadnice: 50.1262367N, 14.1089158E</p>
+        <p className="text-center text-gray-500 text-sm mt-2">GPS souřadnice: 50.1262367N, 14.1089158E · 50.1264344N, 14.1073522E</p>
       </div>
     </div>
   </div>
