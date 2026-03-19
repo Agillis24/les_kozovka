@@ -541,6 +541,20 @@ export default function App() {
         </p>
       </div>
     </div>
+
+    <div className="mt-16 max-w-4xl mx-auto">
+      <div className="space-y-4">
+        <h3 className="text-2xl font-bold text-[#2d5016] mb-4">
+          Aktuální vývoj k 19. 03. 2026
+        </h3>
+        <p className="text-gray-600">
+          Dne <strong>19. 03. 2026</strong> proběhl úklid původně znečištěného pozemku, avšak muž bez domova se přesunul o několik metrů dál na <strong>pozemek p.p.č. 3886/6</strong> v k.ú. Kročehlavy, který je rovněž <strong>ve vlastnictví církve</strong> a nachází se v bezprostřední blízkosti sportovních areálů. Tím se problém pouze přesunul na nové místo a aktuálně představuje <strong>přímé zdravotní riziko pro naše členy i návštěvníky lokality</strong>, protože v odpadu se mohou nacházet nebezpečné látky, použité injekční stříkačky a další kontaminovaný materiál.
+        </p>
+        <p className="text-gray-600">
+          Současně dochází k tomu, že odpad láká <strong>škůdce a volně žijící zvířata</strong> (zejména potkany a krysy), která vyhledávají potravu a následně se pohybují i po okolních pozemcích využívaných převážně dětmi. Negativní dopady se již projevují i v klidové zóně určené mimo jiné pro psy, kde se začíná objevovat plastový a další přenesený odpad; podle dostupných svědectví navíc dochází i k jeho přehazování na sousední pozemky. Vzhledem k tomu, že množství odpadu v posledních měsících narůstá, je nezbytné situaci <strong>bezodkladně řešit</strong>.
+        </p>
+      </div>
+    </div>
   </div>
 </section>
 
