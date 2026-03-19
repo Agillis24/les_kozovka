@@ -902,6 +902,13 @@ export default function App() {
                 date: '10. března 2026',
                 excerpt: 'Město podle článku nechávalo problém skládky v lese Kožovka dlouhodobě bez účinného řešení, takže se po každém úklidu znovu obnovovala. Text proto zdůrazňuje potřebu systémového zásahu místo dalších jednorázových úklidů.',
                 url: 'https://www.e-kladensko.cz/zpravy/6592-skladku-v-lese-kozovka-mesto-dlouhodobe-neresilo?fbclid=IwY2xjawQcuhpleHRuA2FlbQIxMQBicmlkETEyOTFPV3VhWXU2cTZJODFWc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHjnUoHD5PDRTm0AMJdhuLk3UNirjH0IxAoBr2JlDZjd-3UmiKyPI0ec5nAUi_aem_OgmfisUfoHCaN3gn8RXL2Q'
+              },
+              {
+                title: 'Les u Kožovky: bezdomovec nyní hromadí nepořádek u badmintonu',
+                media: 'e-kladensko.cz',
+                date: '19. března 2026',
+                excerpt: 'Po úklidu původního místa se podle iniciativy problém pouze přesunul k areálům fotbalového a badmintonového klubu, kde se znovu hromadí odpad a objevují se zdravotní rizika. Iniciativa požaduje koordinované a skutečně systémové řešení, nikoliv další přesouvání problému.',
+                url: 'https://www.e-kladensko.cz/zpravy/6626-les-u-kozovky-bezdomovec-nyni-hromadi-neporadek-u-badmintonu?fbclid=IwY2xjawQo7j1leHRuA2FlbQIxMQBzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeDIozZqZHxbnA80zzJPrK9kdtBqlQK00-9O_NAWABwo1jdWBPTozjm0vhlFo_aem_38_oLsGwvAUowpEA8htEMQ'
               }
             ].map((article, idx) => (
               <a 
