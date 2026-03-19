@@ -662,7 +662,7 @@ export default function App() {
                 icon: PenLine
               },
               {
-                date: 'Aktuálně probíhá',
+                date: '23. února - 19. března 2026',
                 title: 'Sběr všech informací',
                 desc: 'Aktuálně probíhá <strong>systematický sběr všech dosavadních informací</strong> od dotčených orgánů a subjektů: Magistrát města Kladna, Policie, Hasiči, Veterina, Česká inspekce životního prostředí, vlastník pozemku i občané.',
                 icon: FileText
