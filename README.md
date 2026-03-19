@@ -187,6 +187,7 @@ info@leskozovka.cz
 
 **Lokace problému:**  
 Parcela č. 3830/4 | k.ú. Kročehlavy [665126]  
+Nově také: Parcela č. 3886/6 | k.ú. Kročehlavy [665126]  
 GPS: 50.1262367N, 14.1089158E
 
 ---

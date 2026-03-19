@@ -1412,6 +1412,7 @@ export default function App() {
               <div>
                 <strong className="block text-gray-800">Lokace problému:</strong>
                 Parcela č. 3830/4 | k.ú. Kročehlavy [665126]<br />
+                Nově také: Parcela č. 3886/6 | k.ú. Kročehlavy [665126]<br />
                 Vlastník: Benediktinské arciopatství sv. Vojtcha a sv. Markéty v Praze
               </div>
             </div>
