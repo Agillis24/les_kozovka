@@ -29,6 +29,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
+import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import { Gallery } from './components/Gallery';
 
 export default function App() {
@@ -548,10 +549,10 @@ export default function App() {
           Aktuální vývoj k 19. 03. 2026
         </h3>
         <p className="text-gray-600">
-          Dne <strong>19. 03. 2026</strong> proběhl úklid původně znečištěného pozemku, avšak muž bez domova se přesunul o několik metrů dál na <strong>pozemek p.p.č. 3886/6</strong> v k.ú. Kročehlavy, který je rovněž <strong>ve vlastnictví církve</strong> a nachází se v bezprostřední blízkosti sportovních areálů. Tím se problém pouze přesunul na nové místo a aktuálně představuje <strong>přímé zdravotní riziko pro naše členy i návštěvníky lokality</strong>, protože v odpadu se mohou nacházet nebezpečné látky, použité injekční stříkačky a další kontaminovaný materiál.
+          Dne <strong>19. 03. 2026</strong> proběhl úklid původně znečištěného pozemku, avšak muž bez domova se přesunul o několik metrů dál na pozemek <a href="https://nahlizenidokn.cuzk.gov.cz/ZobrazObjekt.aspx?encrypted=NAHL~2xb_LPeFLQ6EtRubNxm9u1vm0GEOSVydM6KDUD2DydezE0pJsoeB9yl-ebe_4elfpBbBko5Zva6fFT_QYKSBwNe37V5QGlyTsZvKuhRuqix0HKx6Q6qk-49FOIBjSr8hmKMUNSrgmWF8QStn2WlJBNEl9f9TIN0oeWnsnnXEOqwPzG0GFRS4oCqiupgLGUrhprGk8ydseezjKBF7vWzxi-XAXp0kISSlKMJ8uHF1-xH87FzuVZkNNXq0wKklzYJs" target="_blank" rel="noopener noreferrer" className="text-[#4a7c2c] hover:text-[#2d5016] underline"><strong>p.p.č. 3886/6</strong></a> v k.ú. Kročehlavy, který je rovněž ve vlastnictví církve a nachází se v bezprostřední blízkosti sportovních areálů. Tím se problém pouze přesunul na nové místo a aktuálně představuje <strong>přímé zdravotní riziko pro děti a rodiče (členy sportovišť) i návštěvníky lokality</strong>. V odpadu se dle slov předsedy Badmintonového Klubu Kladno mohou nacházet <strong>nebezpečné látky, použité injekční stříkačky a další kontaminovaný materiál</strong>.
         </p>
         <p className="text-gray-600">
-          Současně dochází k tomu, že odpad láká <strong>škůdce a volně žijící zvířata</strong> (zejména potkany a krysy), která vyhledávají potravu a následně se pohybují i po okolních pozemcích využívaných převážně dětmi. Negativní dopady se již projevují i v klidové zóně určené mimo jiné pro psy, kde se začíná objevovat plastový a další přenesený odpad; podle dostupných svědectví navíc dochází i k jeho přehazování na sousední pozemky. Vzhledem k tomu, že množství odpadu v posledních měsících narůstá, je nezbytné situaci <strong>bezodkladně řešit</strong>.
+          Zároveň dochází k tomu, že odpad láká <strong>škůdce a volně žijící zvířata</strong> (zejména potkany a krysy), kteří následně v postiženém místě vyhledávají potravu. To způsobuje jejich pohyb i na okolních pozemcích – zejména na pozemcích sportovišť, která toto zaznamenávají již od prvního dne přesunu muže bez domova. Tyto pozemky jsou přitom využívány zejména dětmi. Negativní dopady se projevují také v klidové zóně určené mimo jiné pro psy. I zde již sportoviště evidují plastový a další přenesený odpad; podle dostupných svědectví navíc dochází i k jeho přehazování na sousední pozemky. Vzhledem k tomu, že množství odpadu v posledních měsících narůstá, je nezbytné situaci <strong>bezodkladně řešit</strong>.
         </p>
       </div>
     </div>
@@ -1456,12 +1457,33 @@ export default function App() {
       <div>
         <h4 className="text-2xl font-bold text-[#2d5016] mb-4">Kde se problém nachází</h4>
         <div className="rounded-lg overflow-hidden shadow-xl h-[400px]">
-          <iframe
-            src="https://maps.google.com/maps?hl=cs&q=loc:50.1262367,14.1089158%7Cloc:50.1264344,14.1073522&t=&z=16&ie=UTF8&iwloc=&output=embed"
-            className="w-full h-full border-0"
-            allowFullScreen
-            loading="lazy"
-          />
+          <MapContainer
+            center={[50.1263355, 14.108134]}
+            zoom={17}
+            scrollWheelZoom={false}
+            className="w-full h-full"
+          >
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; OpenStreetMap contributors'
+            />
+
+            <CircleMarker
+              center={[50.1262367, 14.1089158]}
+              radius={8}
+              pathOptions={{ color: '#2d5016', fillColor: '#4a7c2c', fillOpacity: 0.9 }}
+            >
+              <Popup>Parcela č. 3830/4</Popup>
+            </CircleMarker>
+
+            <CircleMarker
+              center={[50.1264344, 14.1073522]}
+              radius={8}
+              pathOptions={{ color: '#2d5016', fillColor: '#4a7c2c', fillOpacity: 0.9 }}
+            >
+              <Popup>Parcela č. 3886/6</Popup>
+            </CircleMarker>
+          </MapContainer>
         </div>
         <p className="text-center text-gray-500 text-sm mt-2">GPS souřadnice: 50.1262367N, 14.1089158E · 50.1264344N, 14.1073522E</p>
       </div>
