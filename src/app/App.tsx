@@ -666,6 +666,12 @@ export default function App() {
                 title: 'Sběr všech informací',
                 desc: 'Aktuálně probíhá <strong>systematický sběr všech dosavadních informací</strong> od dotčených orgánů a subjektů: Magistrát města Kladna, Policie, Hasiči, Veterina, Česká inspekce životního prostředí, vlastník pozemku i občané.',
                 icon: FileText
+              },
+              {
+                date: '19. března 2026',
+                title: 'Problém se přesunul k areálům sportovních klubů',
+                desc: 'Dnes jsme obdrželi zprávy od zástupců <strong>FK Slavoj Kladno</strong> a <strong>Badminton Klubu Kladno</strong>, že se problém nepodařilo skutečně vyřešit, ale pouze přesunout z původního místa k prostoru u sportovišť; i když úklid původní lokality je pozitivní krok, v novém místě se podle klubů znovu hromadí odpad, objevují se potkani a další havěť a vzniká tak <strong>nepřijatelné zdravotní riziko pro děti a mládež</strong>, což nelze považovat za systémové ani dostatečné řešení.',
+                icon: FileText
               }
             ].map((item, idx) => (
               <div key={idx} className="relative flex items-start gap-8">
