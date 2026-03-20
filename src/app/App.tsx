@@ -256,6 +256,18 @@ export default function App() {
       src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0365qVCg1Y2e6SdeioUDoqM8V5RNWXVTGxs3m22eoa8LJzeebd6XEcZWkTytiTKMb9l&id=61587817198306'),
       height: 787,
     },
+    {
+      id: 'fb-27',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0xxNLoq84VauFVFSzkwbitQQHDPcqUKjUV3XZZsxoJwNc1xUzzjxSqbJ3Myz1SzvHl&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0xxNLoq84VauFVFSzkwbitQQHDPcqUKjUV3XZZsxoJwNc1xUzzjxSqbJ3Myz1SzvHl&id=61587817198306'),
+      height: 618,
+    },
+    {
+      id: 'fb-28',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02VkidLsKdqC3D8ap2aAgcFrmFtUGFsW3dp92nZL9t1vSp66evk8sKkRj5SHmfJiDWl&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02VkidLsKdqC3D8ap2aAgcFrmFtUGFsW3dp92nZL9t1vSp66evk8sKkRj5SHmfJiDWl&id=61587817198306'),
+      height: 613,
+    },
   ];
   const [activeFacebookIndex, setActiveFacebookIndex] = useState(facebookPosts.length - 1);
   const activeFacebookPost = facebookPosts[activeFacebookIndex] ?? facebookPosts[facebookPosts.length - 1];
