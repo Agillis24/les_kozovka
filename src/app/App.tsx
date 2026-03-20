@@ -289,6 +289,7 @@ export default function App() {
                 'Aktéři',
                 'Požadavky',
                 'Dokumenty',
+                'Oficiální podnět',
                 'Petice',
                 'Kontakt',
               ].map((item, idx) => (
@@ -306,6 +307,7 @@ export default function App() {
                         'actors',
                         'demands',
                         'documents',
+                        'official-motion',
                         'petition',
                         'contact',
                       ][idx]
@@ -338,6 +340,7 @@ export default function App() {
               'Aktéři',
               'Požadavky',
               'Dokumenty',
+              'Oficiální podnět',
               'Petice',
               'Kontakt',
             ].map((item, idx) => (
@@ -355,6 +358,7 @@ export default function App() {
                       'actors',
                       'demands',
                       'documents',
+                      'official-motion',
                       'petition',
                       'contact',
                     ][idx]
@@ -1284,6 +1288,70 @@ export default function App() {
             Povinné subjekty mají zákonnou lhůtu <strong>15 dnů</strong> na poskytnutí informací nebo odůvodnění odmítnutí. Všechny obdržené odpovědi a dokumenty průběžně zveřejňujeme na tomto webu.
           </p>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+      {/* Oficiální podnět */}
+<section id="official-motion" className="py-20 bg-gray-50">
+  <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-12 relative pb-4">
+      Oficiální podnět
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
+    </h2>
+
+    <div className="bg-gradient-to-r from-[#2d5016] to-[#4a7c2c] p-8 rounded-lg shadow-xl text-white mb-8">
+      <div className="flex items-start gap-4">
+        <Gavel className="w-8 h-8 flex-shrink-0 mt-1" />
+        <div>
+          <h3 className="text-2xl font-bold mb-3">Komplexní podnět odeslán dne 20. 03. 2026</h3>
+          <p className="opacity-95 leading-relaxed mb-3">
+            Dne <strong>20. 03. 2026</strong> došlo k zaslání komplexního oficiálního podnětu, primárně adresovaného
+            <strong> Magistrátu města Kladna</strong>, a současně zaslaného na vědomí dalším příslušným orgánům.
+          </p>
+          <a
+            href="https://drive.google.com/file/d/1W4qs2eS412JGnq-_w-TSv_bB6egDD-uc/view?usp=drive_link"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 bg-white text-[#2d5016] px-6 py-3 rounded-full font-bold hover:bg-gray-100 transition-all shadow-lg"
+          >
+            <ExternalLink className="w-5 h-5" />
+            Zobrazit celé znění podnětu
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div className="bg-white p-8 rounded-lg shadow-lg mb-8">
+      <h4 className="text-2xl font-bold text-[#2d5016] mb-4">Adresáti na vědomí</h4>
+      <ul className="space-y-3 text-gray-700 list-disc pl-6">
+        <li>Ředitelství České inspekce životního prostředí, Na Břehu 267/1a, 190 00 Praha 9, IČO: 41693205, datová schránka: zr5efbb</li>
+        <li>Krajská veterinární správa pro Středočeský kraj, Černoleská 1929, 256 01 Benešov, IČO: 00018562, datová schránka: d2vairv</li>
+        <li>Krajská hygienická stanice Středočeského kraje se sídlem v Praze, Dittrichova 329/17, 120 00 Praha 2, IČO: 71009159, datová schránka: hhcai8e</li>
+        <li>Hasičský záchranný sbor Středočeského kraje, Jana Palacha 1970, 272 01 Kladno, IČO: 70885371, datová schránka: dz4aa73</li>
+        <li>Krajské ředitelství policie Středočeského kraje, Na Baních 1535, 156 00 Praha 5, IČO: 75151481, datová schránka: 2dtai5u</li>
+        <li>Povodí Vltavy, státní podnik, Holečkova 3178/8, 150 00 Praha 5 – Smíchov, IČO: 70889953, datová schránka: gg4t8hf</li>
+        <li>Benediktinské arciopatství sv. Vojtěcha a sv. Markéty v Praze, Markétská 1/28, 169 00 Praha 6-Břevnov, IČO: 00408344, datová schránka: 7y4eg43</li>
+      </ul>
+    </div>
+
+    <div className="bg-white p-8 rounded-lg shadow-lg">
+      <h4 className="text-2xl font-bold text-[#2d5016] mb-4">Právní rámec a výzva městu</h4>
+      <div className="space-y-4 text-gray-700 leading-relaxed">
+        <p>
+          Podnět byl podán v souladu s <strong>§ 42 zákona č. 500/2004 Sb., správního řádu, ve znění pozdějších předpisů</strong>,
+          k prověření závažného a opakovaného porušování právních předpisů v oblasti nakládání s odpady, ochrany přírody,
+          veterinární péče a ochrany veřejného zdraví v katastrálním území <strong>Kročehlavy</strong>.
+        </p>
+        <p>
+          Vzhledem k doložené úřední nečinnosti v minulých letech žádáme věcně a místně příslušný správní orgán,
+          aby z moci úřední zahájil příslušná řízení v souladu se zásadou oficiality a legality podle <strong>§ 2 správního řádu</strong>.
+        </p>
+        <p>
+          Zároveň výslovně žádáme statutární město Kladno, aby nás v souladu s <strong>§ 42 správního řádu</strong>
+          do <strong>30 dnů</strong> od obdržení podnětu informovalo o tom, jaká konkrétní opatření byla přijata a jaká řízení byla zahájena.
+        </p>
       </div>
     </div>
   </div>
