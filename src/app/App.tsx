@@ -710,6 +710,12 @@ export default function App() {
                 title: 'Problém se přesunul k areálům sportovních klubů',
                 desc: 'Dnes jsme obdrželi zprávy od zástupců <strong>FK Slavoj Kladno</strong> a <strong>Badminton Klubu Kladno</strong>, že se problém nepodařilo skutečně vyřešit, ale pouze přesunout z původního místa k prostoru u sportovišť; i když úklid původní lokality je pozitivní krok, v novém místě se podle klubů znovu hromadí odpad, objevují se potkani a další havěť a vzniká tak <strong>nepřijatelné zdravotní riziko pro děti a mládež</strong>, což nelze považovat za systémové ani dostatečné řešení.',
                 icon: AlertTriangle
+              },
+              {
+                date: '20. března 2026',
+                title: 'Zaslání oficiálního podnětu Magistrátu města Kladna',
+                desc: 'Dne <strong>20. 03. 2026</strong> byl odeslán komplexní oficiální podnět, primárně adresovaný <strong>Magistrátu města Kladna</strong> a současně zaslaný na vědomí dalším příslušným orgánům (ČIŽP, KVS, KHS, HZS, Policie ČR, Povodí Vltavy a Benediktinské arciopatství). Podnět byl podán podle <strong>§ 42 správního řádu</strong> s výzvou k zahájení řízení z moci úřední dle § 2 správního řádu a s žádostí o informaci do 30 dnů o přijatých opatřeních. <a href="https://drive.google.com/file/d/1W4qs2eS412JGnq-_w-TSv_bB6egDD-uc/view?usp=drive_link" target="_blank" rel="noopener noreferrer"><strong>Zobrazit celé znění podnětu</strong></a>.',
+                icon: PenLine
               }
             ].map((item, idx) => (
               <div key={idx} className="relative flex items-start gap-8">
