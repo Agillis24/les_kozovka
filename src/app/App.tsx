@@ -947,6 +947,13 @@ export default function App() {
                 date: '19. března 2026',
                 excerpt: 'Po úklidu původního místa se podle iniciativy problém pouze přesunul k areálům fotbalového a badmintonového klubu, kde se znovu hromadí odpad a objevují se zdravotní rizika. Iniciativa požaduje koordinované a skutečně systémové řešení, nikoliv další přesouvání problému.',
                 url: 'https://www.e-kladensko.cz/zpravy/6626-les-u-kozovky-bezdomovec-nyni-hromadi-neporadek-u-badmintonu?fbclid=IwY2xjawQo7j1leHRuA2FlbQIxMQBzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeDIozZqZHxbnA80zzJPrK9kdtBqlQK00-9O_NAWABwo1jdWBPTozjm0vhlFo_aem_38_oLsGwvAUowpEA8htEMQ'
+              },
+              {
+                title: 'V lese na Kožovce opět hořelo',
+                media: 'e-kladensko.cz',
+                date: '8. dubna 2026',
+                excerpt: 'Kolem sedmé večer jsme řešili požár u vlakového nádraží na slepé koleji. Šlo o požár...',
+                url: 'https://www.e-kladensko.cz/zpravy/6695-v-lese-na-kozovce-opet-horelo?fbclid=IwY2xjawRDKcZleHRuA2FlbQIxMQBicmlkETFsYXJ4am9BUWN5dXh0Vkgxc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvWtO7cBVmmw6TBZ_BJRL80R3eMCZZxIi7qEb4vr5ncy4jWcEvoagyhH1JI9_aem_sT1SeBRjjL_n4eGxyUBUNg'
               }
             ].map((article, idx) => (
               <a 
