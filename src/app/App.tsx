@@ -1462,6 +1462,25 @@ export default function App() {
         </p>
       </div>
     </div>
+
+    <div className="bg-white p-8 rounded-lg shadow-lg">
+      <h4 className="text-2xl font-bold text-[#2d5016] mb-4">Odpovědi na podnět</h4>
+      <div className="space-y-6">
+        <div className="border-l-4 border-[#4a7c2c] pl-6">
+          <h5 className="text-lg font-semibold text-[#2d5016] mb-2">Povodí Vltavy, státní podnik</h5>
+          <p className="text-gray-600 mb-2">Odpověď doručena dne <strong>14. 04. 2026</strong></p>
+          <a
+            href="https://drive.google.com/file/d/1LA6_a8KCz6nXvcO4Y4ZgbQAs_pPe7IN4/view?usp=drive_link"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-[#4a7c2c] hover:text-[#2d5016] font-medium"
+          >
+            <ExternalLink className="w-4 h-4" />
+            Zobrazit odpověď
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
