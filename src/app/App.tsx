@@ -1319,6 +1319,11 @@ export default function App() {
           desc: 'Žádost o součinnost a koordinaci řešení opakované černé skládky a nelegálního pobytu na lesním pozemku v lokalitě "V Kožovech" u Kladna.',
           documents: [
             {
+              name: 'Nezávislá komunikace',
+              url: 'https://drive.google.com/file/d/1SfelvIvhMW8hJ5akqP2OLg_L4DQWTG9N/view?usp=drive_link',
+              date: 'Duben 2026'
+            },
+            {
               name: 'Dopis opatu',
               url: 'https://drive.google.com/file/d/1ZUghYdbeRKjbJS-fgO7_xm2NmW4e04kc/view?usp=drive_link',
               date: 'Únor 2026'
