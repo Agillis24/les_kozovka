@@ -1500,7 +1500,7 @@ export default function App() {
       <div className="space-y-6">
         <div className="border-l-4 border-[#4a7c2c] pl-6">
           <h5 className="text-lg font-semibold text-[#2d5016] mb-2">Povodí Vltavy, státní podnik</h5>
-          <p className="text-gray-600 mb-2">Odpověď doručena dne <strong>14. 04. 2026</strong></p>
+          <p className="text-gray-600 mb-2">Odpověď doručena dne <strong>13. 04. 2026</strong></p>
           <a
             href="https://drive.google.com/file/d/1LA6_a8KCz6nXvcO4Y4ZgbQAs_pPe7IN4/view?usp=drive_link"
             target="_blank"
