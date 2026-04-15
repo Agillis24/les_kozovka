@@ -604,6 +604,9 @@ export default function App() {
         <p className="text-gray-600">
           Okolí Kladna je obecně bohaté na stanoviště s výskytem <strong>zvláště chráněných rostlin a živočichů.</strong> Z rostlin se v Rozdělovských jezírcích (nedaleko dotčené oblasti) vyskytuje např. <strong>bublinatka</strong> (<em>Utricularia spec.</em>). Kontaminace půdy, šíření patogenů a narušení ekosystému tak ohrožuje celou síť chráněných biotopů v regionu.
         </p>
+        <p className="text-gray-600">
+          Na základě odpovědi <strong>Povodí Vltavy, státní podnik</strong> ze dne <strong>14. 04. 2026</strong> (<a href="https://drive.google.com/file/d/1LA6_a8KCz6nXvcO4Y4ZgbQAs_pPe7IN4/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="text-[#4a7c2c] hover:text-[#2d5016] underline">zobrazit dokument</a>) je zřejmé, že problémový pozemek leží v <strong>ochranném pásmu vodního zdroje II. stupně</strong>. Věc proto musí řešit příslušný <strong>odbor životního prostředí Magistrátu města Kladna – vodoprávní úřad</strong>, a to zejména s ohledem na možné porušení <strong>§ 30 odst. 8 zákona č. 254/2001 Sb., o vodách (vodní zákon)</strong>.
+        </p>
       </div>
     </div>
 
