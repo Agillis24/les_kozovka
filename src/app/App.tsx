@@ -1023,6 +1023,13 @@ export default function App() {
                 date: '8. dubna 2026',
                 excerpt: 'Kolem sedmé večer jsme řešili požár u vlakového nádraží na slepé koleji. Šlo o požár...',
                 url: 'https://www.e-kladensko.cz/zpravy/6695-v-lese-na-kozovce-opet-horelo?fbclid=IwY2xjawRDKcZleHRuA2FlbQIxMQBicmlkETFsYXJ4am9BUWN5dXh0Vkgxc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvWtO7cBVmmw6TBZ_BJRL80R3eMCZZxIi7qEb4vr5ncy4jWcEvoagyhH1JI9_aem_sT1SeBRjjL_n4eGxyUBUNg'
+              },
+              {
+                title: 'Tento nepořádek nanosil bezdomovec na Kožovku za měsíc. Co s ním?',
+                media: 'e-kladensko.cz',
+                date: '16. dubna 2026',
+                excerpt: 'V posledních dnech došlo k dalšímu výraznému zhoršení situace na pozemku p. č. 3886/6 v lokalitě Kožové hory. Podle zjištění...',
+                url: 'https://www.e-kladensko.cz/zpravy/6730-tento-neporadek-nanosil-bezdomovec-na-kozovku-za-mesic-co-s-nim'
               }
             ].map((article, idx) => (
               <a 
