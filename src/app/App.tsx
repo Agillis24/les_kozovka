@@ -1537,6 +1537,19 @@ export default function App() {
             Zobrazit odpověď
           </a>
         </div>
+        <div className="border-l-4 border-[#4a7c2c] pl-6">
+          <h5 className="text-lg font-semibold text-[#2d5016] mb-2">Magistrát města Kladna, Odbor životního prostředí</h5>
+          <p className="text-gray-600 mb-2">Odpověď doručena dne <strong>20. 04. 2026</strong></p>
+          <a
+            href="https://drive.google.com/file/d/1-9miOL7IrOpJqXEMNXTgK_OkvaEmRxt0/view?usp=drive_link"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-[#4a7c2c] hover:text-[#2d5016] font-medium"
+          >
+            <ExternalLink className="w-4 h-4" />
+            Zobrazit odpověď
+          </a>
+        </div>
       </div>
     </div>
   </div>
