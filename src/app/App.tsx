@@ -346,6 +346,24 @@ export default function App() {
       src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0uJxFMvz1Pk1WM1qbCXhrYvmvPqm4RK71p2xLRjqPDY87FFNwpt311VzY6ekBaYyHl&id=61587817198306'),
       height: 554,
     },
+    {
+      id: 'fb-42',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0k7FECuS1VGSirrFd4QJ4jiDiNdXN4W6ddYp9nj5wBkfuaqSAbozc5JfNe4pY5Zibl&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0k7FECuS1VGSirrFd4QJ4jiDiNdXN4W6ddYp9nj5wBkfuaqSAbozc5JfNe4pY5Zibl&id=61587817198306'),
+      height: 618,
+    },
+    {
+      id: 'fb-43',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0nVWLGiZneHn1EzsYRQzKrYKBJPEesZYbPAYNcb3QmEQ38phMGRUQ1ggz9fjh7Jwfl&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0nVWLGiZneHn1EzsYRQzKrYKBJPEesZYbPAYNcb3QmEQ38phMGRUQ1ggz9fjh7Jwfl&id=61587817198306'),
+      height: 573,
+    },
+    {
+      id: 'fb-44',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02s1Vz9hGxNQBQkFqijnV73sVhnpZRZGz8fo3VRTs2MeEEvKKfKkYDdz1LzNWhfzLxl&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02s1Vz9hGxNQBQkFqijnV73sVhnpZRZGz8fo3VRTs2MeEEvKKfKkYDdz1LzNWhfzLxl&id=61587817198306'),
+      height: 554,
+    },
   ];
   const [activeFacebookIndex, setActiveFacebookIndex] = useState(facebookPosts.length - 1);
   const activeFacebookPost = facebookPosts[activeFacebookIndex] ?? facebookPosts[facebookPosts.length - 1];
@@ -1303,6 +1321,11 @@ export default function App() {
               name: 'Odpověď na žádost o informace č. 2 (odmítnutí poskytnout informace)',
               url: 'https://drive.google.com/file/d/1oM8M64WN24IS6yTsy4N1-IbfqGVVO-KT/view?usp=drive_link',
               date: 'Březen 2026'
+            },
+            {
+              name: 'Žádost o informace č. 3 (navazuje na žádost č. 1)',
+              url: 'https://drive.google.com/file/d/1Rd8tfiER1zbfps6In2WhJR1epKPUXRta/view?usp=drive_link',
+              date: 'Duben 2026'
             }
           ]
         },
@@ -1321,6 +1344,13 @@ export default function App() {
               url: 'https://drive.google.com/file/d/1dYwpHeTtcTc10JNtW_DZIrV9-_igPqpB/view?usp=drive_link',
               date: 'Březen 2026'
             },
+              },
+              {
+                title: 'Kladno uvedlo, že bezdomovec pan Víšek porušuje na Kožovce zákon o odpadech',
+                media: 'e-kladensko.cz',
+                date: '21. dubna 2026',
+                excerpt: 'Iniciativa Les na Kožovce v ohrožení obdržel odpověď Odboru životního prostředí Magistrátu...',
+                url: 'https://www.e-kladensko.cz/zpravy/6743-kladno-uvedlo-ze-bezdomovec-pan-visek-porusuje-na-kozovce-zakon-o-odpadech?fbclid=IwY2xjawRUTNBleHRuA2FlbQIxMQBicmlkETFsYXJ4am9BUWN5dXh0Vkgxc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHnbkhwVgujEJ6lRh3ZKoNXKZd_GsFzB2jV82FEKj2imRew4nx3g7WIyLmP9D_aem_G6rjRqeyFdu_ZuJ-EiyVVQ'
             {
               name: 'Žádost o informace č. 2',
               url: 'https://drive.google.com/file/d/1dRT0HSVHS87G4u4LXftZMc11JVugMhxg/view?usp=drive_link',
