@@ -1533,7 +1533,7 @@ export default function App() {
         </p>
         <p>
           Zároveň výslovně žádáme statutární město Kladno, aby nás v souladu s <strong>§ 42 správního řádu</strong>
-          do <strong>30 dnů</strong> od obdržení podnětu informovalo o tom, jaká konkrétní opatření byla přijata a jaká řízení byla zahájena.
+          {' '}do <strong>30 dnů</strong> od obdržení podnětu informovalo o tom, jaká konkrétní opatření byla přijata a jaká řízení byla zahájena.
         </p>
       </div>
     </div>
