@@ -1054,6 +1054,13 @@ export default function App() {
                 date: '16. dubna 2026',
                 excerpt: 'V posledních dnech došlo k dalšímu výraznému zhoršení situace na pozemku p. č. 3886/6 v lokalitě Kožové hory. Podle zjištění...',
                 url: 'https://www.e-kladensko.cz/zpravy/6730-tento-neporadek-nanosil-bezdomovec-na-kozovku-za-mesic-co-s-nim'
+              },
+              {
+                title: 'Kladno uvedlo, že bezdomovec pan Víšek porušuje na Kožovce zákon o odpadech',
+                media: 'e-kladensko.cz',
+                date: '21. dubna 2026',
+                excerpt: 'Iniciativa Les na Kožovce v ohrožení obdržel odpověď Odboru životního prostředí Magistrátu...',
+                url: 'https://www.e-kladensko.cz/zpravy/6743-kladno-uvedlo-ze-bezdomovec-pan-visek-porusuje-na-kozovce-zakon-o-odpadech'
               }
             ].map((article, idx) => (
               <a 
