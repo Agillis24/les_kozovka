@@ -1344,13 +1344,6 @@ export default function App() {
               url: 'https://drive.google.com/file/d/1dYwpHeTtcTc10JNtW_DZIrV9-_igPqpB/view?usp=drive_link',
               date: 'Březen 2026'
             },
-              },
-              {
-                title: 'Kladno uvedlo, že bezdomovec pan Víšek porušuje na Kožovce zákon o odpadech',
-                media: 'e-kladensko.cz',
-                date: '21. dubna 2026',
-                excerpt: 'Iniciativa Les na Kožovce v ohrožení obdržel odpověď Odboru životního prostředí Magistrátu...',
-                url: 'https://www.e-kladensko.cz/zpravy/6743-kladno-uvedlo-ze-bezdomovec-pan-visek-porusuje-na-kozovce-zakon-o-odpadech?fbclid=IwY2xjawRUTNBleHRuA2FlbQIxMQBicmlkETFsYXJ4am9BUWN5dXh0Vkgxc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHnbkhwVgujEJ6lRh3ZKoNXKZd_GsFzB2jV82FEKj2imRew4nx3g7WIyLmP9D_aem_G6rjRqeyFdu_ZuJ-EiyVVQ'
             {
               name: 'Žádost o informace č. 2',
               url: 'https://drive.google.com/file/d/1dRT0HSVHS87G4u4LXftZMc11JVugMhxg/view?usp=drive_link',
