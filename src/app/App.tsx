@@ -1343,6 +1343,11 @@ export default function App() {
               name: 'Žádost o informace č. 4',
               url: 'https://drive.google.com/file/d/1_WIYs7TsmE_D8vQ83zAIZ_ZuboniRcwp/view?usp=drive_link',
               date: 'Duben 2026'
+            },
+            {
+              name: 'Rozhodnutí Krajského úřad Středočeského kraje',
+              url: 'https://drive.google.com/file/d/1d70CM-ZU2uPdUawj5I960lBuZUuYGbIO/view?usp=drive_link',
+              date: 'Duben 2026'
             }
           ]
         },
