@@ -364,6 +364,42 @@ export default function App() {
       src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02s1Vz9hGxNQBQkFqijnV73sVhnpZRZGz8fo3VRTs2MeEEvKKfKkYDdz1LzNWhfzLxl&id=61587817198306'),
       height: 554,
     },
+    {
+      id: 'fb-45',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02wd5DHhXhpvdNES4b6JC72JsSV1nKcdjoU9SziEyQZp7jpc7Kq4wqNuo3vgsV4jDBl&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02wd5DHhXhpvdNES4b6JC72JsSV1nKcdjoU9SziEyQZp7jpc7Kq4wqNuo3vgsV4jDBl&id=61587817198306'),
+      height: 297,
+    },
+    {
+      id: 'fb-46',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0382gHV5bAmUpuspfMrVyAFN1hNQP9o2xgePz38Uv3fcPzXpAjprGaYrcvPjcXJumyl&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0382gHV5bAmUpuspfMrVyAFN1hNQP9o2xgePz38Uv3fcPzXpAjprGaYrcvPjcXJumyl&id=61587817198306'),
+      height: 316,
+    },
+    {
+      id: 'fb-47',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02guGYXF1fqHhYtxrLPiEDLWxqEjDUegftpz9ew4xV87R6dV7FZvmQ84Y57nhKgtiWl&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02guGYXF1fqHhYtxrLPiEDLWxqEjDUegftpz9ew4xV87R6dV7FZvmQ84Y57nhKgtiWl&id=61587817198306'),
+      height: 612,
+    },
+    {
+      id: 'fb-48',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0wtaj7hbs5x6xpaTkFVs7EkdLiGCUhJMRgCQA2XSdKEoKepmonXSaAr4rCdmKEyS6l&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0wtaj7hbs5x6xpaTkFVs7EkdLiGCUhJMRgCQA2XSdKEoKepmonXSaAr4rCdmKEyS6l&id=61587817198306'),
+      height: 554,
+    },
+    {
+      id: 'fb-49',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02zoXer1H3qx2VmiRj2khPC7iUohMTH9yjCcXKNCB3xZ6Qy8VQCfiDS8R5ZGDCSrNzl&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02zoXer1H3qx2VmiRj2khPC7iUohMTH9yjCcXKNCB3xZ6Qy8VQCfiDS8R5ZGDCSrNzl&id=61587817198306'),
+      height: 419,
+    },
+    {
+      id: 'fb-50',
+      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02BABjjuDfJvqDbUxbUqXJUGne6tDgimx7PDbMogbYWi27pMu21z3HQQJFjSiinWj2l&id=61587817198306',
+      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02BABjjuDfJvqDbUxbUqXJUGne6tDgimx7PDbMogbYWi27pMu21z3HQQJFjSiinWj2l&id=61587817198306'),
+      height: 567,
+    },
   ];
   const [activeFacebookIndex, setActiveFacebookIndex] = useState(facebookPosts.length - 1);
   const activeFacebookPost = facebookPosts[activeFacebookIndex] ?? facebookPosts[facebookPosts.length - 1];
