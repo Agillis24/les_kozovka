@@ -1476,6 +1476,11 @@ export default function App() {
               name: 'Nezávislá komunikace',
               url: 'https://drive.google.com/file/d/1SfelvIvhMW8hJ5akqP2OLg_L4DQWTG9N/view?usp=drive_link',
               date: 'Duben 2026'
+            },
+            {
+              name: 'Dopis opatu č. 2',
+              url: 'https://drive.google.com/file/d/1nj3qx_emCAwAc_4-umGbpeVvTlKHlvfU/view?usp=drive_link',
+              date: 'Květen 2026'
             }
           ]
         },
