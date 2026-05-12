@@ -1747,6 +1747,19 @@ export default function App() {
                   Zobrazit odpověď
                 </a>
               </div>
+              <div className="border-l-4 border-[#4a7c2c] pl-5">
+                <h5 className="font-semibold text-[#2d5016] mb-1">Krajská hygienická stanice Středočeského kraje se sídlem v Praze</h5>
+                <p className="text-gray-600 text-sm mb-2">Odpověď doručena dne <strong>27. 04. 2026</strong></p>
+                <a
+                  href="https://drive.google.com/file/d/18Ol2bLMnJHaBEXUPlnYAbFLtpq3pF3Tv/view?usp=drive_link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-[#4a7c2c] hover:text-[#2d5016] font-medium text-sm"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Zobrazit odpověď
+                </a>
+              </div>
             </div>
           </div>
         </AccordionContent>
