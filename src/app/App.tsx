@@ -31,6 +31,7 @@ import {
 } from 'lucide-react';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import { Gallery } from './components/Gallery';
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './components/ui/accordion';
 
 export default function App() {
   const forestWasteImage = '/forest-waste.png';
@@ -1557,112 +1558,201 @@ export default function App() {
   </div>
 </section>
 
-      {/* Oficiální podnět */}
+      {/* Oficiální podněty */}
 <section id="official-motion" className="py-20 bg-gray-50">
   <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-12 relative pb-4">
+    <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-4 relative pb-4">
       Oficiální podnět
       <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
     </h2>
+    <p className="text-center text-gray-600 mb-12">
+      Přehled všech podaných officiálních podnětů a jejich odpovědí – seřazeno od nejnovějšího.
+    </p>
 
-    <div className="bg-gradient-to-r from-[#2d5016] to-[#4a7c2c] p-8 rounded-lg shadow-xl text-white mb-8">
-      <div className="flex items-start gap-4">
-        <Gavel className="w-8 h-8 flex-shrink-0 mt-1" />
-        <div>
-          <h3 className="text-2xl font-bold mb-3">Komplexní podnět odeslán dne 20. 03. 2026</h3>
-          <p className="opacity-95 leading-relaxed mb-3">
-            Dne <strong>20. 03. 2026</strong> došlo k zaslání komplexního oficiálního podnětu, primárně adresovaného
-            <strong> Magistrátu města Kladna</strong>, a současně zaslaného na vědomí dalším příslušným orgánům.
-          </p>
-          <a
-            href="https://drive.google.com/file/d/1W4qs2eS412JGnq-_w-TSv_bB6egDD-uc/view?usp=drive_link"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 bg-white text-[#2d5016] px-6 py-3 rounded-full font-bold hover:bg-gray-100 transition-all shadow-lg"
-          >
-            <ExternalLink className="w-5 h-5" />
-            Zobrazit celé znění podnětu
-          </a>
-        </div>
-      </div>
-    </div>
+    <Accordion type="multiple" defaultValue={["podnet-2", "podnet-1"]} className="space-y-4">
 
-    <div className="bg-white p-8 rounded-lg shadow-lg mb-8">
-      <h4 className="text-2xl font-bold text-[#2d5016] mb-4">Adresáti na vědomí</h4>
-      <ul className="space-y-3 text-gray-700 list-disc pl-6">
-        <li>Ředitelství České inspekce životního prostředí, Na Břehu 267/1a, 190 00 Praha 9, IČO: 41693205, datová schránka: zr5efbb</li>
-        <li>Krajská veterinární správa pro Středočeský kraj, Černoleská 1929, 256 01 Benešov, IČO: 00018562, datová schránka: d2vairv</li>
-        <li>Krajská hygienická stanice Středočeského kraje se sídlem v Praze, Dittrichova 329/17, 120 00 Praha 2, IČO: 71009159, datová schránka: hhcai8e</li>
-        <li>Hasičský záchranný sbor Středočeského kraje, Jana Palacha 1970, 272 01 Kladno, IČO: 70885371, datová schránka: dz4aa73</li>
-        <li>Krajské ředitelství policie Středočeského kraje, Na Baních 1535, 156 00 Praha 5, IČO: 75151481, datová schránka: 2dtai5u</li>
-        <li>Povodí Vltavy, státní podnik, Holečkova 3178/8, 150 00 Praha 5 – Smíchov, IČO: 70889953, datová schránka: gg4t8hf</li>
-        <li>Benediktinské arciopatství sv. Vojtěcha a sv. Markéty v Praze, Markétská 1/28, 169 00 Praha 6-Břevnov, IČO: 00408344, datová schránka: 7y4eg43</li>
-      </ul>
-    </div>
+      {/* ── Podnět č. 2 ── */}
+      <AccordionItem value="podnet-2" className="bg-white rounded-lg shadow-lg border-0 overflow-hidden">
+        <AccordionTrigger className="px-8 py-5 hover:no-underline hover:bg-gray-50 [&>svg]:text-[#4a7c2c]">
+          <div className="flex items-center gap-4 text-left">
+            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#4a7c2c] text-white flex items-center justify-center font-bold text-lg">
+              2
+            </div>
+            <div>
+              <div className="font-bold text-[#2d5016] text-lg">Podnět č. 2 – 11. 05. 2026</div>
+              <div className="text-sm text-gray-500">Magistrát města Kladna, Odbor ŽP · čeká se na odpovědi</div>
+            </div>
+          </div>
+        </AccordionTrigger>
+        <AccordionContent className="px-8 pb-8">
+          {/* Hlavní karta */}
+          <div className="bg-gradient-to-r from-[#2d5016] to-[#4a7c2c] p-6 rounded-lg shadow-lg text-white mb-6">
+            <div className="flex items-start gap-4">
+              <Gavel className="w-7 h-7 flex-shrink-0 mt-1" />
+              <div>
+                <h3 className="text-xl font-bold mb-2">Podnět odeslán dne 11. 05. 2026</h3>
+                <p className="opacity-95 leading-relaxed mb-4">
+                  Dne <strong>11. 05. 2026</strong> byl odeslán navazující podnět, primárně adresovaný{' '}
+                  <strong>Magistrátu města Kladna, Odboru životního prostředí</strong>, a současně zaslaný na vědomí
+                  primátorovi, Radě a Kontrolnímu výboru Zastupitelstva města Kladna a Benediktinské arciopatství.
+                </p>
+                <a
+                  href="https://drive.google.com/file/d/1RdkmMVGpTE37ba6rKvEbhIq2VEEK67g0/view?usp=drive_link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 bg-white text-[#2d5016] px-5 py-2.5 rounded-full font-bold hover:bg-gray-100 transition-all shadow-lg text-sm"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Zobrazit celé znění podnětu
+                </a>
+              </div>
+            </div>
+          </div>
 
-    <div className="bg-white p-8 rounded-lg shadow-lg">
-      <h4 className="text-2xl font-bold text-[#2d5016] mb-4">Právní rámec a výzva městu</h4>
-      <div className="space-y-4 text-gray-700 leading-relaxed">
-        <p>
-          Podnět byl podán v souladu s <strong>§ 42 zákona č. 500/2004 Sb., správního řádu, ve znění pozdějších předpisů</strong>,
-          k prověření závažného a opakovaného porušování právních předpisů v oblasti nakládání s odpady, ochrany přírody,
-          veterinární péče a ochrany veřejného zdraví v katastrálním území <strong>Kročehlavy</strong>.
-        </p>
-        <p>
-          Vzhledem k doložené úřední nečinnosti v minulých letech žádáme věcně a místně příslušný správní orgán,
-          aby z moci úřední zahájil příslušná řízení v souladu se zásadou oficiality a legality podle <strong>§ 2 správního řádu</strong>.
-        </p>
-        <p>
-          Zároveň výslovně žádáme statutární město Kladno, aby nás v souladu s <strong>§ 42 správního řádu</strong>
-          {' '}do <strong>30 dnů</strong> od obdržení podnětu informovalo o tom, jaká konkrétní opatření byla přijata a jaká řízení byla zahájena.
-        </p>
-      </div>
-    </div>
+          {/* Adresáti */}
+          <div className="bg-gray-50 p-6 rounded-lg mb-6">
+            <h4 className="text-lg font-bold text-[#2d5016] mb-3">Primární adresát</h4>
+            <ul className="space-y-2 text-gray-700 text-sm list-disc pl-5 mb-4">
+              <li>Magistrát města Kladna, Odbor životního prostředí</li>
+            </ul>
+            <h4 className="text-lg font-bold text-[#2d5016] mb-3">Na vědomí</h4>
+            <ul className="space-y-2 text-gray-700 text-sm list-disc pl-5">
+              <li>Primátor města Kladna</li>
+              <li>Rada města Kladna</li>
+              <li>Kontrolní výbor Zastupitelstva města Kladna</li>
+              <li>Benediktinské arciopatství sv. Vojtěcha a sv. Markéty v Praze, Markétská 1/28, 169 00 Praha 6-Břevnov, IČO: 00408344, datová schránka: 7y4eg43</li>
+            </ul>
+          </div>
 
-    <div className="bg-white p-8 rounded-lg shadow-lg">
-      <h4 className="text-2xl font-bold text-[#2d5016] mb-4">Odpovědi na podnět</h4>
-      <div className="space-y-6">
-        <div className="border-l-4 border-[#4a7c2c] pl-6">
-          <h5 className="text-lg font-semibold text-[#2d5016] mb-2">Povodí Vltavy, státní podnik</h5>
-          <p className="text-gray-600 mb-2">Odpověď doručena dne <strong>13. 04. 2026</strong></p>
-          <a
-            href="https://drive.google.com/file/d/1LA6_a8KCz6nXvcO4Y4ZgbQAs_pPe7IN4/view?usp=drive_link"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-[#4a7c2c] hover:text-[#2d5016] font-medium"
-          >
-            <ExternalLink className="w-4 h-4" />
-            Zobrazit odpověď
-          </a>
-        </div>
-        <div className="border-l-4 border-[#4a7c2c] pl-6">
-          <h5 className="text-lg font-semibold text-[#2d5016] mb-2">Magistrát města Kladna, Odbor sociální</h5>
-          <p className="text-gray-600 mb-2">Odpověď doručena dne <strong>14. 04. 2026</strong></p>
-          <a
-            href="https://drive.google.com/file/d/16-JxhZBPzbjtDh09FoID1jrwgIDHd2tl/view?usp=drive_link"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-[#4a7c2c] hover:text-[#2d5016] font-medium"
-          >
-            <ExternalLink className="w-4 h-4" />
-            Zobrazit odpověď
-          </a>
-        </div>
-        <div className="border-l-4 border-[#4a7c2c] pl-6">
-          <h5 className="text-lg font-semibold text-[#2d5016] mb-2">Magistrát města Kladna, Odbor životního prostředí</h5>
-          <p className="text-gray-600 mb-2">Odpověď doručena dne <strong>20. 04. 2026</strong></p>
-          <a
-            href="https://drive.google.com/file/d/1-9miOL7IrOpJqXEMNXTgK_OkvaEmRxt0/view?usp=drive_link"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-[#4a7c2c] hover:text-[#2d5016] font-medium"
-          >
-            <ExternalLink className="w-4 h-4" />
-            Zobrazit odpověď
-          </a>
-        </div>
-      </div>
-    </div>
+          {/* Odpovědi */}
+          <div className="bg-gray-50 p-6 rounded-lg">
+            <h4 className="text-lg font-bold text-[#2d5016] mb-3">Odpovědi na podnět č. 2</h4>
+            <p className="text-gray-500 italic text-sm">Zatím nebyly obdrženy žádné odpovědi. Odpovědi budeme průběžně zveřejňovat.</p>
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+
+      {/* ── Podnět č. 1 ── */}
+      <AccordionItem value="podnet-1" className="bg-white rounded-lg shadow-lg border-0 overflow-hidden">
+        <AccordionTrigger className="px-8 py-5 hover:no-underline hover:bg-gray-50 [&>svg]:text-[#4a7c2c]">
+          <div className="flex items-center gap-4 text-left">
+            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#2d5016] text-white flex items-center justify-center font-bold text-lg">
+              1
+            </div>
+            <div>
+              <div className="font-bold text-[#2d5016] text-lg">Podnět č. 1 – 20. 03. 2026</div>
+              <div className="text-sm text-gray-500">Magistrát města Kladna + 6 institucí · 3 odpovědi obdrženy</div>
+            </div>
+          </div>
+        </AccordionTrigger>
+        <AccordionContent className="px-8 pb-8">
+          {/* Hlavní karta */}
+          <div className="bg-gradient-to-r from-[#2d5016] to-[#4a7c2c] p-6 rounded-lg shadow-lg text-white mb-6">
+            <div className="flex items-start gap-4">
+              <Gavel className="w-7 h-7 flex-shrink-0 mt-1" />
+              <div>
+                <h3 className="text-xl font-bold mb-2">Komplexní podnět odeslán dne 20. 03. 2026</h3>
+                <p className="opacity-95 leading-relaxed mb-4">
+                  Dne <strong>20. 03. 2026</strong> došlo k zaslání komplexního oficiálního podnětu, primárně adresovaného{' '}
+                  <strong>Magistrátu města Kladna</strong>, a současně zaslaného na vědomí dalším příslušným orgánům
+                  (ČIŽP, KVS, KHS, HZS, Policie ČR, Povodí Vltavy a Benediktinské arciopatství).
+                </p>
+                <a
+                  href="https://drive.google.com/file/d/1W4qs2eS412JGnq-_w-TSv_bB6egDD-uc/view?usp=drive_link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 bg-white text-[#2d5016] px-5 py-2.5 rounded-full font-bold hover:bg-gray-100 transition-all shadow-lg text-sm"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Zobrazit celé znění podnětu
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Adresáti */}
+          <div className="bg-gray-50 p-6 rounded-lg mb-6">
+            <h4 className="text-lg font-bold text-[#2d5016] mb-3">Adresáti na vědomí</h4>
+            <ul className="space-y-2 text-gray-700 text-sm list-disc pl-5">
+              <li>Ředitelství České inspekce životního prostředí, Na Břehu 267/1a, 190 00 Praha 9, IČO: 41693205, datová schránka: zr5efbb</li>
+              <li>Krajská veterinární správa pro Středočeský kraj, Černoleská 1929, 256 01 Benešov, IČO: 00018562, datová schránka: d2vairv</li>
+              <li>Krajská hygienická stanice Středočeského kraje se sídlem v Praze, Dittrichova 329/17, 120 00 Praha 2, IČO: 71009159, datová schránka: hhcai8e</li>
+              <li>Hasičský záchranný sbor Středočeského kraje, Jana Palacha 1970, 272 01 Kladno, IČO: 70885371, datová schránka: dz4aa73</li>
+              <li>Krajské ředitelství policie Středočeského kraje, Na Baních 1535, 156 00 Praha 5, IČO: 75151481, datová schránka: 2dtai5u</li>
+              <li>Povodí Vltavy, státní podnik, Holečkova 3178/8, 150 00 Praha 5 – Smíchov, IČO: 70889953, datová schránka: gg4t8hf</li>
+              <li>Benediktinské arciopatství sv. Vojtěcha a sv. Markéty v Praze, Markétská 1/28, 169 00 Praha 6-Břevnov, IČO: 00408344, datová schránka: 7y4eg43</li>
+            </ul>
+          </div>
+
+          {/* Právní rámec */}
+          <div className="bg-gray-50 p-6 rounded-lg mb-6">
+            <h4 className="text-lg font-bold text-[#2d5016] mb-3">Právní rámec a výzva městu</h4>
+            <div className="space-y-4 text-gray-700 text-sm leading-relaxed">
+              <p>
+                Podnět byl podán v souladu s <strong>§ 42 zákona č. 500/2004 Sb., správního řádu, ve znění pozdějších předpisů</strong>,
+                k prověření závažného a opakovaného porušování právních předpisů v oblasti nakládání s odpady, ochrany přírody,
+                veterinární péče a ochrany veřejného zdraví v katastrálním území <strong>Kročehlavy</strong>.
+              </p>
+              <p>
+                Vzhledem k doložené úřední nečinnosti v minulých letech žádáme věcně a místně příslušný správní orgán,
+                aby z moci úřední zahájil příslušná řízení v souladu se zásadou oficiality a legality podle <strong>§ 2 správního řádu</strong>.
+              </p>
+              <p>
+                Zároveň výslovně žádáme statutární město Kladno, aby nás v souladu s <strong>§ 42 správního řádu</strong>
+                {' '}do <strong>30 dnů</strong> od obdržení podnětu informovalo o tom, jaká konkrétní opatření byla přijata a jaká řízení byla zahájena.
+              </p>
+            </div>
+          </div>
+
+          {/* Odpovědi */}
+          <div className="bg-gray-50 p-6 rounded-lg">
+            <h4 className="text-lg font-bold text-[#2d5016] mb-4">Odpovědi na podnět č. 1</h4>
+            <div className="space-y-5">
+              <div className="border-l-4 border-[#4a7c2c] pl-5">
+                <h5 className="font-semibold text-[#2d5016] mb-1">Povodí Vltavy, státní podnik</h5>
+                <p className="text-gray-600 text-sm mb-2">Odpověď doručena dne <strong>13. 04. 2026</strong></p>
+                <a
+                  href="https://drive.google.com/file/d/1LA6_a8KCz6nXvcO4Y4ZgbQAs_pPe7IN4/view?usp=drive_link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-[#4a7c2c] hover:text-[#2d5016] font-medium text-sm"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Zobrazit odpověď
+                </a>
+              </div>
+              <div className="border-l-4 border-[#4a7c2c] pl-5">
+                <h5 className="font-semibold text-[#2d5016] mb-1">Magistrát města Kladna, Odbor sociální</h5>
+                <p className="text-gray-600 text-sm mb-2">Odpověď doručena dne <strong>14. 04. 2026</strong></p>
+                <a
+                  href="https://drive.google.com/file/d/16-JxhZBPzbjtDh09FoID1jrwgIDHd2tl/view?usp=drive_link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-[#4a7c2c] hover:text-[#2d5016] font-medium text-sm"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Zobrazit odpověď
+                </a>
+              </div>
+              <div className="border-l-4 border-[#4a7c2c] pl-5">
+                <h5 className="font-semibold text-[#2d5016] mb-1">Magistrát města Kladna, Odbor životního prostředí</h5>
+                <p className="text-gray-600 text-sm mb-2">Odpověď doručena dne <strong>20. 04. 2026</strong></p>
+                <a
+                  href="https://drive.google.com/file/d/1-9miOL7IrOpJqXEMNXTgK_OkvaEmRxt0/view?usp=drive_link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-[#4a7c2c] hover:text-[#2d5016] font-medium text-sm"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Zobrazit odpověď
+                </a>
+              </div>
+            </div>
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+
+    </Accordion>
   </div>
 </section>
 
