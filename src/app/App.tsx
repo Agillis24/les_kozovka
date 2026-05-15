@@ -1560,6 +1560,34 @@ export default function App() {
         </div>
       </div>
     </div>
+
+    <div className="mt-8 bg-white border border-gray-200 p-8 rounded-lg shadow-lg">
+      <h4 className="text-xl font-bold mb-3 text-[#2d5016]">
+        Dokumenty z terénních šetření (Magistrát města Kladna - sociální odbor)
+      </h4>
+      <p className="text-gray-600 mb-5">
+        V této sekci jsou průběžně doplňovány odkazy na dokumenty z terénních šetření pracovníků sociálního odboru Magistrátu města Kladna.
+      </p>
+
+      <div className="space-y-2">
+        <a
+          href="https://drive.google.com/file/d/1fsjQLB5Bp45DwMg4ZMHCcvN_Fe7NK-aV/view?usp=drive_link"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
+        >
+          <div className="flex items-center gap-3">
+            <FileText className="w-5 h-5 text-[#4a7c2c]" />
+            <div>
+              <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
+                Dokument č. 1 - Záznam z jednání - 14. 1. 2022
+              </p>
+            </div>
+          </div>
+          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 
