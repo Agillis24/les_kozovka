@@ -1670,7 +1670,7 @@ export default function App() {
       Přehled všech podaných officiálních podnětů a jejich odpovědí – seřazeno od nejnovějšího.
     </p>
 
-    <Accordion type="multiple" defaultValue={["podnet-2", "podnet-1"]} className="space-y-4">
+    <Accordion type="multiple" className="space-y-4">
 
       {/* ── Podnět č. 2 ── */}
       <AccordionItem value="podnet-2" className="bg-white rounded-lg shadow-lg border-0 overflow-hidden">
