@@ -1742,7 +1742,7 @@ export default function App() {
             </div>
             <div>
               <div className="font-bold text-[#2d5016] text-lg">Podnět č. 1 – 20. 03. 2026</div>
-              <div className="text-sm text-gray-500">Magistrát města Kladna + 6 institucí · 3 odpovědi obdrženy</div>
+              <div className="text-sm text-gray-500">Magistrát města Kladna + 6 institucí · 5 odpovědí obdrženo</div>
             </div>
           </div>
         </AccordionTrigger>
@@ -1853,6 +1853,19 @@ export default function App() {
                 <p className="text-gray-600 text-sm mb-2">Odpověď doručena dne <strong>27. 04. 2026</strong></p>
                 <a
                   href="https://drive.google.com/file/d/18Ol2bLMnJHaBEXUPlnYAbFLtpq3pF3Tv/view?usp=drive_link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-[#4a7c2c] hover:text-[#2d5016] font-medium text-sm"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Zobrazit odpověď
+                </a>
+              </div>
+              <div className="border-l-4 border-[#4a7c2c] pl-5">
+                <h5 className="font-semibold text-[#2d5016] mb-1">Státní veterinární správa</h5>
+                <p className="text-gray-600 text-sm mb-2">Odpověď doručena dne <strong>15. 05. 2026</strong></p>
+                <a
+                  href="https://drive.google.com/file/d/1m7Hp5LWoobY8jiXZLvNGrdgnB90avi7p/view?usp=drive_link"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-[#4a7c2c] hover:text-[#2d5016] font-medium text-sm"
