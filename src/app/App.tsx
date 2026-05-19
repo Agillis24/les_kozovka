@@ -1808,6 +1808,59 @@ export default function App() {
 
     <Accordion type="multiple" className="space-y-4">
 
+      {/* ── Podnět č. 3 ── */}
+      <AccordionItem value="podnet-3" className="bg-white rounded-lg shadow-lg border-0 overflow-hidden">
+        <AccordionTrigger className="px-8 py-5 hover:no-underline hover:bg-gray-50 [&>svg]:text-[#4a7c2c]">
+          <div className="flex items-center gap-4 text-left">
+            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#4a7c2c] text-white flex items-center justify-center font-bold text-lg">
+              3
+            </div>
+            <div>
+              <div className="font-bold text-[#2d5016] text-lg">Podnět č. 3 – 19. 05. 2026</div>
+              <div className="text-sm text-gray-500">Magistrát města Kladna, Odbor ŽP · čeká se na odpovědi</div>
+            </div>
+          </div>
+        </AccordionTrigger>
+        <AccordionContent className="px-8 pb-8">
+          {/* Hlavní karta */}
+          <div className="bg-gradient-to-r from-[#2d5016] to-[#4a7c2c] p-6 rounded-lg shadow-lg text-white mb-6">
+            <div className="flex items-start gap-4">
+              <Gavel className="w-7 h-7 flex-shrink-0 mt-1" />
+              <div>
+                <h3 className="text-xl font-bold mb-2">Podnět odeslán dne 19. 05. 2026</h3>
+                <p className="opacity-95 leading-relaxed mb-4">
+                  Dne <strong>19. 05. 2026</strong> byl odeslán další oficiální podnět, primárně adresovaný{' '}
+                  <strong>Magistrátu města Kladna, Odboru ŽP</strong>.
+                </p>
+                <a
+                  href="https://drive.google.com/file/d/1z4aNEu6GnC-MB8KOId7WqA65y5ZyM76G/view?usp=drive_link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 bg-white text-[#2d5016] px-5 py-2.5 rounded-full font-bold hover:bg-gray-100 transition-all shadow-lg text-sm"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Zobrazit celé znění podnětu
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Adresáti */}
+          <div className="bg-gray-50 p-6 rounded-lg mb-6">
+            <h4 className="text-lg font-bold text-[#2d5016] mb-3">Primární adresát</h4>
+            <ul className="space-y-2 text-gray-700 text-sm list-disc pl-5">
+              <li>Magistrát města Kladna, Odbor ŽP</li>
+            </ul>
+          </div>
+
+          {/* Odpovědi */}
+          <div className="bg-gray-50 p-6 rounded-lg">
+            <h4 className="text-lg font-bold text-[#2d5016] mb-3">Odpovědi na podnět č. 3</h4>
+            <p className="text-gray-500 italic text-sm">Zatím nebyly obdrženy žádné odpovědi. Odpovědi budeme průběžně zveřejňovat.</p>
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+
       {/* ── Podnět č. 2 ── */}
       <AccordionItem value="podnet-2" className="bg-white rounded-lg shadow-lg border-0 overflow-hidden">
         <AccordionTrigger className="px-8 py-5 hover:no-underline hover:bg-gray-50 [&>svg]:text-[#4a7c2c]">
