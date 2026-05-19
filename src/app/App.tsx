@@ -1773,6 +1773,23 @@ export default function App() {
           </div>
           <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
         </a>
+
+        <a
+          href="https://drive.google.com/file/d/117xwiR0YTXKxDyhGMyTDL0L_mA-CB-tU/view?usp=drive_link"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
+        >
+          <div className="flex items-center gap-3">
+            <FileText className="w-5 h-5 text-[#4a7c2c]" />
+            <div>
+              <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
+                Dokument č. 13 - Záznam z místního šetření - 7. 9. 2023
+              </p>
+            </div>
+          </div>
+          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
+        </a>
       </div>
     </div>
   </div>
