@@ -33,29 +33,11 @@ import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import { Gallery } from './components/Gallery';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './components/ui/accordion';
 
-type FacebookPost = {
-  id: string;
-  message: string;
-  permalinkUrl: string;
-  createdTime: string;
-  image?: string;
-};
-
-type FacebookFeedResponse = {
-  source?: string;
-  generatedAt?: string | null;
-  posts?: FacebookPost[];
-};
-
 export default function App() {
   const forestWasteImage = '/forest-waste.png';
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showFloatingButton, setShowFloatingButton] = useState(true);
   const [useHeroFallback, setUseHeroFallback] = useState(false);
-  const [facebookPosts, setFacebookPosts] = useState<FacebookPost[]>([]);
-  const [facebookLoading, setFacebookLoading] = useState(true);
-  const [facebookLoadError, setFacebookLoadError] = useState<string | null>(null);
-  const [facebookFeedGeneratedAt, setFacebookFeedGeneratedAt] = useState<string | null>(null);
 
   const heroImageDesktop = 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?fit=crop&w=1920&q=80';
   const heroImageMobile = 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?fit=crop&w=900&q=75';
@@ -76,63 +58,6 @@ export default function App() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const loadFacebookPosts = async () => {
-      try {
-        setFacebookLoading(true);
-        setFacebookLoadError(null);
-
-        const feedUrls = [
-          '/data/facebook-posts.json',
-          './data/facebook-posts.json',
-        ];
-
-        let payload: FacebookFeedResponse | null = null;
-
-        for (const url of feedUrls) {
-          const response = await fetch(`${url}?ts=${Date.now()}`, { cache: 'no-store' });
-          if (!response.ok) {
-            continue;
-          }
-
-          payload = await response.json() as FacebookFeedResponse;
-          break;
-        }
-
-        if (!payload) {
-          throw new Error('Nepodarilo se najit datovy soubor facebook-posts.json.');
-        }
-
-        const posts = Array.isArray(payload.posts) ? payload.posts : [];
-
-        if (isMounted) {
-          setFacebookPosts(posts);
-          setFacebookFeedGeneratedAt(payload.generatedAt ?? null);
-          if (posts.length === 0) {
-            setFacebookLoadError('Feed je zatim prazdny. Synchronizace z Facebooku pravdepodobne jeste neprobehla.');
-          }
-        }
-      } catch (error) {
-        if (isMounted) {
-          setFacebookPosts([]);
-          setFacebookFeedGeneratedAt(null);
-          setFacebookLoadError(error instanceof Error ? error.message : 'Nepodarilo se nacist Facebook data');
-        }
-      } finally {
-        if (isMounted) {
-          setFacebookLoading(false);
-        }
-      }
-    };
-
-    loadFacebookPosts();
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
   const scrollToSection = (id: string) => {
@@ -163,7 +88,6 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState(0);
   const prevPage = () => setCurrentPage(p => (p - 1 + totalPages) % totalPages);
   const nextPage = () => setCurrentPage(p => (p + 1) % totalPages);
-  const facebookPageUrl = 'https://www.facebook.com/61587817198306';
 
 
   return (
@@ -1948,80 +1872,6 @@ export default function App() {
             <Users className="inline w-5 h-5 mr-2" />
             Buďte mezi prvními, kdo podpoří změnu!
           </div>
-        </div>
-      </section>
-
-      {/* Aktuality z Facebooku */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-12 relative pb-4">
-            Aktuality z Facebooku
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
-          </h2>
-
-          {facebookLoading ? (
-            <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8 text-center">
-              <p className="text-gray-600">Nacitam posledni prispevky z Facebooku...</p>
-            </div>
-          ) : facebookPosts.length > 0 ? (
-            <div className="grid md:grid-cols-2 gap-6">
-              {facebookPosts.map((post) => (
-                <article key={post.id} className="bg-white rounded-xl shadow-lg overflow-hidden">
-                  {post.image && (
-                    <img
-                      src={post.image}
-                      alt="Nahled prispevku z Facebooku"
-                      loading="lazy"
-                      className="w-full h-56 object-cover"
-                    />
-                  )}
-                  <div className="p-6">
-                    <p className="text-xs uppercase tracking-wide text-gray-500 mb-3">
-                      {new Date(post.createdTime).toLocaleDateString('cs-CZ', {
-                        day: '2-digit',
-                        month: '2-digit',
-                        year: 'numeric',
-                      })}
-                    </p>
-                    <p className="text-gray-700 leading-relaxed line-clamp-6">
-                      {post.message || 'Prispevek bez textu'}
-                    </p>
-                    <a
-                      href={post.permalinkUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 mt-4 text-[#2d5016] font-semibold hover:underline"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                      Otevrit prispevek na Facebooku
-                    </a>
-                  </div>
-                </article>
-              ))}
-            </div>
-          ) : (
-            <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8 text-center">
-              <Facebook className="w-10 h-10 text-[#2d5016] mx-auto mb-4" />
-              <p className="text-gray-700 font-semibold mb-2">Facebook prispevky se nepodarilo nacist.</p>
-              <p className="text-sm text-gray-600 mb-4">
-                {facebookLoadError ? 'Duvod: ' + facebookLoadError : 'Zkuste to prosim pozdeji.'}
-              </p>
-              {!facebookFeedGeneratedAt && (
-                <p className="text-sm text-gray-600 mb-4">
-                  Pokud jste spravce webu, nastavte GitHub Secrets FB_PAGE_ID a FB_PAGE_ACCESS_TOKEN a spustte workflow Sync Facebook Posts.
-                </p>
-              )}
-              <a
-                href={facebookPageUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-[#2d5016] font-semibold hover:underline"
-              >
-                <ExternalLink className="w-4 h-4" />
-                Otevrit Facebook stranku
-              </a>
-            </div>
-          )}
         </div>
       </section>
 
