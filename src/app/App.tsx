@@ -96,316 +96,10 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState(0);
   const prevPage = () => setCurrentPage(p => (p - 1 + totalPages) % totalPages);
   const nextPage = () => setCurrentPage(p => (p + 1) % totalPages);
-  const facebookPageUrl = 'https://www.facebook.com/profile.php?id=61587817198306';
-  const FACEBOOK_EMBED_HEIGHT = isDesktopViewport ? 820 : 760;
-  const toFacebookEmbedSrc = (permalink: string) =>
-    `https://www.facebook.com/plugins/post.php?href=${encodeURIComponent(permalink)}&show_text=true&width=500`;
-
-  const facebookPosts = [
-    {
-      id: 'fb-01',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0kyg3DVBSfUApZ2QvHdyhhHN5XYBSnSfuDD9gnwncFM2wem2T83of6BZDiDnByu6Al&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0kyg3DVBSfUApZ2QvHdyhhHN5XYBSnSfuDD9gnwncFM2wem2T83of6BZDiDnByu6Al&id=61587817198306'),
-      height: 628,
-    },
-    {
-      id: 'fb-02',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02FUZwxs6RY1mEoppaxjevuqzMQeYbcGwAdHkNdWMxQ6Q1QPwy9VD36Xm7i22TYeFcl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02FUZwxs6RY1mEoppaxjevuqzMQeYbcGwAdHkNdWMxQ6Q1QPwy9VD36Xm7i22TYeFcl&id=61587817198306'),
-      height: 351,
-    },
-    {
-      id: 'fb-03',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02f28cZ2JMsQG8TMF1JmCbXeKJ8Lk83dx89GKEFoaNqGCU7xXZssBZNvRY9VCZa6W3l&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02f28cZ2JMsQG8TMF1JmCbXeKJ8Lk83dx89GKEFoaNqGCU7xXZssBZNvRY9VCZa6W3l&id=61587817198306'),
-      height: 580,
-    },
-    {
-      id: 'fb-04',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0wHGgVFT6rzW9LTwwv7X6NrnbKVMJRLqg8nNK7sh1xVVr8kPcQpfcQpRCktSW12mBl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0wHGgVFT6rzW9LTwwv7X6NrnbKVMJRLqg8nNK7sh1xVVr8kPcQpfcQpRCktSW12mBl&id=61587817198306'),
-      height: 250,
-    },
-    {
-      id: 'fb-05',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0aoimJg6ucJ3aPQi7NqoJ7i9sievg1PkGFrTvFo36Wz8LBAA6htwEGsWzNZcSUy1vl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0aoimJg6ucJ3aPQi7NqoJ7i9sievg1PkGFrTvFo36Wz8LBAA6htwEGsWzNZcSUy1vl&id=61587817198306'),
-      height: 638,
-    },
-    {
-      id: 'fb-06',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02BgWZcVJYsbeJbZE4kyogrVQPRZCGsdtxJgBTrhwtgDyoPdzaQnxSrH9aP8STmHTEl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02BgWZcVJYsbeJbZE4kyogrVQPRZCGsdtxJgBTrhwtgDyoPdzaQnxSrH9aP8STmHTEl&id=61587817198306'),
-      height: 638,
-    },
-    {
-      id: 'fb-07',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0oXeqUsCxmMoMUjTT8s5A4BVzVf3TJR8FvSKy5ENseKJUZzzxDrEqzfWEWpRBe6c1l&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0oXeqUsCxmMoMUjTT8s5A4BVzVf3TJR8FvSKy5ENseKJUZzzxDrEqzfWEWpRBe6c1l&id=61587817198306'),
-      height: 612,
-    },
-    {
-      id: 'fb-08',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0NY7BWrcLWnRHjqXbXqXvZq7WsQ9kgo1GYYnL7gQTKqNLHWeNTtwYh3nZnNUe7Zmyl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0NY7BWrcLWnRHjqXbXqXvZq7WsQ9kgo1GYYnL7gQTKqNLHWeNTtwYh3nZnNUe7Zmyl&id=61587817198306'),
-      height: 592,
-    },
-    {
-      id: 'fb-09',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0XxA8yRvaCiJU2M3fHTwHW2wHFUAJiXqByhxxAhgCXVP3RtZVEAKpjWKCZuo62HL1l&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0XxA8yRvaCiJU2M3fHTwHW2wHFUAJiXqByhxxAhgCXVP3RtZVEAKpjWKCZuo62HL1l&id=61587817198306'),
-      height: 612,
-    },
-    {
-      id: 'fb-10',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02k3Ps4JYBzQFCRTk8af8QH2SAraBXP8d96ces3VDoYhNE91KwuCM4Q6uCUGFEXwyyl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02k3Ps4JYBzQFCRTk8af8QH2SAraBXP8d96ces3VDoYhNE91KwuCM4Q6uCUGFEXwyyl&id=61587817198306'),
-      height: 622,
-    },
-    {
-      id: 'fb-11',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid06ybVTF7vJoyNaRkDEM3bSBbUzvDF6N3PBWfsLvvGKYJFZ6wHgqhNoTJZ9FMzf1ktl&id=61587817198306',
-      embedEnabled: false,
-    },
-    {
-      id: 'fb-12',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0q38YYSPYEApkCFkF4JzF37jcjsQxRAaa9w1h8edgA4dZj6CiEL6kn6tgpMXdWVbMl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0q38YYSPYEApkCFkF4JzF37jcjsQxRAaa9w1h8edgA4dZj6CiEL6kn6tgpMXdWVbMl&id=61587817198306'),
-      height: 230,
-    },
-    {
-      id: 'fb-13',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0xktgc9AQhnfaVehjkD44sAi5Mk15Lrmsg7EBJDCMxxWeq3NVoRZ6ioK4ipE7Ehw9l&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0xktgc9AQhnfaVehjkD44sAi5Mk15Lrmsg7EBJDCMxxWeq3NVoRZ6ioK4ipE7Ehw9l&id=61587817198306'),
-      height: 526,
-    },
-    {
-      id: 'fb-14',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0me1K9PTEgSdFTZdyJTsAxPZZ1RkhXmiZco6Ju7A9y336oLan81yA5pX86cU2xugjl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0me1K9PTEgSdFTZdyJTsAxPZZ1RkhXmiZco6Ju7A9y336oLan81yA5pX86cU2xugjl&id=61587817198306'),
-      height: 512,
-    },
-    {
-      id: 'fb-15',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid086uLNST9UNKXz4phXgrKn1R5m5oKBnrGagxdB4q3nyknDo23Poc7KeREZQVKwuPMl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid086uLNST9UNKXz4phXgrKn1R5m5oKBnrGagxdB4q3nyknDo23Poc7KeREZQVKwuPMl&id=61587817198306'),
-      height: 618,
-    },
-    {
-      id: 'fb-16',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02UNSTQjX51cwBYv3MSoF62prLJjqQzSJ5UUDRm3FwxMZP5soARy92bSdGJPPpwo11l&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02UNSTQjX51cwBYv3MSoF62prLJjqQzSJ5UUDRm3FwxMZP5soARy92bSdGJPPpwo11l&id=61587817198306'),
-      height: 684,
-    },
-    {
-      id: 'fb-17',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0ihkPf8jtsXjtZ8P6LcHCBN1iL7s7doC8dMYpzesXsSS9wLttzPuKFqWyuBAfWSmul&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0ihkPf8jtsXjtZ8P6LcHCBN1iL7s7doC8dMYpzesXsSS9wLttzPuKFqWyuBAfWSmul&id=61587817198306'),
-      height: 618,
-    },
-    {
-      id: 'fb-18',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid028o6MWjrT3DwPsewjSuujaAofNZTj7ghbHF7vwWUKzdTjd9dzdePavz3oR9tcjTNml&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid028o6MWjrT3DwPsewjSuujaAofNZTj7ghbHF7vwWUKzdTjd9dzdePavz3oR9tcjTNml&id=61587817198306'),
-      height: 680,
-    },
-    {
-      id: 'fb-19',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0zeKjf6XPePD5kiXSWQC5zEcgw7hz7ScPfvx3Tw4DAdMssyUG2f6vwQfbppbjf65tl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0zeKjf6XPePD5kiXSWQC5zEcgw7hz7ScPfvx3Tw4DAdMssyUG2f6vwQfbppbjf65tl&id=61587817198306'),
-      height: 680,
-    },
-    {
-      id: 'fb-20',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid036S2zN7KXrw8EpG4vrxeW9LtFmoXYcMGcecp314iKG51EeLUfLsqNz1UBH62pYBcnl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid036S2zN7KXrw8EpG4vrxeW9LtFmoXYcMGcecp314iKG51EeLUfLsqNz1UBH62pYBcnl&id=61587817198306'),
-      height: 599,
-    },
-    {
-      id: 'fb-21',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0DsCW3vTBmZ6zfY4wHe8ecYkuadRy1YRYjSeknrZigBMEcjCNP9ytT5sCPCU9MFNBl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0DsCW3vTBmZ6zfY4wHe8ecYkuadRy1YRYjSeknrZigBMEcjCNP9ytT5sCPCU9MFNBl&id=61587817198306'),
-      height: 580,
-    },
-    {
-      id: 'fb-22',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02z7R8Hkg7KujfrfoR2NPyPzapNSenNx1P6TzKPsUMkNMm9mFkUDa9b7qqiwJoeX3Tl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02z7R8Hkg7KujfrfoR2NPyPzapNSenNx1P6TzKPsUMkNMm9mFkUDa9b7qqiwJoeX3Tl&id=61587817198306'),
-      height: 583,
-    },
-    {
-      id: 'fb-23',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0zX1PszEh8AeVAu7TdMQwYqLeaPNCTuZaHFv9SeLc8F77paVpZMqFF2CKPBxNCbdrl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0zX1PszEh8AeVAu7TdMQwYqLeaPNCTuZaHFv9SeLc8F77paVpZMqFF2CKPBxNCbdrl&id=61587817198306'),
-      height: 599,
-    },
-    {
-      id: 'fb-24',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0vs9M2Q62KdihZyeuwsrURmn2hWs8zibszoFB1nARgfMQNnTFapnGufgg4qR3o96Vl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0vs9M2Q62KdihZyeuwsrURmn2hWs8zibszoFB1nARgfMQNnTFapnGufgg4qR3o96Vl&id=61587817198306'),
-      height: 619,
-    },
-    {
-      id: 'fb-25',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0YvC6VLY55zKGLdx53w5HdQtpEU4iCdPQH8sBA3Mj8r1JU9fFQ62nvX8BQYkwLUcnl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0YvC6VLY55zKGLdx53w5HdQtpEU4iCdPQH8sBA3Mj8r1JU9fFQ62nvX8BQYkwLUcnl&id=61587817198306'),
-      height: 613,
-    },
-    {
-      id: 'fb-26',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0365qVCg1Y2e6SdeioUDoqM8V5RNWXVTGxs3m22eoa8LJzeebd6XEcZWkTytiTKMb9l&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0365qVCg1Y2e6SdeioUDoqM8V5RNWXVTGxs3m22eoa8LJzeebd6XEcZWkTytiTKMb9l&id=61587817198306'),
-      height: 787,
-    },
-    {
-      id: 'fb-27',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0xxNLoq84VauFVFSzkwbitQQHDPcqUKjUV3XZZsxoJwNc1xUzzjxSqbJ3Myz1SzvHl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0xxNLoq84VauFVFSzkwbitQQHDPcqUKjUV3XZZsxoJwNc1xUzzjxSqbJ3Myz1SzvHl&id=61587817198306'),
-      height: 618,
-    },
-    {
-      id: 'fb-28',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02VkidLsKdqC3D8ap2aAgcFrmFtUGFsW3dp92nZL9t1vSp66evk8sKkRj5SHmfJiDWl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02VkidLsKdqC3D8ap2aAgcFrmFtUGFsW3dp92nZL9t1vSp66evk8sKkRj5SHmfJiDWl&id=61587817198306'),
-      height: 613,
-    },
-    {
-      id: 'fb-29',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0vBcRKW9ovzVbD498Egjk4DqUoGqoFedXRfJLBwVaFy2w89NZCevpeFrhLVJHbEmpl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0vBcRKW9ovzVbD498Egjk4DqUoGqoFedXRfJLBwVaFy2w89NZCevpeFrhLVJHbEmpl&id=61587817198306'),
-      height: 609,
-    },
-    {
-      id: 'fb-30',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0NvBsj5meM1gFFLiQHJeRJDvG1JPLeRgV3nQvbdHDTit59opkTYwXEcqxB3xrd9q8l&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0NvBsj5meM1gFFLiQHJeRJDvG1JPLeRgV3nQvbdHDTit59opkTYwXEcqxB3xrd9q8l&id=61587817198306'),
-      height: 618,
-    },
-    {
-      id: 'fb-31',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid031gJABnCdK19uvs7buYDv6JGY8i7XyEvPLTn8sKrBSWDbca71M1zEiGEea4L5HwQ8l&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid031gJABnCdK19uvs7buYDv6JGY8i7XyEvPLTn8sKrBSWDbca71M1zEiGEea4L5HwQ8l&id=61587817198306'),
-      height: 606,
-    },
-    {
-      id: 'fb-32',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02eZwa8SEBXB8D87BQMHfM49CH18AFZMZFZjUmRxrR8ef3Gd8YrmXhSkHzBzvuj8E5l&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02eZwa8SEBXB8D87BQMHfM49CH18AFZMZFZjUmRxrR8ef3Gd8YrmXhSkHzBzvuj8E5l&id=61587817198306'),
-      height: 638,
-    },
-    {
-      id: 'fb-33',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid08W5LyTX6kChd7ZgVjs2MBdo4ThSgK1LbRrC4wSdd1eFzSWsABdLaEQDCvbArMJPVl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid08W5LyTX6kChd7ZgVjs2MBdo4ThSgK1LbRrC4wSdd1eFzSWsABdLaEQDCvbArMJPVl&id=61587817198306'),
-      height: 493,
-    },
-    {
-      id: 'fb-34',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid024E4M9yckzEsiuFa9yaTDsV5ukeV8QTSoRHR3wZMGPfG1SMxiugUV8akUHEw8da86l&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid024E4M9yckzEsiuFa9yaTDsV5ukeV8QTSoRHR3wZMGPfG1SMxiugUV8akUHEw8da86l&id=61587817198306'),
-      height: 531,
-    },
-    {
-      id: 'fb-35',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02A1fJWmvBsB2WJFBVVFtQRLjAQYgX6SW4MKkbZb5i2hfCPQuJxGV3kiDEmAS9xBAHl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02A1fJWmvBsB2WJFBVVFtQRLjAQYgX6SW4MKkbZb5i2hfCPQuJxGV3kiDEmAS9xBAHl&id=61587817198306'),
-      height: 575,
-    },
-    {
-      id: 'fb-36',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02EnWTvYAsHSf73tQRyygbM3iSNjpXSaNDg1WHMQrShYzfLaYWjukkZREvLi8Rr3Cdl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02EnWTvYAsHSf73tQRyygbM3iSNjpXSaNDg1WHMQrShYzfLaYWjukkZREvLi8Rr3Cdl&id=61587817198306'),
-      height: 538,
-    },
-    {
-      id: 'fb-37',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0gUaQjK53nZ5CVNDRvKYFddqvPBnrN61nYbuVwBsQrpYp8WT9MSfZbdDMJcY5a4jml&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0gUaQjK53nZ5CVNDRvKYFddqvPBnrN61nYbuVwBsQrpYp8WT9MSfZbdDMJcY5a4jml&id=61587817198306'),
-      height: 612,
-    },
-    {
-      id: 'fb-38',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0WrQPDUcvtUsrSSpa7C1T9FKJ2gL9i5LzWCgr46ZYRtfd1bsVVbuDHKaGTo8AyyMWl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0WrQPDUcvtUsrSSpa7C1T9FKJ2gL9i5LzWCgr46ZYRtfd1bsVVbuDHKaGTo8AyyMWl&id=61587817198306'),
-      height: 586,
-    },
-    {
-      id: 'fb-39',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0wevHX1zKNZmNt9koovmxgjyqvGmDiRrZe8TSKpm3QvaqeaJnuFzYJHu8qjybMreJl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0wevHX1zKNZmNt9koovmxgjyqvGmDiRrZe8TSKpm3QvaqeaJnuFzYJHu8qjybMreJl&id=61587817198306'),
-      height: 793,
-    },
-    {
-      id: 'fb-40',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0jRvkMJFSQ3EAnKE72N9SFKKKe4d9qG6X8Kn13KU1DUrScs5vZfF8WaLUoTAbVPEfl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0jRvkMJFSQ3EAnKE72N9SFKKKe4d9qG6X8Kn13KU1DUrScs5vZfF8WaLUoTAbVPEfl&id=61587817198306'),
-      height: 547,
-    },
-    {
-      id: 'fb-41',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0uJxFMvz1Pk1WM1qbCXhrYvmvPqm4RK71p2xLRjqPDY87FFNwpt311VzY6ekBaYyHl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0uJxFMvz1Pk1WM1qbCXhrYvmvPqm4RK71p2xLRjqPDY87FFNwpt311VzY6ekBaYyHl&id=61587817198306'),
-      height: 554,
-    },
-    {
-      id: 'fb-42',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0k7FECuS1VGSirrFd4QJ4jiDiNdXN4W6ddYp9nj5wBkfuaqSAbozc5JfNe4pY5Zibl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0k7FECuS1VGSirrFd4QJ4jiDiNdXN4W6ddYp9nj5wBkfuaqSAbozc5JfNe4pY5Zibl&id=61587817198306'),
-      height: 618,
-    },
-    {
-      id: 'fb-43',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0nVWLGiZneHn1EzsYRQzKrYKBJPEesZYbPAYNcb3QmEQ38phMGRUQ1ggz9fjh7Jwfl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0nVWLGiZneHn1EzsYRQzKrYKBJPEesZYbPAYNcb3QmEQ38phMGRUQ1ggz9fjh7Jwfl&id=61587817198306'),
-      height: 573,
-    },
-    {
-      id: 'fb-44',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02s1Vz9hGxNQBQkFqijnV73sVhnpZRZGz8fo3VRTs2MeEEvKKfKkYDdz1LzNWhfzLxl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02s1Vz9hGxNQBQkFqijnV73sVhnpZRZGz8fo3VRTs2MeEEvKKfKkYDdz1LzNWhfzLxl&id=61587817198306'),
-      height: 554,
-    },
-    {
-      id: 'fb-45',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02wd5DHhXhpvdNES4b6JC72JsSV1nKcdjoU9SziEyQZp7jpc7Kq4wqNuo3vgsV4jDBl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02wd5DHhXhpvdNES4b6JC72JsSV1nKcdjoU9SziEyQZp7jpc7Kq4wqNuo3vgsV4jDBl&id=61587817198306'),
-      height: 297,
-    },
-    {
-      id: 'fb-46',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0382gHV5bAmUpuspfMrVyAFN1hNQP9o2xgePz38Uv3fcPzXpAjprGaYrcvPjcXJumyl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0382gHV5bAmUpuspfMrVyAFN1hNQP9o2xgePz38Uv3fcPzXpAjprGaYrcvPjcXJumyl&id=61587817198306'),
-      height: 316,
-    },
-    {
-      id: 'fb-47',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02guGYXF1fqHhYtxrLPiEDLWxqEjDUegftpz9ew4xV87R6dV7FZvmQ84Y57nhKgtiWl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02guGYXF1fqHhYtxrLPiEDLWxqEjDUegftpz9ew4xV87R6dV7FZvmQ84Y57nhKgtiWl&id=61587817198306'),
-      height: 612,
-    },
-    {
-      id: 'fb-48',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0wtaj7hbs5x6xpaTkFVs7EkdLiGCUhJMRgCQA2XSdKEoKepmonXSaAr4rCdmKEyS6l&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid0wtaj7hbs5x6xpaTkFVs7EkdLiGCUhJMRgCQA2XSdKEoKepmonXSaAr4rCdmKEyS6l&id=61587817198306'),
-      height: 554,
-    },
-    {
-      id: 'fb-49',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02zoXer1H3qx2VmiRj2khPC7iUohMTH9yjCcXKNCB3xZ6Qy8VQCfiDS8R5ZGDCSrNzl&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02zoXer1H3qx2VmiRj2khPC7iUohMTH9yjCcXKNCB3xZ6Qy8VQCfiDS8R5ZGDCSrNzl&id=61587817198306'),
-      height: 419,
-    },
-    {
-      id: 'fb-50',
-      url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02BABjjuDfJvqDbUxbUqXJUGne6tDgimx7PDbMogbYWi27pMu21z3HQQJFjSiinWj2l&id=61587817198306',
-      src: toFacebookEmbedSrc('https://www.facebook.com/permalink.php?story_fbid=pfbid02BABjjuDfJvqDbUxbUqXJUGne6tDgimx7PDbMogbYWi27pMu21z3HQQJFjSiinWj2l&id=61587817198306'),
-      height: 567,
-    },
-  ];
-  const [activeFacebookIndex, setActiveFacebookIndex] = useState(facebookPosts.length - 1);
-  const activeFacebookPost = facebookPosts[activeFacebookIndex] ?? facebookPosts[facebookPosts.length - 1];
-  const prevFacebookPost = () => setActiveFacebookIndex((index) => (index - 1 + facebookPosts.length) % facebookPosts.length);
-  const nextFacebookPost = () => setActiveFacebookIndex((index) => (index + 1) % facebookPosts.length);
+  const facebookPageUrl = 'https://www.facebook.com/61587817198306';
+  const FACEBOOK_EMBED_HEIGHT = isDesktopViewport ? 900 : 780;
+  const facebookTimelineSrc =
+    `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(facebookPageUrl)}&tabs=timeline&width=500&height=${FACEBOOK_EMBED_HEIGHT}&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false`;
 
 
   return (
@@ -2205,73 +1899,32 @@ export default function App() {
             <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8">
               <div className="flex justify-center">
                 <div className="w-full max-w-[500px] rounded-lg overflow-hidden bg-white shadow-md">
-                  {activeFacebookPost?.embedEnabled !== false && activeFacebookPost?.src ? (
-                    <iframe
-                      src={activeFacebookPost.src}
-                      title={`Facebook post ${activeFacebookIndex + 1}`}
-                      width="100%"
-                      height={FACEBOOK_EMBED_HEIGHT}
-                      className="block w-full mx-auto"
-                      style={{ border: 'none', overflow: 'hidden' }}
-                      scrolling="no"
-                      allowFullScreen={true}
-                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                    />
-                  ) : (
-                    <div className="min-h-[320px] flex flex-col items-center justify-center text-center px-6 py-10 bg-gray-50">
-                      <Facebook className="w-10 h-10 text-[#2d5016] mb-4" />
-                      <p className="text-gray-700 font-semibold mb-2">
-                        Facebook omezuje náhled tohoto příspěvku.
-                      </p>
-                      <p className="text-sm text-gray-600 mb-6">
-                        Otevřete jej přímo na Facebooku.
-                      </p>
-                      <a
-                        href={activeFacebookPost.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 bg-[#2d5016] hover:bg-[#3d6a1f] text-white px-4 py-2.5 rounded-full font-semibold transition-colors"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        Otevřít příspěvek na Facebooku
-                      </a>
-                    </div>
-                  )}
+                  <iframe
+                    src={facebookTimelineSrc}
+                    title="Aktuality z Facebook stránky Les u Kožovky"
+                    width="100%"
+                    height={FACEBOOK_EMBED_HEIGHT}
+                    className="block w-full mx-auto"
+                    style={{ border: 'none', overflow: 'hidden' }}
+                    scrolling="yes"
+                    allowFullScreen={true}
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  />
                 </div>
-              </div>
-
-              <div className="mt-5 flex items-center justify-center gap-4">
-                <button
-                  onClick={prevFacebookPost}
-                  aria-label="Předchozí Facebook post"
-                  className="w-10 h-10 rounded-full bg-gray-100 text-[#2d5016] shadow hover:bg-gray-200 transition-colors"
-                >
-                  ‹
-                </button>
-                <span className="text-sm font-medium text-gray-600 min-w-[96px] text-center">
-                  {activeFacebookIndex + 1} / {facebookPosts.length}
-                </span>
-                <button
-                  onClick={nextFacebookPost}
-                  aria-label="Další Facebook post"
-                  className="w-10 h-10 rounded-full bg-gray-100 text-[#2d5016] shadow hover:bg-gray-200 transition-colors"
-                >
-                  ›
-                </button>
               </div>
 
               <div className="mt-4 text-center">
                 <p className="text-sm text-gray-600 mb-2">
-                  Příspěvky jsou spravované ručně a řazené od nejstaršího po nejnovější.
+                  Nové příspěvky se načítají automaticky přímo z Facebook stránky.
                 </p>
                 <a
-                  href={activeFacebookPost.url}
+                  href={facebookPageUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-[#2d5016] font-semibold hover:underline"
                 >
                   <ExternalLink className="w-4 h-4" />
-                  Otevřít aktuální příspěvek
+                  Otevřít Facebook stránku
                 </a>
               </div>
             </div>
