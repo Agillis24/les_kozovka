@@ -43,7 +43,7 @@ Tento web vznikl jako reakce na **opakovanou černou skládku a nelegální poby
 
 ### 🔄 Automatické aktuality z Facebooku
 
-Sekce „Aktuality z Facebooku" se načítá automaticky přes Facebook Page Plugin (timeline), bez potřeby Graph API tokenů.
+Sekce „Aktuality z Facebooku" se načítá automaticky z JSON feedu synchronizovaného přes Facebook Graph API a GitHub Actions.
 
 Kompletní nastavení je popsáno v [FACEBOOK-AUTO-SYNC.md](./FACEBOOK-AUTO-SYNC.md).
 

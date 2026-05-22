@@ -33,12 +33,22 @@ import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import { Gallery } from './components/Gallery';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './components/ui/accordion';
 
+type FacebookPost = {
+  id: string;
+  message: string;
+  permalinkUrl: string;
+  createdTime: string;
+  image?: string;
+};
+
 export default function App() {
   const forestWasteImage = '/forest-waste.png';
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showFloatingButton, setShowFloatingButton] = useState(true);
   const [useHeroFallback, setUseHeroFallback] = useState(false);
-  const [isDesktopViewport, setIsDesktopViewport] = useState(false);
+  const [facebookPosts, setFacebookPosts] = useState<FacebookPost[]>([]);
+  const [facebookLoading, setFacebookLoading] = useState(true);
+  const [facebookLoadError, setFacebookLoadError] = useState<string | null>(null);
 
   const heroImageDesktop = 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?fit=crop&w=1920&q=80';
   const heroImageMobile = 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?fit=crop&w=900&q=75';
@@ -62,10 +72,37 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const updateViewport = () => setIsDesktopViewport(window.innerWidth >= 768);
-    updateViewport();
-    window.addEventListener('resize', updateViewport);
-    return () => window.removeEventListener('resize', updateViewport);
+    let isMounted = true;
+
+    const loadFacebookPosts = async () => {
+      try {
+        setFacebookLoading(true);
+        const response = await fetch('/data/facebook-posts.json', { cache: 'no-store' });
+        if (!response.ok) {
+          throw new Error(`Nepodarilo se nacist Facebook data (HTTP ${response.status})`);
+        }
+
+        const data = await response.json() as { posts?: FacebookPost[] };
+        if (isMounted) {
+          setFacebookPosts(Array.isArray(data.posts) ? data.posts : []);
+          setFacebookLoadError(null);
+        }
+      } catch (error) {
+        if (isMounted) {
+          setFacebookPosts([]);
+          setFacebookLoadError(error instanceof Error ? error.message : 'Nepodarilo se nacist Facebook data');
+        }
+      } finally {
+        if (isMounted) {
+          setFacebookLoading(false);
+        }
+      }
+    };
+
+    loadFacebookPosts();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const scrollToSection = (id: string) => {
@@ -97,9 +134,6 @@ export default function App() {
   const prevPage = () => setCurrentPage(p => (p - 1 + totalPages) % totalPages);
   const nextPage = () => setCurrentPage(p => (p + 1) % totalPages);
   const facebookPageUrl = 'https://www.facebook.com/61587817198306';
-  const FACEBOOK_EMBED_HEIGHT = isDesktopViewport ? 900 : 780;
-  const facebookTimelineSrc =
-    `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(facebookPageUrl)}&tabs=timeline&width=500&height=${FACEBOOK_EMBED_HEIGHT}&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false`;
 
 
   return (
@@ -1895,40 +1929,64 @@ export default function App() {
             <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
           </h2>
 
-          <div className="max-w-2xl mx-auto">
-            <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8">
-              <div className="flex justify-center">
-                <div className="w-full max-w-[500px] rounded-lg overflow-hidden bg-white shadow-md">
-                  <iframe
-                    src={facebookTimelineSrc}
-                    title="Aktuality z Facebook stránky Les u Kožovky"
-                    width="100%"
-                    height={FACEBOOK_EMBED_HEIGHT}
-                    className="block w-full mx-auto"
-                    style={{ border: 'none', overflow: 'hidden' }}
-                    scrolling="yes"
-                    allowFullScreen={true}
-                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                  />
-                </div>
-              </div>
-
-              <div className="mt-4 text-center">
-                <p className="text-sm text-gray-600 mb-2">
-                  Nové příspěvky se načítají automaticky přímo z Facebook stránky.
-                </p>
-                <a
-                  href={facebookPageUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-[#2d5016] font-semibold hover:underline"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  Otevřít Facebook stránku
-                </a>
-              </div>
+          {facebookLoading ? (
+            <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8 text-center">
+              <p className="text-gray-600">Nacitam posledni prispevky z Facebooku...</p>
             </div>
-          </div>
+          ) : facebookPosts.length > 0 ? (
+            <div className="grid md:grid-cols-2 gap-6">
+              {facebookPosts.map((post) => (
+                <article key={post.id} className="bg-white rounded-xl shadow-lg overflow-hidden">
+                  {post.image && (
+                    <img
+                      src={post.image}
+                      alt="Nahled prispevku z Facebooku"
+                      loading="lazy"
+                      className="w-full h-56 object-cover"
+                    />
+                  )}
+                  <div className="p-6">
+                    <p className="text-xs uppercase tracking-wide text-gray-500 mb-3">
+                      {new Date(post.createdTime).toLocaleDateString('cs-CZ', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
+                      })}
+                    </p>
+                    <p className="text-gray-700 leading-relaxed line-clamp-6">
+                      {post.message || 'Prispevek bez textu'}
+                    </p>
+                    <a
+                      href={post.permalinkUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 mt-4 text-[#2d5016] font-semibold hover:underline"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      Otevrit prispevek na Facebooku
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8 text-center">
+              <Facebook className="w-10 h-10 text-[#2d5016] mx-auto mb-4" />
+              <p className="text-gray-700 font-semibold mb-2">Facebook prispevky se nepodarilo nacist.</p>
+              <p className="text-sm text-gray-600 mb-4">
+                {facebookLoadError ? 'Duvod: ' + facebookLoadError : 'Zkuste to prosim pozdeji.'}
+              </p>
+              <a
+                href={facebookPageUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-[#2d5016] font-semibold hover:underline"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Otevrit Facebook stranku
+              </a>
+            </div>
+          )}
         </div>
       </section>
 
