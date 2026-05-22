@@ -124,16 +124,6 @@ Po prvním push na větev `main` se automaticky spustí GitHub Actions:
 
 ---
 
-## 📘 Automatická synchronizace „Aktuality z Facebooku"
-
-Sekce „Aktuality z Facebooku" běží automaticky přes vloženou timeline Facebook stránky (Facebook Page Plugin).
-
-Není potřeba nastavovat žádné Facebook API secrets ani variables v GitHub Actions.
-
-Detailní postup je v [FACEBOOK-AUTO-SYNC.md](./FACEBOOK-AUTO-SYNC.md).
-
----
-
 ## 🔍 Krok 5: Google Search Console
 
 ### Přidání webu do Google Search Console

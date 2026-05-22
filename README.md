@@ -41,12 +41,6 @@ Tento web vznikl jako reakce na **opakovanou černou skládku a nelegální poby
 - **Hosting:** GitHub Pages
 - **CI/CD:** GitHub Actions
 
-### 🔄 Automatické aktuality z Facebooku
-
-Sekce „Aktuality z Facebooku" se načítá automaticky z JSON feedu synchronizovaného přes Facebook Graph API a GitHub Actions.
-
-Kompletní nastavení je popsáno v [FACEBOOK-AUTO-SYNC.md](./FACEBOOK-AUTO-SYNC.md).
-
 ---
 
 ## 🚀 Lokální vývoj
