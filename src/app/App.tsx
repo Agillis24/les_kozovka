@@ -41,6 +41,12 @@ type FacebookPost = {
   image?: string;
 };
 
+type FacebookFeedResponse = {
+  source?: string;
+  generatedAt?: string | null;
+  posts?: FacebookPost[];
+};
+
 export default function App() {
   const forestWasteImage = '/forest-waste.png';
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,6 +55,7 @@ export default function App() {
   const [facebookPosts, setFacebookPosts] = useState<FacebookPost[]>([]);
   const [facebookLoading, setFacebookLoading] = useState(true);
   const [facebookLoadError, setFacebookLoadError] = useState<string | null>(null);
+  const [facebookFeedGeneratedAt, setFacebookFeedGeneratedAt] = useState<string | null>(null);
 
   const heroImageDesktop = 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?fit=crop&w=1920&q=80';
   const heroImageMobile = 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?fit=crop&w=900&q=75';
@@ -77,19 +84,42 @@ export default function App() {
     const loadFacebookPosts = async () => {
       try {
         setFacebookLoading(true);
-        const response = await fetch('/data/facebook-posts.json', { cache: 'no-store' });
-        if (!response.ok) {
-          throw new Error(`Nepodarilo se nacist Facebook data (HTTP ${response.status})`);
+        setFacebookLoadError(null);
+
+        const feedUrls = [
+          '/data/facebook-posts.json',
+          './data/facebook-posts.json',
+        ];
+
+        let payload: FacebookFeedResponse | null = null;
+
+        for (const url of feedUrls) {
+          const response = await fetch(`${url}?ts=${Date.now()}`, { cache: 'no-store' });
+          if (!response.ok) {
+            continue;
+          }
+
+          payload = await response.json() as FacebookFeedResponse;
+          break;
         }
 
-        const data = await response.json() as { posts?: FacebookPost[] };
+        if (!payload) {
+          throw new Error('Nepodarilo se najit datovy soubor facebook-posts.json.');
+        }
+
+        const posts = Array.isArray(payload.posts) ? payload.posts : [];
+
         if (isMounted) {
-          setFacebookPosts(Array.isArray(data.posts) ? data.posts : []);
-          setFacebookLoadError(null);
+          setFacebookPosts(posts);
+          setFacebookFeedGeneratedAt(payload.generatedAt ?? null);
+          if (posts.length === 0) {
+            setFacebookLoadError('Feed je zatim prazdny. Synchronizace z Facebooku pravdepodobne jeste neprobehla.');
+          }
         }
       } catch (error) {
         if (isMounted) {
           setFacebookPosts([]);
+          setFacebookFeedGeneratedAt(null);
           setFacebookLoadError(error instanceof Error ? error.message : 'Nepodarilo se nacist Facebook data');
         }
       } finally {
@@ -1976,6 +2006,11 @@ export default function App() {
               <p className="text-sm text-gray-600 mb-4">
                 {facebookLoadError ? 'Duvod: ' + facebookLoadError : 'Zkuste to prosim pozdeji.'}
               </p>
+              {!facebookFeedGeneratedAt && (
+                <p className="text-sm text-gray-600 mb-4">
+                  Pokud jste spravce webu, nastavte GitHub Secrets FB_PAGE_ID a FB_PAGE_ACCESS_TOKEN a spustte workflow Sync Facebook Posts.
+                </p>
+              )}
               <a
                 href={facebookPageUrl}
                 target="_blank"
