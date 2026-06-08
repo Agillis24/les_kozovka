@@ -1107,6 +1107,11 @@ export default function App() {
               name: 'Žádost o informace č. 7',
               url: 'https://drive.google.com/file/d/1LrFjnhdBn6G68YFdEqPR820NWBE_oaR9/view?usp=drive_link',
               date: 'Květen 2026'
+            },
+            {
+              name: 'Odpověď na žádost o informace č. 7',
+              url: 'https://drive.google.com/file/d/1gSs1mqDHBpP446WWKsLX16qDsN5l8S4R/view?usp=drive_link',
+              date: 'Červen 2027'
             }
           ]
         },
