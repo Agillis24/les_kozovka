@@ -1590,6 +1590,43 @@ export default function App() {
 
     <Accordion type="multiple" className="space-y-4">
 
+      {/* ── Nový dokument ── */}
+      <AccordionItem value="dokument-odpoved-2026-07-20" className="bg-white rounded-lg shadow-lg border-0 overflow-hidden">
+        <AccordionTrigger className="px-8 py-5 hover:no-underline hover:bg-gray-50 [&>svg]:text-[#4a7c2c]">
+          <div className="flex items-center gap-4 text-left">
+            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#4a7c2c] text-white flex items-center justify-center font-bold text-lg">
+              4
+            </div>
+            <div>
+              <div className="font-bold text-[#2d5016] text-lg">Odpověď Odboru životního prostředí – 20. 07. 2026</div>
+              <div className="text-sm text-gray-500">Magistrát města Kladna, Odbor životního prostředí · nejnovější dokument</div>
+            </div>
+          </div>
+        </AccordionTrigger>
+        <AccordionContent className="px-8 pb-8">
+          <div className="bg-gradient-to-r from-[#2d5016] to-[#4a7c2c] p-6 rounded-lg shadow-lg text-white mb-6">
+            <div className="flex items-start gap-4">
+              <Gavel className="w-7 h-7 flex-shrink-0 mt-1" />
+              <div>
+                <h3 className="text-xl font-bold mb-2">Odpověď doručena dne 20. 07. 2026</h3>
+                <p className="opacity-95 leading-relaxed mb-4">
+                  Zveřejněna je odpověď Odboru životního prostředí Magistrátu města Kladna jako nejnovější dokument v této sekci.
+                </p>
+                <a
+                  href="https://drive.google.com/file/d/10ZlAzCSr9bjgiJMniYQ9RqtvwEt1LOHE/view?usp=drive_link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 bg-white text-[#2d5016] px-5 py-2.5 rounded-full font-bold hover:bg-gray-100 transition-all shadow-lg text-sm"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Zobrazit dokument
+                </a>
+              </div>
+            </div>
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+
       {/* ── Podnět č. 3 ── */}
       <AccordionItem value="podnet-3" className="bg-white rounded-lg shadow-lg border-0 overflow-hidden">
         <AccordionTrigger className="px-8 py-5 hover:no-underline hover:bg-gray-50 [&>svg]:text-[#4a7c2c]">
@@ -1633,12 +1670,6 @@ export default function App() {
             <ul className="space-y-2 text-gray-700 text-sm list-disc pl-5">
               <li>Magistrát města Kladna, Odbor ŽP</li>
             </ul>
-          </div>
-
-          {/* Odpovědi */}
-          <div className="bg-gray-50 p-6 rounded-lg">
-            <h4 className="text-lg font-bold text-[#2d5016] mb-3">Odpovědi na podnět č. 3</h4>
-            <p className="text-gray-500 italic text-sm">Zatím nebyly obdrženy žádné odpovědi. Odpovědi budeme průběžně zveřejňovat.</p>
           </div>
         </AccordionContent>
       </AccordionItem>
@@ -1694,12 +1725,6 @@ export default function App() {
               <li>Kontrolní výbor Zastupitelstva města Kladna</li>
               <li>Benediktinské arciopatství sv. Vojtěcha a sv. Markéty v Praze, Markétská 1/28, 169 00 Praha 6-Břevnov, IČO: 00408344, datová schránka: 7y4eg43</li>
             </ul>
-          </div>
-
-          {/* Odpovědi */}
-          <div className="bg-gray-50 p-6 rounded-lg">
-            <h4 className="text-lg font-bold text-[#2d5016] mb-3">Odpovědi na podnět č. 2</h4>
-            <p className="text-gray-500 italic text-sm">Zatím nebyly obdrženy žádné odpovědi. Odpovědi budeme průběžně zveřejňovat.</p>
           </div>
         </AccordionContent>
       </AccordionItem>
