@@ -1636,7 +1636,7 @@ export default function App() {
             </div>
             <div>
               <div className="font-bold text-[#2d5016] text-lg">Podnět č. 3 – 19. 05. 2026</div>
-              <div className="text-sm text-gray-500">Magistrát města Kladna, Odbor ŽP · čeká se na odpovědi</div>
+              <div className="text-sm text-gray-500">Magistrát města Kladna, Odbor ŽP</div>
             </div>
           </div>
         </AccordionTrigger>
@@ -1683,7 +1683,7 @@ export default function App() {
             </div>
             <div>
               <div className="font-bold text-[#2d5016] text-lg">Podnět č. 2 – 11. 05. 2026</div>
-              <div className="text-sm text-gray-500">Magistrát města Kladna, Odbor ŽP · čeká se na odpovědi</div>
+              <div className="text-sm text-gray-500">Magistrát města Kladna, Odbor ŽP</div>
             </div>
           </div>
         </AccordionTrigger>
