@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import {
   TreePine,
   Eye,
@@ -22,19 +22,45 @@ import {
   PenLine,
   AlertTriangle,
   Download,
-  FileDown,    // ← PŘIDEJTE TUTO ŘÁDKU
+  FileDown,
   ExternalLink,
   Gavel,
   Image,
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
-import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
-import { Gallery } from './components/Gallery';
+import { LiteYouTube } from './components/LiteYouTube';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './components/ui/accordion';
 
+const LocationMap = lazy(() => import('./components/LocationMap'));
+
+const NAV_ITEMS: { label: string; id: string }[] = [
+  { label: 'Úvod', id: 'home' },
+  { label: 'O problému', id: 'problem' },
+  { label: 'Podporovatelé', id: 'supporters' },
+  { label: 'Historie', id: 'timeline' },
+  { label: 'Galerie', id: 'gallery' },
+  { label: 'Média', id: 'media' },
+  { label: 'Aktéři', id: 'actors' },
+  { label: 'Požadavky', id: 'demands' },
+  { label: 'Dokumenty', id: 'documents' },
+  { label: 'Oficiální podnět', id: 'official-motion' },
+  { label: 'Petice', id: 'petition' },
+  { label: 'Kontakt', id: 'contact' },
+];
+
+const SUPPORTERS = [
+  { name: 'FK Slavoj Kladno', href: 'https://www.slavojkladno.cz/', img: '/slavoj.webp' },
+  { name: 'e-Kladensko.cz', href: 'https://www.e-kladensko.cz/', img: '/ekladensko.webp' },
+  { name: 'Ukliďme Česko', href: 'https://www.uklidmecesko.cz/', img: '/uklidme.webp' },
+  { name: 'Barfshop Kladno', href: 'https://obchod.barfshop.cz/index.php', img: '/barf.webp' },
+  { name: 'Pomáhejme zvířatům z.s.', href: 'https://www.behproutulky.cz/', img: '/pomahejme.webp' },
+  { name: 'Badminton Klub Kladno', href: 'https://www.badmintonkladno.cz/', img: '/bck.webp' },
+  { name: 'NON STOP Zámky', href: 'https://nonstopzamky.cz/', img: '/zamky.webp' },
+];
+
 export default function App() {
-  const forestWasteImage = '/forest-waste.png';
+  const forestWasteImage = '/forest-waste.webp';
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showFloatingButton, setShowFloatingButton] = useState(true);
   const [useHeroFallback, setUseHeroFallback] = useState(false);
@@ -56,7 +82,7 @@ export default function App() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -77,10 +103,10 @@ export default function App() {
 
   // carousel state for YouTube shorts
   const shorts: {id: string; title: string}[] = [
-    { id: 'eVpM2Ox7lnY', title: 'Short 1' },
-    { id: 'wNOZnW988Rc', title: 'Short 2' },
-    { id: 'LJ7l2ErGHEc', title: 'Short 3' },
-    { id: 'XFkO-osmlI0', title: 'Short 4' },
+    { id: 'eVpM2Ox7lnY', title: 'Záběry z místa – březen 2024' },
+    { id: 'wNOZnW988Rc', title: 'Záběry z místa – únor 2026' },
+    { id: 'LJ7l2ErGHEc', title: 'Short 3 – dokumentace skládky' },
+    { id: 'XFkO-osmlI0', title: 'Short 4 – dokumentace skládky' },
   ];
   // show two shorts per page
   const perPage = 2;
@@ -88,6 +114,28 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState(0);
   const prevPage = () => setCurrentPage(p => (p - 1 + totalPages) % totalPages);
   const nextPage = () => setCurrentPage(p => (p + 1) % totalPages);
+
+  // mapa se načte až když se uživatel přiblíží ke kontaktu
+  const mapRef = useRef<HTMLDivElement>(null);
+  const [showMap, setShowMap] = useState(false);
+  useEffect(() => {
+    const el = mapRef.current;
+    if (!el || !('IntersectionObserver' in window)) {
+      setShowMap(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some(e => e.isIntersecting)) {
+          setShowMap(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: '600px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
 
   return (
@@ -106,49 +154,24 @@ export default function App() {
 
             {/* Desktop Menu */}
             <div className="hidden lg:flex items-center gap-6">
-              {[
-                'Úvod',
-                'O problému',
-                'Podporovatelé',
-                'Historie',
-                'Galerie',
-                'Média',
-                'Aktéři',
-                'Požadavky',
-                'Dokumenty',
-                'Oficiální podnět',
-                'Petice',
-                'Kontakt',
-              ].map((item, idx) => (
+              {NAV_ITEMS.map((item) => (
                 <button
-                  key={idx}
-                  onClick={() =>
-                    scrollToSection(
-                      [
-                        'home',
-                        'problem',
-                        'supporters',
-                        'timeline',
-                        'gallery',
-                        'media',
-                        'actors',
-                        'demands',
-                        'documents',
-                        'official-motion',
-                        'petition',
-                        'contact',
-                      ][idx]
-                    )
-                  }
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
                   className="text-white/90 hover:text-white transition-colors text-sm font-medium"
                 >
-                  {item}
+                  {item.label}
                 </button>
               ))}
             </div>
 
             {/* Mobile Menu Button */}
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden text-white p-2">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="lg:hidden text-white p-2"
+              aria-label={isMenuOpen ? 'Zavřít menu' : 'Otevřít menu'}
+              aria-expanded={isMenuOpen}
+            >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
@@ -157,49 +180,18 @@ export default function App() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="lg:hidden pb-4">
-            {[
-              'Úvod',
-              'O problému',
-              'Podporovatelé',
-              'Historie',
-              'Galerie',
-              'Média',
-              'Aktéři',
-              'Požadavky',
-              'Dokumenty',
-              'Oficiální podnět',
-              'Petice',
-              'Kontakt',
-            ].map((item, idx) => (
+            {NAV_ITEMS.map((item) => (
               <button
-                key={idx}
-                onClick={() =>
-                  scrollToSection(
-                    [
-                      'home',
-                      'problem',
-                      'supporters',
-                      'timeline',
-                      'gallery',
-                      'media',
-                      'actors',
-                      'demands',
-                      'documents',
-                      'official-motion',
-                      'petition',
-                      'contact',
-                    ][idx]
-                  )
-                }
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
                 className="block w-full text-left text-white/90 hover:text-white py-2 px-4 transition-colors"
               >
-                {item}
+                {item.label}
               </button>
             ))}
           </div>
         )}
       </nav>
-      {/* ✅ DŮLEŽITÉ: uzavření nav přidáno */}
 
       {/* Hero Section */}
       <section id="home" className="relative h-screen min-h-[600px] flex items-center justify-center text-center text-white pt-20">
@@ -267,7 +259,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* ... zbytek souboru nechávám stejný jako v paste.txt ... */}
       {/* O problému */}
 <section id="problem" className="py-20 bg-white">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -295,6 +286,10 @@ export default function App() {
         <img
           src={forestWasteImage}
           alt="Znečištěný les se skládkou odpadků"
+          width={1024}
+          height={1024}
+          loading="lazy"
+          decoding="async"
           className="w-full h-[400px] object-cover rounded-lg shadow-xl"
         />
       </div>
@@ -309,7 +304,7 @@ export default function App() {
       ].map((item, idx) => (
         <div key={idx} className="bg-white p-6 rounded-lg shadow-lg hover:-translate-y-2 transition-transform text-center">
           <item.icon className="w-12 h-12 mx-auto mb-4 text-[#4a7c2c]" />
-          <h4 className="text-xl font-semibold text-[#2d5016] mb-2">{item.title}</h4>
+          <h3 className="text-xl font-semibold text-[#2d5016] mb-2">{item.title}</h3>
           <p className="text-gray-600 text-sm">{item.desc}</p>
         </div>
       ))}
@@ -321,7 +316,7 @@ export default function App() {
         <div className="flex items-start gap-4">
           <MapPin className="w-8 h-8 flex-shrink-0 mt-1" />
           <div className="flex-1">
-            <h4 className="text-xl font-bold mb-2">Informace o pozemku</h4>
+            <h3 className="text-xl font-bold mb-2">Informace o pozemku</h3>
             <p className="mb-4 opacity-90">
               Dotčený pozemek je veden v katastru nemovitostí. Veškeré informace o vlastnictví, výměře a hranicích pozemku jsou veřejně dostupné.
             </p>
@@ -380,7 +375,7 @@ export default function App() {
     <div className="mt-16 max-w-4xl mx-auto">
       <div className="space-y-4">
         <h3 className="text-2xl font-bold text-[#2d5016] mb-4">
-          Aktuální vývoj k 19. 03. 2026
+          Vývoj v březnu 2026
         </h3>
         <p className="text-gray-600">
           Dne <strong>19. 03. 2026</strong> proběhl úklid původně znečištěného pozemku, avšak muž bez domova se přesunul o několik metrů dál na pozemek <a href="https://nahlizenidokn.cuzk.gov.cz/ZobrazObjekt.aspx?encrypted=NAHL~2xb_LPeFLQ6EtRubNxm9u1vm0GEOSVydM6KDUD2DydezE0pJsoeB9yl-ebe_4elfpBbBko5Zva6fFT_QYKSBwNe37V5QGlyTsZvKuhRuqix0HKx6Q6qk-49FOIBjSr8hmKMUNSrgmWF8QStn2WlJBNEl9f9TIN0oeWnsnnXEOqwPzG0GFRS4oCqiupgLGUrhprGk8ydseezjKBF7vWzxi-XAXp0kISSlKMJ8uHF1-xH87FzuVZkNNXq0wKklzYJs" target="_blank" rel="noopener noreferrer" className="text-[#4a7c2c] hover:text-[#2d5016] underline"><strong>p.p.č. 3886/6</strong></a> v k.ú. Kročehlavy, který je rovněž ve vlastnictví církve a nachází se v bezprostřední blízkosti sportovních areálů. Tím se problém pouze přesunul na nové místo a aktuálně představuje <strong>přímé zdravotní riziko pro děti a rodiče (členy sportovišť) i návštěvníky lokality</strong>. V odpadu se dle slov předsedy Badmintonového Klubu Kladno mohou nacházet <strong>nebezpečné látky, použité injekční stříkačky a další kontaminovaný materiál</strong>.
@@ -402,75 +397,26 @@ export default function App() {
           </h2>
 
           <div className="flex flex-wrap justify-center items-center gap-8">
-            <a
-              href="https://www.slavojkladno.cz/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center gap-4 w-full sm:w-auto sm:min-w-[250px] max-w-xs"
-            >
-              <img src="/slavoj.png" alt="FK Slavoj Kladno logo" className="w-32 h-32 object-contain" />
-              <h4 className="text-xl font-bold text-[#2d5016] text-center">FK Slavoj Kladno</h4>
-            </a>
-
-            <a
-              href="https://www.e-kladensko.cz/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center gap-4 w-full sm:w-auto sm:min-w-[250px] max-w-xs"
-            >
-              <img src="/ekladensko.png" alt="e-Kladensko.cz logo" className="w-32 h-32 object-contain" />
-              <h4 className="text-xl font-bold text-[#2d5016] text-center">e-Kladensko.cz</h4>
-            </a>
-
-            <a
-              href="https://www.uklidmecesko.cz/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center gap-4 w-full sm:w-auto sm:min-w-[250px] max-w-xs"
-            >
-              <img src="/uklidme.png" alt="Ukliďme Česko logo" className="w-32 h-32 object-contain" />
-              <h4 className="text-xl font-bold text-[#2d5016] text-center">Ukliďme Česko</h4>
-            </a>
-
-            <a
-              href="https://obchod.barfshop.cz/index.php"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center gap-4 w-full sm:w-auto sm:min-w-[250px] max-w-xs"
-            >
-              <img src="/barf.png" alt="Barfshop Kladno logo" className="w-32 h-32 object-contain" />
-              <h4 className="text-xl font-bold text-[#2d5016] text-center">Barfshop Kladno</h4>
-            </a>
-
-            <a
-              href="https://www.behproutulky.cz/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center gap-4 w-full sm:w-auto sm:min-w-[250px] max-w-xs"
-            >
-              <img src="/pomahejme.png" alt="Pomáhejme zvířatům z.s. logo" className="w-32 h-32 object-contain" />
-              <h4 className="text-xl font-bold text-[#2d5016] text-center">Pomáhejme zvířatům z.s.</h4>
-            </a>
-
-            <a
-              href="https://www.badmintonkladno.cz/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center gap-4 w-full sm:w-auto sm:min-w-[250px] max-w-xs"
-            >
-              <img src="/bck.png" alt="Badminton Klub Kladno logo" className="w-32 h-32 object-contain" />
-              <h4 className="text-xl font-bold text-[#2d5016] text-center">Badminton Klub Kladno</h4>
-            </a>
-
-            <a
-              href="https://nonstopzamky.cz/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center gap-4 w-full sm:w-auto sm:min-w-[250px] max-w-xs"
-            >
-              <img src="/zamky.png" alt="NON STOP Zámky logo" className="w-32 h-32 object-contain" />
-              <h4 className="text-xl font-bold text-[#2d5016] text-center">NON STOP Zámky</h4>
-            </a>
+            {SUPPORTERS.map((sp) => (
+              <a
+                key={sp.name}
+                href={sp.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-2 flex flex-col items-center gap-4 w-full sm:w-auto sm:min-w-[250px] max-w-xs"
+              >
+                <img
+                  src={sp.img}
+                  alt={`${sp.name} logo`}
+                  width={128}
+                  height={128}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-32 h-32 object-contain"
+                />
+                <h3 className="text-xl font-bold text-[#2d5016] text-center">{sp.name}</h3>
+              </a>
+            ))}
           </div>
         </div>
       </section>
@@ -506,7 +452,7 @@ export default function App() {
               {
                 date: '12. dubna 2025',
                 title: 'Požár v lese',
-                desc: 'V sobotu ráno v lesním porostu v lokalitě V Kožovech <strong>vypukl požár.</strong> Zasahují hasiči Středočeského kraje. Hořely hromady odpadků a igelitových tašek nashromážděné mužem bez domova. Na místo dorazili i policisté. <strong>Mluvčí středočeských hasičů Ladislav Holomk potvrdil, že "požár zřejmě založil sám muž"</strong> dlouhodobě žijící v lokalitě. Případ zachytila média (kladensky.denik.cz, nasekladno.cz, silvarium.cz).',
+                desc: 'V sobotu ráno v lesním porostu v lokalitě V Kožovech <strong>vypukl požár.</strong> Zasahují hasiči Středočeského kraje. Hořely hromady odpadků a igelitových tašek nashromážděné mužem bez domova. Na místo dorazili i policisté. <strong>Mluvčí středočeských hasičů Ladislav Holomčík potvrdil, že "požár zřejmě založil sám muž"</strong> dlouhodobě žijící v lokalitě. Případ zachytila média (kladensky.denik.cz, nasekladno.cz, silvarium.cz).',
                 icon: Flame
               },
               {
@@ -549,7 +495,7 @@ export default function App() {
                   <div className={`flex-1 ${idx % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
                     <div className="bg-white p-6 rounded-lg shadow-lg">
                       <div className="text-[#2d5016] font-semibold mb-2">{item.date}</div>
-                      <h5 className="text-xl font-bold text-gray-800 mb-2">{item.title}</h5>
+                      <h3 className="text-xl font-bold text-gray-800 mb-2">{item.title}</h3>
                       <p className="text-gray-600" dangerouslySetInnerHTML={{ __html: item.desc }} />
                     </div>
                   </div>
@@ -615,13 +561,7 @@ export default function App() {
         {shorts.map((short) => (
           <div key={short.id} className="flex-shrink-0 w-1/2">
             <div className="aspect-[9/16]">
-              <iframe
-                src={`https://www.youtube.com/embed/${short.id}`}
-                title={short.title}
-                className="w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
+              <LiteYouTube id={short.id} title={short.title} />
             </div>
           </div>
         ))}
@@ -648,13 +588,7 @@ export default function App() {
   <div className="max-w-4xl mx-auto mt-8">
     <div className="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
       <div className="aspect-video">
-        <iframe
-          src="https://www.youtube.com/embed/2GnL7_9h2zE"
-          className="w-full h-full"
-          title="Standardní video"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
+        <LiteYouTube id="2GnL7_9h2zE" title="Video: černá skládka v lese u Kožovky" />
       </div>
     </div>
   </div>
@@ -680,7 +614,7 @@ export default function App() {
                 title: 'Bezdomovce u Kožovky vyklízela odpadová firma i strážníci',
                 media: 'KM Zprávy',
                 date: '12. prosince 2022',
-                excerpt: 'V úterý 7. ledna přijela k lesu u Kožovky odpadová firma AVE Kladno s bikramovou vanou. Strážníci zajišťovali pořádek při úklidu. Během dopoledne bylo vše uklizeno a odvezeno. Muži byla opět nabídnuta pomoc — opět odmítnuta.',
+                excerpt: 'V prosinci 2022 přijela k lesu u Kožovky odpadová firma AVE Kladno s bikramovou vanou. Strážníci zajišťovali pořádek při úklidu. Během dopoledne bylo vše uklizeno a odvezeno. Muži byla opět nabídnuta pomoc — opět odmítnuta.',
                 url: 'https://kmzpravy.cz/bezdomovce-u-kozovky-vyklizela-odpadova-firma-i-straznici/'
               },
               {
@@ -796,9 +730,9 @@ export default function App() {
                   </div>
                   <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
                 </div>
-                <h5 className="text-lg font-bold text-gray-800 mb-2 group-hover:text-[#2d5016] transition-colors">
+                <h3 className="text-lg font-bold text-gray-800 mb-2 group-hover:text-[#2d5016] transition-colors">
                   {article.title}
-                </h5>
+                </h3>
                 <p className="text-sm text-gray-500 mb-3">{article.date}</p>
                 <p className="text-gray-600 text-sm line-clamp-3">
                   {article.excerpt}
@@ -878,7 +812,7 @@ export default function App() {
                 <div className="w-20 h-20 mx-auto mb-4 bg-[#4a7c2c] rounded-full flex items-center justify-center">
                   <actor.icon className="w-10 h-10 text-white" />
                 </div>
-                <h4 className="text-xl font-bold text-[#2d5016] mb-2">{actor.title}</h4>
+                <h3 className="text-xl font-bold text-[#2d5016] mb-2">{actor.title}</h3>
                 <p className="text-sm font-semibold text-gray-700 mb-3">Role: {actor.role}</p>
                 <p className="text-gray-600 text-sm mb-3">{actor.desc}</p>
                 {actor.link && (
@@ -922,7 +856,7 @@ export default function App() {
             {idx + 1}
           </div>
           <div>
-            <h5 className="text-lg font-bold text-[#2d5016] mb-2">{demand.title}</h5>
+            <h3 className="text-lg font-bold text-[#2d5016] mb-2">{demand.title}</h3>
             <p className="text-gray-600">{demand.desc}</p>
           </div>
         </div>
@@ -937,7 +871,7 @@ export default function App() {
             <FileDown className="w-8 h-8" />
           </div>
           <div className="flex-1">
-            <h4 className="text-2xl font-bold mb-3">Podrobný dokument s požadavky</h4>
+            <h3 className="text-2xl font-bold mb-3">Podrobný dokument s požadavky</h3>
             <p className="mb-6 opacity-90 text-lg">
               Stáhněte si kompletní rozpis všech požadavků včetně právního zdůvodnění, odkazů na relevantní legislativu a konkrétních návrhů řešení.
             </p>
@@ -1213,9 +1147,9 @@ export default function App() {
               <org.icon className="w-6 h-6 text-white" />
             </div>
             <div className="flex-1">
-              <h5 className="text-lg font-bold text-gray-800 mb-1">
+              <h3 className="text-lg font-bold text-gray-800 mb-1">
                 {org.title}
-              </h5>
+              </h3>
               <p className="text-sm text-gray-600 mb-3">
                 {org.desc}
               </p>
@@ -1252,7 +1186,7 @@ export default function App() {
       <div className="flex items-start gap-4">
         <Gavel className="w-8 h-8 flex-shrink-0 mt-1" />
         <div>
-          <h4 className="text-xl font-bold mb-3">Právní základ žádostí</h4>
+          <h3 className="text-xl font-bold mb-3">Právní základ žádostí</h3>
           <p className="mb-4 opacity-90 leading-relaxed">
             Všechny žádosti byly podány v souladu se <strong>zákonem č. 106/1999 Sb., o svobodném přístupu k informacím, ve znění pozdějších předpisů.</strong> Tento zákon zaručuje právo každého občana požadovat informace od státních orgánů a orgánů územní samosprávy.
           </p>
@@ -1264,9 +1198,9 @@ export default function App() {
     </div>
 
     <div className="mt-8 bg-white border border-gray-200 p-8 rounded-lg shadow-lg">
-      <h4 className="text-xl font-bold mb-3 text-[#2d5016]">
+      <h3 className="text-xl font-bold mb-3 text-[#2d5016]">
         Dokumenty z terénních šetření (Magistrát města Kladna - sociální odbor)
-      </h4>
+      </h3>
       <p className="text-gray-600 mb-5">
         V této sekci jsou průběžně doplňovány odkazy na dokumenty z terénních šetření pracovníků sociálního odboru Magistrátu města Kladna.
       </p>
@@ -1590,7 +1524,7 @@ export default function App() {
       <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
     </h2>
     <p className="text-center text-gray-600 mb-12">
-      Přehled všech podaných officiálních podnětů a jejich odpovědí – seřazeno od nejnovějšího.
+      Přehled všech podaných oficiálních podnětů a obdržených odpovědí – seřazeno od nejnovějšího. Očíslované položky jsou podněty, položka s obálkou je odpověď.
     </p>
 
     <Accordion type="multiple" className="space-y-4">
@@ -1599,8 +1533,8 @@ export default function App() {
       <AccordionItem value="dokument-odpoved-2026-07-20" className="bg-white rounded-lg shadow-lg border-0 overflow-hidden">
         <AccordionTrigger className="px-8 py-5 hover:no-underline hover:bg-gray-50 [&>svg]:text-[#4a7c2c]">
           <div className="flex items-center gap-4 text-left">
-            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#4a7c2c] text-white flex items-center justify-center font-bold text-lg">
-              4
+            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#4a7c2c] text-white flex items-center justify-center" aria-label="Odpověď">
+              <Mail className="w-5 h-5" />
             </div>
             <div>
               <div className="font-bold text-[#2d5016] text-lg">Odpověď Odboru životního prostředí – 20. 07. 2026</div>
@@ -1921,7 +1855,7 @@ export default function App() {
     <div className="grid lg:grid-cols-2 gap-12">
       <div>
         <div className="bg-white p-8 rounded-lg shadow-lg mb-6">
-          <h4 className="text-2xl font-bold text-[#2d5016] mb-6">Kontaktní informace</h4>
+          <h3 className="text-2xl font-bold text-[#2d5016] mb-6">Kontaktní informace</h3>
           
           <div className="space-y-4">
             <div className="flex items-start gap-4">
@@ -1944,12 +1878,12 @@ export default function App() {
                 <strong className="block text-gray-800">Lokace problému:</strong>
                 Parcela č. 3830/4 | k.ú. Kročehlavy [665126]<br />
                 Nově také: Parcela č. 3886/6 | k.ú. Kročehlavy [665126]<br />
-                Vlastník: Benediktinské arciopatství sv. Vojtcha a sv. Markéty v Praze
+                Vlastník: Benediktinské arciopatství sv. Vojtěcha a sv. Markéty v Praze
               </div>
             </div>
           </div>
 
-          <h5 className="text-xl font-bold text-[#2d5016] mt-8 mb-4">Sledujte nás</h5>
+          <h4 className="text-xl font-bold text-[#2d5016] mt-8 mb-4">Sledujte nás</h4>
           <div className="flex gap-3">
             {[
               { icon: Facebook, link: 'https://www.facebook.com/profile.php?id=61587817198306' },
@@ -1971,35 +1905,15 @@ export default function App() {
       </div>
 
       <div>
-        <h4 className="text-2xl font-bold text-[#2d5016] mb-4">Kde se problém nachází</h4>
+        <h3 className="text-2xl font-bold text-[#2d5016] mb-4">Kde se problém nachází</h3>
         <div className="rounded-lg overflow-hidden shadow-xl h-[400px]">
-          <MapContainer
-            center={[50.1263355, 14.108134]}
-            zoom={17}
-            scrollWheelZoom={false}
-            className="w-full h-full"
-          >
-            <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution='&copy; OpenStreetMap contributors'
-            />
-
-            <CircleMarker
-              center={[50.1262367, 14.1089158]}
-              radius={8}
-              pathOptions={{ color: '#2d5016', fillColor: '#4a7c2c', fillOpacity: 0.9 }}
-            >
-              <Popup>Parcela č. 3830/4</Popup>
-            </CircleMarker>
-
-            <CircleMarker
-              center={[50.1264344, 14.1073522]}
-              radius={8}
-              pathOptions={{ color: '#2d5016', fillColor: '#4a7c2c', fillOpacity: 0.9 }}
-            >
-              <Popup>Parcela č. 3886/6</Popup>
-            </CircleMarker>
-          </MapContainer>
+          <div ref={mapRef} className="w-full h-full bg-gray-100">
+            {showMap && (
+              <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-gray-500 text-sm">Načítám mapu…</div>}>
+                <LocationMap />
+              </Suspense>
+            )}
+          </div>
         </div>
         <p className="text-center text-gray-500 text-sm mt-2">GPS souřadnice: 50.1262367N, 14.1089158E · 50.1264344N, 14.1073522E</p>
       </div>
