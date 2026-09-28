@@ -54,8 +54,11 @@ function AccordionContent({
 }: React.ComponentProps<typeof AccordionPrimitive.Content>) {
   return (
     <AccordionPrimitive.Content
+      // Obsah zůstává v HTML i ve sbaleném stavu (skrytý přes CSS),
+      // aby text podnětů viděly vyhledávače v předrenderované stránce.
+      forceMount
       data-slot="accordion-content"
-      className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
+      className="data-[state=closed]:hidden data-[state=open]:animate-in data-[state=open]:fade-in-0 overflow-hidden text-sm"
       {...props}
     >
       <div className={cn("pt-0 pb-4", className)}>{children}</div>

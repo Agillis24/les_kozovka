@@ -1,18 +1,12 @@
 import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import {
   TreePine,
-  Eye,
   FileText,
   Recycle,
   Flame,
   Ruler,
   Footprints,
-  Church,
-  Building2,
-  Leaf,
-  Shield,
   Users,
-  Bird,
   MapPin,
   Mail,
   Youtube,
@@ -20,44 +14,30 @@ import {
   Menu,
   X,
   PenLine,
-  AlertTriangle,
-  Download,
   FileDown,
   ExternalLink,
   Gavel,
   Image,
-  ChevronLeft,
-  ChevronRight,
 } from 'lucide-react';
 import { LiteYouTube } from './components/LiteYouTube';
+import { SectionHeading } from './components/SectionHeading';
+import { DocumentList } from './components/DocumentList';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './components/ui/accordion';
+import {
+  ACTORS,
+  DEMANDS,
+  DOCUMENT_GROUPS,
+  FIELD_DOCUMENTS,
+  MAIN_VIDEO,
+  MEDIA_ARTICLES,
+  NAV_ITEMS,
+  PETITION_URL,
+  SHORTS,
+  SUPPORTERS,
+  TIMELINE,
+} from './content';
 
 const LocationMap = lazy(() => import('./components/LocationMap'));
-
-const NAV_ITEMS: { label: string; id: string }[] = [
-  { label: 'Úvod', id: 'home' },
-  { label: 'O problému', id: 'problem' },
-  { label: 'Podporovatelé', id: 'supporters' },
-  { label: 'Historie', id: 'timeline' },
-  { label: 'Galerie', id: 'gallery' },
-  { label: 'Média', id: 'media' },
-  { label: 'Aktéři', id: 'actors' },
-  { label: 'Požadavky', id: 'demands' },
-  { label: 'Dokumenty', id: 'documents' },
-  { label: 'Oficiální podnět', id: 'official-motion' },
-  { label: 'Petice', id: 'petition' },
-  { label: 'Kontakt', id: 'contact' },
-];
-
-const SUPPORTERS = [
-  { name: 'FK Slavoj Kladno', href: 'https://www.slavojkladno.cz/', img: '/slavoj.webp' },
-  { name: 'e-Kladensko.cz', href: 'https://www.e-kladensko.cz/', img: '/ekladensko.webp' },
-  { name: 'Ukliďme Česko', href: 'https://www.uklidmecesko.cz/', img: '/uklidme.webp' },
-  { name: 'Barfshop Kladno', href: 'https://obchod.barfshop.cz/index.php', img: '/barf.webp' },
-  { name: 'Pomáhejme zvířatům z.s.', href: 'https://www.behproutulky.cz/', img: '/pomahejme.webp' },
-  { name: 'Badminton Klub Kladno', href: 'https://www.badmintonkladno.cz/', img: '/bck.webp' },
-  { name: 'NON STOP Zámky', href: 'https://nonstopzamky.cz/', img: '/zamky.webp' },
-];
 
 export default function App() {
   const forestWasteImage = '/forest-waste.webp';
@@ -72,48 +52,33 @@ export default function App() {
   const heroImageDesktopWebp = `${heroImageDesktop}&fm=webp`;
   const heroImageMobileWebp = `${heroImageMobile}&fm=webp`;
 
+  // plovoucí tlačítko petice schováme, když je vidět sekce s peticí
   useEffect(() => {
-    const handleScroll = () => {
-      const petitionSection = document.getElementById('petition');
-      if (petitionSection) {
-        const rect = petitionSection.getBoundingClientRect();
-        const isVisible = rect.top <= window.innerHeight && rect.bottom >= 0;
-        setShowFloatingButton(!isVisible);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const petitionSection = document.getElementById('petition');
+    if (!petitionSection || !('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver((entries) =>
+      setShowFloatingButton(!entries[entries.length - 1].isIntersecting)
+    );
+    io.observe(petitionSection);
+    return () => io.disconnect();
   }, []);
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
+  // Odkaz typu leskozovka.cz/#documents: po načtení stránky (obrázky, styly)
+  // na sekci skočíme znovu, protože první posun prohlížeče mohl proběhnout
+  // ještě před dokončením rozvržení.
+  useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const jump = () => document.getElementById(id)?.scrollIntoView({ behavior: 'instant', block: 'start' });
+    if (document.readyState === 'complete') {
+      jump();
+      return;
     }
-    setIsMenuOpen(false);
-  };
+    window.addEventListener('load', jump, { once: true });
+    return () => window.removeEventListener('load', jump);
+  }, []);
 
-  // carousel state for YouTube shorts
-  const shorts: {id: string; title: string}[] = [
-    { id: 'eVpM2Ox7lnY', title: 'Záběry z místa – březen 2024' },
-    { id: 'wNOZnW988Rc', title: 'Záběry z místa – únor 2026' },
-    { id: 'LJ7l2ErGHEc', title: 'Short 3 – dokumentace skládky' },
-    { id: 'XFkO-osmlI0', title: 'Short 4 – dokumentace skládky' },
-  ];
-  // show two shorts per page
-  const perPage = 2;
-  const totalPages = Math.ceil(shorts.length / perPage);
-  const [currentPage, setCurrentPage] = useState(0);
-  const prevPage = () => setCurrentPage(p => (p - 1 + totalPages) % totalPages);
-  const nextPage = () => setCurrentPage(p => (p + 1) % totalPages);
+  const closeMenu = () => setIsMenuOpen(false);
 
   // mapa se načte až když se uživatel přiblíží ke kontaktu
   const mapRef = useRef<HTMLDivElement>(null);
@@ -144,31 +109,32 @@ export default function App() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#2d5016] shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            <button
-              onClick={() => scrollToSection('home')}
-              className="flex items-center gap-2 text-white font-bold text-xl hover:text-white/80 transition-colors"
+            <a
+              href="#home"
+              onClick={closeMenu}
+              className="flex items-center gap-2 text-white font-bold text-xl hover:text-white/80 transition-colors whitespace-nowrap"
             >
               <TreePine className="w-6 h-6" />
               <span>Les u Kožovky</span>
-            </button>
+            </a>
 
             {/* Desktop Menu */}
-            <div className="hidden lg:flex items-center gap-6">
+            <div className="hidden xl:flex items-center gap-6">
               {NAV_ITEMS.map((item) => (
-                <button
+                <a
                   key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="text-white/90 hover:text-white transition-colors text-sm font-medium"
+                  href={`#${item.id}`}
+                  className="text-white/90 hover:text-white transition-colors text-sm font-medium whitespace-nowrap"
                 >
                   {item.label}
-                </button>
+                </a>
               ))}
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden text-white p-2"
+              className="xl:hidden text-white p-2"
               aria-label={isMenuOpen ? 'Zavřít menu' : 'Otevřít menu'}
               aria-expanded={isMenuOpen}
             >
@@ -179,29 +145,30 @@ export default function App() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden pb-4">
+          <div className="xl:hidden pb-4">
             {NAV_ITEMS.map((item) => (
-              <button
+              <a
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
+                href={`#${item.id}`}
+                onClick={closeMenu}
                 className="block w-full text-left text-white/90 hover:text-white py-2 px-4 transition-colors"
               >
                 {item.label}
-              </button>
+              </a>
             ))}
           </div>
         )}
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="relative h-screen min-h-[600px] flex items-center justify-center text-center text-white pt-20">
+      <section id="home" className="relative h-svh min-h-[600px] flex items-center justify-center text-center text-white pt-20">
         <div className="absolute inset-0">
           {useHeroFallback ? (
             <img
               src={forestWasteImage}
               alt="Les u Kožovky"
               loading="eager"
-              fetchPriority="high"
+              {...{ fetchpriority: "high" }}
               className="h-full w-full object-cover object-center"
             />
           ) : (
@@ -222,7 +189,7 @@ export default function App() {
                 sizes="100vw"
                 alt="Les u Kožovky"
                 loading="eager"
-                fetchPriority="high"
+                {...{ fetchpriority: "high" }}
                 className="h-full w-full object-cover object-center"
                 onError={() => setUseHeroFallback(true)}
               />
@@ -241,14 +208,14 @@ export default function App() {
             přihlížejí.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
-            <button
-              onClick={() => scrollToSection('problem')}
-              className="bg-[#4a7c2c] hover:bg-[#5a9c3c] px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg transition-all transform hover:-translate-y-1 shadow-lg w-full sm:w-auto"
+            <a
+              href="#problem"
+              className="bg-[#4a7c2c] hover:bg-[#5a9c3c] px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg transition-all transform hover:-translate-y-1 shadow-lg inline-block w-full sm:w-auto text-center"
             >
               Zjistit více
-            </button>
+            </a>
             <a
-              href="https://gov.cz/e-petice/1569-petice-proti-opakovane-cerne-skladce-a-nelegalnimu-znecistovani-lesniho-pozemku-v-lokalite-v-kozovech-u-kladna"
+              href={PETITION_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#e67e22] hover:bg-[#d35400] px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg transition-all transform hover:-translate-y-1 shadow-lg inline-block w-full sm:w-auto text-center"
@@ -262,10 +229,9 @@ export default function App() {
       {/* O problému */}
 <section id="problem" className="py-20 bg-white">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-12 relative pb-4">
+    <SectionHeading>
       Co se děje v lese u Kožovky na Kladně?
-      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
-    </h2>
+    </SectionHeading>
 
     <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
       <div className="space-y-4">
@@ -391,10 +357,9 @@ export default function App() {
       {/* Podporovatelé */}
       <section id="supporters" className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-[#2d5016] mb-8 relative pb-4">
+          <SectionHeading className="text-3xl mb-8">
             Podporují nás
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
-          </h2>
+          </SectionHeading>
 
           <div className="flex flex-wrap justify-center items-center gap-8">
             {SUPPORTERS.map((sp) => (
@@ -424,68 +389,12 @@ export default function App() {
       {/* Timeline */}
       <section id="timeline" className="py-20 bg-gray-50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-16 relative pb-4">
+          <SectionHeading className="mb-16">
             Historie problému
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
-          </h2>
+          </SectionHeading>
 
           <div className="space-y-12">
-            {[
-              {
-                date: '2022',
-                title: 'První výskyt',
-                desc: 'Muž bez domova se začíná dlouhodobě zdržovat v lese V Kožovech ve směru na Kožovu horu na okraji Kladna na pozemku ve vlastnictví <strong>Benediktinského arciopatství sv. Vojtěcha a sv. Markéty v Praze.</strong> Postupně vzniká <strong>černá skládka odpadků a igelitových tašek.</strong>',
-                icon: Eye
-              },
-              {
-                date: 'Od roku 2022',
-                title: 'Nabídka sociální pomoci odmítnuta',
-                desc: '<strong>Sociální odbor Magistrátu města Kladna</strong> nabízí muži pomoc. Jeho opatrovnice je s ním v častém kontaktu. Muž <strong>veškerou nabízenou pomoc zarputile odmítá</strong> — podle svých slov musí zůstat v lese, aby se mohl starat o toulavé kočky.',
-                icon: Users
-              },
-              {
-                date: '2022 – 2025',
-                title: 'Opakované úklidy',
-                desc: 'Na základě dohody vlastníka lesa a Magistrátu města Kladna zajišťuje úklid <strong>firma AVE Kladno.</strong> Strážníci musí opakovaně zasahovat (muž se <strong>úklidu fyzicky brání</strong>) a za pomoci donucovacích prostředků je odváděn od pracovníků. Nahromaděný odpad totiž považuje za svůj majetek. <strong>Úklid se opakuje, trvalé řešení nenásleduje.</strong>',
-                icon: Recycle
-              },
-              {
-                date: '12. dubna 2025',
-                title: 'Požár v lese',
-                desc: 'V sobotu ráno v lesním porostu v lokalitě V Kožovech <strong>vypukl požár.</strong> Zasahují hasiči Středočeského kraje. Hořely hromady odpadků a igelitových tašek nashromážděné mužem bez domova. Na místo dorazili i policisté. <strong>Mluvčí středočeských hasičů Ladislav Holomčík potvrdil, že "požár zřejmě založil sám muž"</strong> dlouhodobě žijící v lokalitě. Případ zachytila média (kladensky.denik.cz, nasekladno.cz, silvarium.cz).',
-                icon: Flame
-              },
-              {
-                date: '7. ledna 2026',
-                title: 'Další zásah (AVE Kladno + strážníci)',
-                desc: '<strong>Firma AVE Kladno</strong> přistavuje bikramovou vanu, strážníci opět zajišťují pořádek při úklidu. Během dopoledne je vše uklizeno a odvezeno. <strong>Muži je znovu nabídnuta pomoc — opět odmítnuta.</strong> Cyklus se uzavírá a obratem začíná znovu.',
-                icon: Recycle
-              },
-              {
-                date: '23. února 2026',
-                title: 'Spuštění webu a petice',
-                desc: 'Vzniká web <strong>leskozovka.cz</strong> jako první systematická občanská reakce na situaci. Spouští se veřejná petice adresovaná <strong>městu Kladno, Břevnovskému klášteru, ČIŽP a Středočeskému kraji.</strong> Cílem je <strong>trvalé systémové řešení</strong>, ne další úklid za půl roku.',
-                icon: PenLine
-              },
-              {
-                date: '23. února - 19. března 2026',
-                title: 'Sběr všech informací',
-                desc: 'Aktuálně probíhá <strong>systematický sběr všech dosavadních informací</strong> od dotčených orgánů a subjektů: Magistrát města Kladna, Policie, Hasiči, Veterina, Česká inspekce životního prostředí, vlastník pozemku i občané.',
-                icon: FileText
-              },
-              {
-                date: '19. března 2026',
-                title: 'Problém se přesunul k areálům sportovních klubů',
-                desc: 'Dnes jsme obdrželi zprávy od zástupců <strong>FK Slavoj Kladno</strong> a <strong>Badminton Klubu Kladno</strong>, že se problém nepodařilo skutečně vyřešit, ale pouze přesunout z původního místa k prostoru u sportovišť; i když úklid původní lokality je pozitivní krok, v novém místě se podle klubů znovu hromadí odpad, objevují se potkani a další havěť a vzniká tak <strong>nepřijatelné zdravotní riziko pro děti a mládež</strong>, což nelze považovat za systémové ani dostatečné řešení.',
-                icon: AlertTriangle
-              },
-              {
-                date: '20. března 2026',
-                title: 'Zaslání oficiálního podnětu Magistrátu města Kladna',
-                desc: 'Dne <strong>20. 03. 2026</strong> byl odeslán komplexní oficiální podnět, primárně adresovaný <strong>Magistrátu města Kladna</strong> a současně zaslaný na vědomí dalším příslušným orgánům (ČIŽP, KVS, KHS, HZS, Policie ČR, Povodí Vltavy a Benediktinské arciopatství). Podnět byl podán podle <strong>§ 42 správního řádu</strong> s výzvou k zahájení řízení z moci úřední dle § 2 správního řádu a s žádostí o informaci do 30 dnů o přijatých opatřeních. <a href="https://drive.google.com/file/d/1W4qs2eS412JGnq-_w-TSv_bB6egDD-uc/view?usp=drive_link" target="_blank" rel="noopener noreferrer"><strong>Zobrazit celé znění podnětu</strong></a>.',
-                icon: PenLine
-              }
-            ].map((item, idx) => (
+            {TIMELINE.map((item, idx) => (
               <div key={idx} className="relative flex items-start gap-8">
                 {/* Timeline line */}
                 <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-[#4a7c2c] -translate-x-1/2" />
@@ -496,7 +405,10 @@ export default function App() {
                     <div className="bg-white p-6 rounded-lg shadow-lg">
                       <div className="text-[#2d5016] font-semibold mb-2">{item.date}</div>
                       <h3 className="text-xl font-bold text-gray-800 mb-2">{item.title}</h3>
-                      <p className="text-gray-600" dangerouslySetInnerHTML={{ __html: item.desc }} />
+                      <p
+                        className="text-gray-600 [&_a]:text-[#4a7c2c] [&_a]:underline [&_a:hover]:text-[#2d5016]"
+                        dangerouslySetInnerHTML={{ __html: item.desc }}
+                      />
                     </div>
                   </div>
                   
@@ -517,10 +429,9 @@ export default function App() {
       {/* Galerie */}
       <section id="gallery" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-12 relative pb-4">
+          <SectionHeading>
             Fotodokumentace
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
-          </h2>
+          </SectionHeading>
 
           <div className="max-w-3xl mx-auto text-center">
             <div className="bg-gradient-to-br from-[#2d5016] to-[#4a7c2c] p-8 rounded-lg shadow-xl text-white mb-8">
@@ -546,176 +457,43 @@ export default function App() {
           </div>
 
           {/* Videodokumentace */}
-<div className="mt-16">
-  <h3 className="text-3xl font-bold text-center text-[#2d5016] mb-8">
-    Videodokumentace
-  </h3>
+          <div className="mt-16">
+            <h3 className="text-3xl font-bold text-center text-[#2d5016] mb-8">Videodokumentace</h3>
 
-  {/* Shorts carousel */}
-  <div className="relative max-w-5xl mx-auto">
-    <div className="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
-      <div
-        className="flex gap-x-2 transition-transform duration-300"
-        style={{ transform: `translateX(-${currentPage * 100}%)` }}
-      >
-        {shorts.map((short) => (
-          <div key={short.id} className="flex-shrink-0 w-1/2">
-            <div className="aspect-[9/16]">
-              <LiteYouTube id={short.id} title={short.title} />
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+              {SHORTS.map((video) => (
+                <figure key={video.id}>
+                  <div className="aspect-[9/16] rounded-lg overflow-hidden shadow-lg bg-gray-100">
+                    <LiteYouTube id={video.id} title={video.title} />
+                  </div>
+                  <figcaption className="mt-2 text-xs sm:text-sm text-gray-600 text-center">{video.title}</figcaption>
+                </figure>
+              ))}
             </div>
+
+            <figure className="max-w-4xl mx-auto mt-10">
+              <div className="aspect-video rounded-lg overflow-hidden shadow-lg bg-gray-100">
+                <LiteYouTube id={MAIN_VIDEO.id} title={MAIN_VIDEO.title} />
+              </div>
+              <figcaption className="mt-2 text-sm text-gray-600 text-center">{MAIN_VIDEO.title}</figcaption>
+            </figure>
           </div>
-        ))}
-      </div>
-
-      <button
-        onClick={prevPage}
-        aria-label="Předchozí shorty"
-        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-75 rounded-full p-2 shadow"
-      >
-        <ChevronLeft className="w-6 h-6" />
-      </button>
-      <button
-        onClick={nextPage}
-        aria-label="Další shorty"
-        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-75 rounded-full p-2 shadow"
-      >
-        <ChevronRight className="w-6 h-6" />
-      </button>
-    </div>
-  </div>
-
-  {/* Standardní video (16:9) */}
-  <div className="max-w-4xl mx-auto mt-8">
-    <div className="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
-      <div className="aspect-video">
-        <LiteYouTube id="2GnL7_9h2zE" title="Video: černá skládka v lese u Kožovky" />
-      </div>
-    </div>
-  </div>
-</div>
         </div>
       </section>
 
       {/* V médiích o nás */}
       <section id="media" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-12 relative pb-4">
+          <SectionHeading>
             V médiích o problému
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
-          </h2>
+          </SectionHeading>
           
           <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
             O problému černé skládky u Kladna již informovala řada médií. Přinášíme přehled článků, které dokumentují závažnost situace a upozorňují veřejnost na trvající problém.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: 'Bezdomovce u Kožovky vyklízela odpadová firma i strážníci',
-                media: 'KM Zprávy',
-                date: '12. prosince 2022',
-                excerpt: 'V prosinci 2022 přijela k lesu u Kožovky odpadová firma AVE Kladno s bikramovou vanou. Strážníci zajišťovali pořádek při úklidu. Během dopoledne bylo vše uklizeno a odvezeno. Muži byla opět nabídnuta pomoc — opět odmítnuta.',
-                url: 'https://kmzpravy.cz/bezdomovce-u-kozovky-vyklizela-odpadova-firma-i-straznici/'
-              },
-              {
-                title: 'Strážníci prováděli dohled při úklidu lesa v Kožovech',
-                media: 'Městská policie Kladno',
-                date: '12. prosince 2022',
-                excerpt: 'Strážníci Městské policie Kladno zajišťovali pořádek a dohled při úklidu lesa v lokalitě Kožovy. Akce probíhala ve spolupráci s odpadovou firmou AVE Kladno. Muži žijícímu na pozemku byla opakovaně nabídnuta sociální pomoc.',
-                url: 'https://mpkladno.cz/straznici-provadeli-dohled-pri-uklidu-lesa-v-kozovech/d-1709'
-              },
-              {
-                title: 'U kladenského poustevníka zasahovala úklidová četa. Pod dohledem strážníků',
-                media: 'Kladenský deník',
-                date: '13. prosince 2022',
-                excerpt: 'V prosinci 2022 proběhl v kladenském lese rozsáhlý úklid nepořádku, který tam dlouhodobě hromadil muž bez domova. Pracovníci úklidové firmy museli za asistence městských strážníků z pozemku odvézt dva velkokapacitní kontejnery plné odpadu, staré elektroniky a dokonce i uhynulých zvířat.',
-                url: 'https://kladensky.denik.cz/zpravy_region/u-kladenskeho-poustevnika-zasahovala-uklidova-ceta-pod-dohledem-strazniku-202212.html'
-              },
-              {
-                title: 'Kladenští strážníci zasahovali proti bezdomovci, který znečišťoval les',
-                media: 'e-kladensko.cz',
-                date: '14. prosince 2022',
-                excerpt: 'Městská policie Kladno opakovaně zasahuje v lese u Kožovky. Bezdomovec se zde dlouhodobě zdržuje a hromadí odpadky. Strážníci musí zajišťovat pořádek při úklidu, muž se fyzicky brání.',
-                url: 'https://www.e-kladensko.cz/zpravy/1607-kladensti-straznici-zasahovali-proti-bezdomovci-ktery-znecistoval-les'
-              },
-              {
-                title: 'V lese na okraji Kladna hořelo. Požár zřejmě založil bezdomovec',
-                media: 'Kladenský deník',
-                date: '12. dubna 2025',
-                excerpt: 'V sobotu ráno vypukl v lesním porostu u Kožovky požár. Zasahovali hasiči Středočeského kraje. Hořely hromady odpadků a igelitových tašek nashromážděné bezdomovcem. Mluvčí hasičů potvrdil, že požár zřejmě založil muž žijící v lokalitě.',
-                url: 'https://kladensky.denik.cz/krimi/v-lese-na-okraji-kladna-horelo-pozar-zrejme-zalozil-bezdomovec-20250412.html'
-              },
-              {
-                title: 'U Kožovky v sobotu ráno hořely odpadky v lese. Požár pravděpodobně založil známý bezdomovec, který zde žije',
-                media: 'NašeKladno.cz',
-                date: '12. dubna 2025',
-                excerpt: 'V sobotu ráno zasahovali hasiči u požáru v lese u Kožovky. Hořely odpadky a igelitové tašky nashromážděné bezdomovcem, který v lokalitě dlouhodobě pobývá. Požár pravděpodobně založil sám.',
-                url: 'https://www.nasekladno.cz/u-kozovky-v-sobotu-rano-horely-odpadky-v-lese-pozar-pravdepodobne-zalozil-znamy-bezdomovec-ktery-zde-zije/'
-              },
-              {
-                title: 'V lese na okraji Kladna hořelo. Požár zřejmě založil bezdomovec',
-                media: 'Silvarium.cz',
-                date: '14. dubna 2025',
-                excerpt: 'Zpravodajský portál pro lesnictví a dřevařství přinesl zprávu o požáru v lese u Kladna. Požár zřejmě způsobil bezdomovec dlouhodobě žijící v lokalitě.',
-                url: 'https://silvarium.cz/zpravy-z-oboru-lesnictvi-a-drevarstvi/v-lese-na-okraji-kladna-horelo-pozar-zrejme-zalozil-bezdomovec-kladensky-denik-cz'
-              },
-              {
-                title: 'Úklid lesa: Skládka na okraji Kladna zmizela, odvezli dvě bikramky odpadu',
-                media: 'Kladenský deník',
-                date: '7. ledna 2026',
-                excerpt: 'Firma AVE Kladno ve spolupráci s městskou policií provedla rozsáhlý úklid černé skládky v lese u Kožovky. Byly odvezeny dvě bikramové vany plné odpadu. Strážníci zajišťovali pořádek při akci.',
-                url: 'https://kladensky.denik.cz/zpravy_region/uklid-lesa-skladka-na-okraji-kladna-zmizela-odvezli-dve-bikramky-odpadu-20260107.html'
-              },
-              {
-                title: 'Také vám vadí nepořádek v lese na Kladně po bezdomovcích? Vznikla petice',
-                media: 'e-kladensko.cz',
-                date: '24. února 2026',
-                excerpt: 'V lese Kožovka na okraji Kladna se už několik let opakuje nepořádek/černá skládka spojená s pobytem osoby bez domova. Iniciativa Les Kožovka proto spustila web leskozovka.cz společně s veřejnou peticí a žádá systémové řešení, nejen další opakovaný úklid.',
-                url: 'https://www.e-kladensko.cz/zpravy/6531-take-vam-vadi-neporadek-v-lese-na-kladne-po-bezdomovcich-vznikla-petice'
-              },
-              {
-                title: 'Také vám vadí nepořádek v lese na Kladně po bezdomovcích? Vznikla petice',
-                media: 'Silvarium.cz',
-                date: '25. února 2026',
-                excerpt: 'V lese Kožovka na okraji Kladna se už několik let opakuje nepořádek/černá skládka spojená s pobytem osoby bez domova. Iniciativa Les Kožovka proto spustila web leskozovka.cz společně s veřejnou peticí a žádá systémové řešení, nejen další opakovaný úklid.',
-                url: 'https://silvarium.cz/zpravy-z-oboru-lesnictvi-a-drevarstvi/take-vam-vadi-neporadek-v-lese-na-kladne-po-bezdomovcich-vznikla-petice-e-kladensko-cz'
-              },
-              {
-                title: 'Skládku v lese Kožovka město dlouhodobě neřešilo',
-                media: 'e-kladensko.cz',
-                date: '10. března 2026',
-                excerpt: 'Město podle článku nechávalo problém skládky v lese Kožovka dlouhodobě bez účinného řešení, takže se po každém úklidu znovu obnovovala. Text proto zdůrazňuje potřebu systémového zásahu místo dalších jednorázových úklidů.',
-                url: 'https://www.e-kladensko.cz/zpravy/6592-skladku-v-lese-kozovka-mesto-dlouhodobe-neresilo?fbclid=IwY2xjawQcuhpleHRuA2FlbQIxMQBicmlkETEyOTFPV3VhWXU2cTZJODFWc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHjnUoHD5PDRTm0AMJdhuLk3UNirjH0IxAoBr2JlDZjd-3UmiKyPI0ec5nAUi_aem_OgmfisUfoHCaN3gn8RXL2Q'
-              },
-              {
-                title: 'Les u Kožovky: bezdomovec nyní hromadí nepořádek u badmintonu',
-                media: 'e-kladensko.cz',
-                date: '19. března 2026',
-                excerpt: 'Po úklidu původního místa se podle iniciativy problém pouze přesunul k areálům fotbalového a badmintonového klubu, kde se znovu hromadí odpad a objevují se zdravotní rizika. Iniciativa požaduje koordinované a skutečně systémové řešení, nikoliv další přesouvání problému.',
-                url: 'https://www.e-kladensko.cz/zpravy/6626-les-u-kozovky-bezdomovec-nyni-hromadi-neporadek-u-badmintonu?fbclid=IwY2xjawQo7j1leHRuA2FlbQIxMQBzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeDIozZqZHxbnA80zzJPrK9kdtBqlQK00-9O_NAWABwo1jdWBPTozjm0vhlFo_aem_38_oLsGwvAUowpEA8htEMQ'
-              },
-              {
-                title: 'V lese na Kožovce opět hořelo',
-                media: 'e-kladensko.cz',
-                date: '8. dubna 2026',
-                excerpt: 'Kolem sedmé večer jsme řešili požár u vlakového nádraží na slepé koleji. Šlo o požár...',
-                url: 'https://www.e-kladensko.cz/zpravy/6695-v-lese-na-kozovce-opet-horelo?fbclid=IwY2xjawRDKcZleHRuA2FlbQIxMQBicmlkETFsYXJ4am9BUWN5dXh0Vkgxc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvWtO7cBVmmw6TBZ_BJRL80R3eMCZZxIi7qEb4vr5ncy4jWcEvoagyhH1JI9_aem_sT1SeBRjjL_n4eGxyUBUNg'
-              },
-              {
-                title: 'Tento nepořádek nanosil bezdomovec na Kožovku za měsíc. Co s ním?',
-                media: 'e-kladensko.cz',
-                date: '16. dubna 2026',
-                excerpt: 'V posledních dnech došlo k dalšímu výraznému zhoršení situace na pozemku p. č. 3886/6 v lokalitě Kožové hory. Podle zjištění...',
-                url: 'https://www.e-kladensko.cz/zpravy/6730-tento-neporadek-nanosil-bezdomovec-na-kozovku-za-mesic-co-s-nim'
-              },
-              {
-                title: 'Kladno uvedlo, že bezdomovec pan Víšek porušuje na Kožovce zákon o odpadech',
-                media: 'e-kladensko.cz',
-                date: '21. dubna 2026',
-                excerpt: 'Iniciativa Les na Kožovce v ohrožení obdržel odpověď Odboru životního prostředí Magistrátu...',
-                url: 'https://www.e-kladensko.cz/zpravy/6743-kladno-uvedlo-ze-bezdomovec-pan-visek-porusuje-na-kozovce-zakon-o-odpadech'
-              }
-            ].map((article, idx) => (
+            {MEDIA_ARTICLES.map((article, idx) => (
               <a 
                 key={idx} 
                 href={article.url}
@@ -760,54 +538,12 @@ export default function App() {
       {/* Aktéři */}
       <section id="actors" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-12 relative pb-4">
+          <SectionHeading>
             Kdo je zodpovědný a kdo trpí?
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
-          </h2>
+          </SectionHeading>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                icon: Church,
-                title: 'Benediktinské arciopatství sv. Vojtěcha a sv. Markéty',
-                role: 'Vlastník pozemku',
-                desc: 'Zodpovídá za údržbu a zabezpečení svého majetku. Dosud nebylo přijato technické opatření proti opakovanému znečištění.',
-                link: 'brevnov.cz'
-              },
-              {
-                icon: Building2,
-                title: 'Město Kladno',
-                role: 'Místní samospráva',
-                desc: 'Sporadicky se podílí na úklidu pozemku, avšak bez systémového řešení problému. Má pravomoc zapojit sociální služby a zvýšit kontrolu.',
-                link: 'mestokladno.cz'
-              },
-              {
-                icon: Leaf,
-                title: 'ČIŽP',
-                role: 'Česká inspekce životního prostředí',
-                desc: 'Česká inspekce životního prostředí má pravomoc šetřit opakované porušování zákona o odpadech a uložit sankce.',
-                link: 'cizp.cz'
-              },
-              {
-                icon: Shield,
-                title: 'Policie ČR / MP Kladno',
-                role: 'Dozor a pořádková pravomoc',
-                desc: 'Má pravomoc kontrolovat dodržování veřejného pořádku a spolupracovat s dalšími orgány při řešení nelegálního pobytu a černé skládky.',
-                link: 'policie.cz'
-              },
-              {
-                icon: Users,
-                title: 'Místní obyvatelé',
-                role: 'Nejvíce postižení',
-                desc: 'Lidé žijící v okolí pociťují negativní dopady na kvalitu života, obavy o bezpečnost dětí a zhoršenou estetiku krajiny pro rekreaci.'
-              },
-              {
-                icon: Bird,
-                title: 'Příroda a zvěř',
-                role: 'Němí postižení',
-                desc: 'Kontaminace půdy, ohrožení zvířat požárem a chemikáliemi, narušení ekosystému a přirozených stanovišť volně žijících živočichů.'
-              }
-            ].map((actor, idx) => (
+            {ACTORS.map((actor, idx) => (
               <div key={idx} className="bg-white p-6 rounded-lg shadow-lg hover:-translate-y-2 transition-all text-center">
                 <div className="w-20 h-20 mx-auto mb-4 bg-[#4a7c2c] rounded-full flex items-center justify-center">
                   <actor.icon className="w-10 h-10 text-white" />
@@ -835,22 +571,12 @@ export default function App() {
       {/* Požadavky */}
 <section id="demands" className="py-20 bg-white">
   <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-12 relative pb-4">
+    <SectionHeading>
       Naše požadavky
-      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
-    </h2>
+    </SectionHeading>
 
     <div className="space-y-6">
-      {[
-        { title: 'Zapojení sociálního kurátora města Kladno', desc: 'Pro práci s bezdomovcem a nabídku sociálních služeb, které by pomohly řešit příčinu problému humánně a efektivně.' },
-        { title: 'Zvýšená frekvence policejních kontrol', desc: 'Minimálně 1x týdně na daném pozemku, aby se předešlo opakování problému a zajistila prevence.' },
-        { title: 'Zahájení správního řízení OÚ ORP Kladno', desc: 'O černé skládce podle zákona č. 541/2020 Sb., o odpadech, s identifikací viníka a uložením sankcí.' },
-        { title: 'Podnět ČIŽP k šetření opakovaného porušování', desc: 'České inspekci životního prostředí k prošetření dlouhodobého porušování zákona o odpadech.' },
-        { title: 'Oplocení nebo technické zabezpečení pozemku', desc: 'Vlastník (Břevnovský klášter) by měl přijmout preventivní opatření k ochraně svého majetku a prevenci znečištění.' },
-        { title: 'Prošetření požáru Hasičským záchranným sborem', desc: 'Hasičský záchranný sbor Středočeského kraje by měl vyšetřit příčinu požáru a zveřejnit výsledky.' },
-        { title: 'Veřejná zpráva o výsledcích ze strany Magistrátu', desc: 'Město Kladno by mělo zveřejnit souhrnnou zprávu o přijatých opatřeních a plánovaných krocích k trvalému řešení.' },
-        { title: 'Další preventivní a systémová opatření', desc: 'Přijetí konkrétních kroků k trvalému zamezení opakování situace – například instalace fotopastí nebo kamerového monitoringu pro identifikaci původců znečišťování, fyzické zábrany proti navezení odpadu do lokality (zábrany, kládový práh, kameny na vjezdech), výrazné zákazové tabule a označení zákazu rozdělávání ohně, zavedení závazné lhůty pro rychlý úklid (max. 7–14 dní od nahlášení) s jasně určeným odpovědným kontaktem na straně vlastníka i města, a vytvoření veřejného kontaktního kanálu pro hlášení incidentů s průběžnou mapou událostí. Veškerá tato opatření by měla být zakotvena v písemné dohodě mezi vlastníkem pozemku (Benediktinské arciopatství sv. Vojtěcha a sv. Markéty v Praze) a Magistrátem města Kladna.' }
-      ].map((demand, idx) => (
+      {DEMANDS.map((demand, idx) => (
         <div key={idx} className="flex gap-6 items-start bg-white p-6 rounded-lg shadow-lg hover:translate-x-2 transition-transform">
           <div className="w-12 h-12 flex-shrink-0 bg-[#4a7c2c] rounded-full flex items-center justify-center text-white font-bold text-xl">
             {idx + 1}
@@ -894,252 +620,18 @@ export default function App() {
       {/* Oficiální dokumentace a korespondence */}
 <section id="documents" className="py-20 bg-white">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-12 relative pb-4">
+    <SectionHeading>
       Oficiální dokumentace a korespondence
-      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
-    </h2>
+    </SectionHeading>
 
     <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
       V rámci práva na informace podle zákona č. 106/1999 Sb. jsme oslovili příslušné orgány veřejné moci. Níže najdete kompletní dokumentaci včetně našich žádostí, obdržených odpovědí a dalších oficiálních dokumentů.
     </p>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-      {[
-        {
-          title: 'Hasičský záchranný sbor Středočeského kraje',
-          icon: Flame,
-          desc: 'Dokumenty týkající se požáru ze dne 12. dubna 2025, příčiny vzniku, rozsahu škod a výsledků šetření.',
-          documents: [
-            {
-              name: 'Žádost o informace č. 1',
-              url: 'https://drive.google.com/file/d/1rNEq-7EsfFR3wjv0rL6Pj3lyl3V2M8uF/view?usp=drive_link',
-              date: 'Únor 2026'
-            },
-            {
-              name: 'Odpověď na žádost o informace č. 1',
-              url: 'https://drive.google.com/file/d/1b99fsW9whiH_IknfYuL2zsfllMnCl0fa/view?usp=drive_link',
-              date: 'Únor 2026'
-            },
-            {
-              name: 'Anonymizovaná zpráva o zásahu ze dne 12.04.2025',
-              url: 'https://drive.google.com/file/d/1hKqRpVnKxcweGe9U96KQ0dCZDne8a1yu/view?usp=drive_link',
-              date: 'Únor 2026'
-            },
-            {
-              name: 'Žádost o informace č. 2',
-              url: 'https://drive.google.com/file/d/1OpAm2yJ8aYWYvQsh94pgEM7aHYcN039W/view?usp=drive_link',
-              date: 'Únor 2026'
-            },
-            {
-              name: 'Odpověď na žádost o informace č. 2',
-              url: 'https://drive.google.com/file/d/1O_dshKh_NYy-w09m1tH23zsGJHjsbDPi/view?usp=drive_link',
-              date: 'Březen 2026'
-            },
-            {
-              name: 'Žádost o informace č. 3',
-              url: 'https://drive.google.com/file/d/18blsQ-xNuCJtd5y5HOWOgdzeuIN71aWo/view?usp=drive_link',
-              date: 'Duben 2026'
-            },
-            {
-              name: 'Odpověď na žádost o informace č. 3',
-              url: 'https://drive.google.com/file/d/1HbCpdfozRBeMD0X95jBHWBC4KRm7aPSb/view?usp=drive_link',
-              date: 'Duben 2026'
-            }
-          ]
-        },
-        {
-          title: 'Statutární město Kladno',
-          icon: Building2,
-          desc: 'Dokumenty k úklidovým akcím, nákladům, frekvenci zásahů městské policie a nabízeným sociálním službám.',
-          documents: [
-            {
-              name: 'Žádost o informace č. 1',
-              url: 'https://drive.google.com/file/d/19rEBC_OkAPcoZChlBINUAtuo5diqUFA7/view?usp=drive_link',
-              date: 'Únor 2026'
-            },
-            {
-              name: 'Odpověď na žádost o informace č. 1',
-              url: 'https://drive.google.com/file/d/17IgaIrqR9suFMBOIR4OccEo2eiewmtT1/view?usp=drive_link',
-              date: 'Březen 2026'
-            },
-            {
-              name: 'Žádost o informace č. 2',
-              url: 'https://drive.google.com/file/d/1kbTDsX9ZNHEWu1TqIveFdUB7tbx6R5zK/view?usp=drive_link',
-              date: 'Březen 2026'
-            },
-            {
-              name: 'Odpověď na žádost o informace č. 2',
-              url: 'https://drive.google.com/file/d/1PNKX8yh5B3pzvvjK4XTl4PyEQFRXFwat/view?usp=drive_link',
-              date: 'Březen 2026'
-            },
-            {
-              name: 'Příloha č. 1 - Výpis z IS MP',
-              url: 'https://docs.google.com/spreadsheets/d/1uDhxRkTx8G_bUjBvzzDIHVEyx7BgHU4o/edit?usp=drive_link&ouid=111843213503444543156&rtpof=true&sd=true',
-              date: 'Březen 2026'
-            },
-            {
-              name: 'Příloha č. 2 - Oznámení o podezření ze spáchání přestupku',
-              url: 'https://drive.google.com/file/d/1U5i33ET8IFPHz0QwzoTS9UG7SVLRAPN4/view?usp=drive_link',
-              date: 'Březen 2026'
-            },
-            {
-              name: 'Odpověď na žádost o informace č. 2 (odmítnutí poskytnout informace)',
-              url: 'https://drive.google.com/file/d/1oM8M64WN24IS6yTsy4N1-IbfqGVVO-KT/view?usp=drive_link',
-              date: 'Březen 2026'
-            },
-            {
-              name: 'Žádost o informace č. 3 (navazuje na žádost č. 1)',
-              url: 'https://drive.google.com/file/d/1Rd8tfiER1zbfps6In2WhJR1epKPUXRta/view?usp=drive_link',
-              date: 'Duben 2026'
-            },
-            {
-              name: 'Odpověď na žádost o informace č. 3',
-              url: 'https://drive.google.com/file/d/1zd7NiVphZMWdmOiMAuDQ2j7Sao6fFeIM/view?usp=drive_link',
-              date: 'Květen 2026'
-            },
-            {
-              name: 'Žádost o informace č. 4',
-              url: 'https://drive.google.com/file/d/1_WIYs7TsmE_D8vQ83zAIZ_ZuboniRcwp/view?usp=drive_link',
-              date: 'Duben 2026'
-            },
-            {
-              name: 'Rozhodnutí Krajského úřad Středočeského kraje',
-              url: 'https://drive.google.com/file/d/1d70CM-ZU2uPdUawj5I960lBuZUuYGbIO/view?usp=drive_link',
-              date: 'Duben 2026'
-            },
-            {
-              name: 'Odpověď na žádost o informace č. 4',
-              url: 'https://drive.google.com/file/d/1fN_9xK7FEBuRjO7LcCY0OWjAwI4S9DyO/view?usp=drive_link',
-              date: 'Květen 2026'
-            },
-            {
-              name: 'Příloha č. 1 - Protokol 1',
-              url: 'https://drive.google.com/file/d/172SCYh5HqDCclMzGz86okYB0hMeUlcdZ/view?usp=drive_link',
-              date: 'Květen 2026'
-            },
-            {
-              name: 'Příloha č. 2 - Protokol 2',
-              url: 'https://drive.google.com/file/d/1a1dboIttENysItuCa9WZUP5PS7R6uCpZ/view?usp=drive_link',
-              date: 'Květen 2026'
-            },
-            {
-              name: 'Žádost o informace č. 5',
-              url: 'https://drive.google.com/file/d/1zcHJVDlK9sbZ-OkvQdcI0lfnK_0VmFOI/view?usp=drive_link',
-              date: 'Květen 2026'
-            },
-            {
-              name: 'Odpověď na žádost o informace č. 5',
-              url: 'https://drive.google.com/file/d/1z8yBBkWIyLyUFcg6HbZvi0Q2RtNgCyUJ/view?usp=drive_link',
-              date: 'Květen 2026'
-            },
-            {
-              name: 'Žádost o informace č. 6',
-              url: 'https://drive.google.com/file/d/1QJL59RDMYYuAseiLlFflPgxLzFZ2Pdmt/view?usp=drive_link',
-              date: 'Květen 2026'
-            },
-            {
-              name: 'Žádost o informace č. 7',
-              url: 'https://drive.google.com/file/d/1LrFjnhdBn6G68YFdEqPR820NWBE_oaR9/view?usp=drive_link',
-              date: 'Květen 2026'
-            },
-            {
-              name: 'Odpověď na žádost o informace č. 7',
-              url: 'https://drive.google.com/file/d/1gSs1mqDHBpP446WWKsLX16qDsN5l8S4R/view?usp=drive_link',
-              date: 'Červen 2026'
-            },
-            {
-              name: 'Žádost o informace č. 8',
-              url: 'https://drive.google.com/file/d/1KvhTGuPJU1uOODMvvwmxY0BSX3Y_hlc0/view?usp=drive_link',
-              date: 'Září 2026'
-            }
-          ]
-        },
-        {
-          title: 'Krajské ředitelství policie Středočeského kraje',
-          icon: Shield,
-          desc: 'Dokumenty týkající se zásahů Policie ČR, vedených případů a přijatých opatření v dané lokalitě.',
-          documents: [
-            {
-              name: 'Žádost o informace č. 1',
-              url: 'https://drive.google.com/file/d/1Sss8BZJHo8zKADdXz94VOCY3pVAa7uvs/view?usp=drive_link',
-              date: 'Únor 2026'
-            },
-            {
-              name: 'Odpověď na žádost o informace č. 1',
-              url: 'https://drive.google.com/file/d/1dYwpHeTtcTc10JNtW_DZIrV9-_igPqpB/view?usp=drive_link',
-              date: 'Březen 2026'
-            },
-            {
-              name: 'Žádost o informace č. 2',
-              url: 'https://drive.google.com/file/d/1dRT0HSVHS87G4u4LXftZMc11JVugMhxg/view?usp=drive_link',
-              date: 'Březen 2026'
-            },
-            {
-              name: 'Odpověď na žádost o informace č. 2',
-              url: 'https://drive.google.com/file/d/1Q4odsURsjczEkgUMlzcXfke9UYdASI2O/view?usp=drive_link',
-              date: 'Březen 2026'
-            }
-          ]
-        },
-        {
-          title: 'Česká inspekce životního prostředí',
-          icon: Leaf,
-          desc: 'Dokumenty k šetřením černé skládky, provedeným kontrolám a případným správním řízením.',
-          documents: [
-            {
-              name: 'Žádost o informace č. 1',
-              url: 'https://drive.google.com/file/d/1P902hUw2GKqz6Ya_o0N70l4aVxUyLgLR/view?usp=drive_link',
-              date: 'Únor 2026'
-            },
-            {
-              name: 'Odpověď na žádost o informace č. 1',
-              url: 'https://drive.google.com/file/d/12uHnvOZqyFt6-oP8DGxyqZN24aT-L-N7/view?usp=drive_link',
-              date: 'Březen 2026'
-            }
-          ]
-        },
-        {
-          title: 'Benediktinské arciopatství sv. Vojtěcha a sv. Markéty v Praze',
-          icon: Church,
-          desc: 'Žádost o součinnost a koordinaci řešení opakované černé skládky a nelegálního pobytu na lesním pozemku v lokalitě "V Kožovech" u Kladna.',
-          documents: [
-            {
-              name: 'Dopis opatu',
-              url: 'https://drive.google.com/file/d/1ZUghYdbeRKjbJS-fgO7_xm2NmW4e04kc/view?usp=drive_link',
-              date: 'Únor 2026'
-            },
-            {
-              name: 'Nezávislá komunikace',
-              url: 'https://drive.google.com/file/d/1SfelvIvhMW8hJ5akqP2OLg_L4DQWTG9N/view?usp=drive_link',
-              date: 'Duben 2026'
-            },
-            {
-              name: 'Dopis opatu č. 2',
-              url: 'https://drive.google.com/file/d/1nj3qx_emCAwAc_4-umGbpeVvTlKHlvfU/view?usp=drive_link',
-              date: 'Květen 2026'
-            }
-          ]
-        },
-        {
-          title: 'Krajská veterinární správa SVS pro Středočeský kraj',
-          icon: Bird,
-          desc: 'Dokumenty k výkonu veterinárního dozoru, řešení podnětů na týrání a situaci toulavých zvířat v souvislosti s opakovanou nelegální skládkou na pozemku.',
-          documents: [
-            {
-              name: 'Žádost o informace č. 1',
-              url: 'https://drive.google.com/file/d/1SKdaXXLvAwJ15atkkXxgGcMXan_ZacRw/view?usp=drive_link',
-              date: 'Únor 2026'
-            },
-            {
-              name: 'Odpověď na žádost o informace č. 1',
-              url: 'https://drive.google.com/file/d/1JadCXwClc2ZQirp66EXt72O_zQGghqaE/view?usp=drive_link',
-              date: 'Březen 2026'
-            }
-          ]
-        }
-      ].map((org, idx) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 items-start gap-6 mb-12">
+      {DOCUMENT_GROUPS.map((org) => (
         <div
-          key={idx}
+          key={org.title}
           className="bg-white p-6 rounded-lg shadow-lg"
         >
           <div className="flex items-start gap-4 mb-4">
@@ -1156,27 +648,8 @@ export default function App() {
             </div>
           </div>
           
-          <div className="border-t border-gray-200 pt-4 space-y-2">
-            {org.documents.map((doc, docIdx) => (
-              <a
-                key={docIdx}
-                href={doc.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
-              >
-                <div className="flex items-center gap-3">
-                  <FileText className="w-5 h-5 text-[#4a7c2c]" />
-                  <div>
-                    <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
-                      {doc.name}
-                    </p>
-                    <p className="text-xs text-gray-500">{doc.date}</p>
-                  </div>
-                </div>
-                <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
-              </a>
-            ))}
+          <div className="border-t border-gray-200 pt-4">
+            <DocumentList documents={org.documents} />
           </div>
         </div>
       ))}
@@ -1205,313 +678,7 @@ export default function App() {
         V této sekci jsou průběžně doplňovány odkazy na dokumenty z terénních šetření pracovníků sociálního odboru Magistrátu města Kladna.
       </p>
 
-      <div className="space-y-2">
-        <a
-          href="https://drive.google.com/file/d/1fsjQLB5Bp45DwMg4ZMHCcvN_Fe7NK-aV/view?usp=drive_link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
-        >
-          <div className="flex items-center gap-3">
-            <FileText className="w-5 h-5 text-[#4a7c2c]" />
-            <div>
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
-                Dokument č. 1 - Záznam z jednání - 14. 1. 2022
-              </p>
-            </div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
-        </a>
-
-        <a
-          href="https://drive.google.com/file/d/1iHgjdO7LjlQR_QUTWyOE8eqSMeSD3KFq/view?usp=drive_link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
-        >
-          <div className="flex items-center gap-3">
-            <FileText className="w-5 h-5 text-[#4a7c2c]" />
-            <div>
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
-                Dokument č. 2 - Záznam z jednání - 21. 2. 2022
-              </p>
-            </div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
-        </a>
-
-        <a
-          href="https://drive.google.com/file/d/1JzVEr3t15iHQh2C9R3cSiK-7lbma3P6w/view?usp=drive_link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
-        >
-          <div className="flex items-center gap-3">
-            <FileText className="w-5 h-5 text-[#4a7c2c]" />
-            <div>
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
-                Dokument č. 3 - Výzva - 22. 2. 2022
-              </p>
-            </div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
-        </a>
-
-        <a
-          href="https://drive.google.com/file/d/1IsWJsY42tgNmqctLFN4xMd9mX5beZ2i6/view?usp=drive_link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
-        >
-          <div className="flex items-center gap-3">
-            <FileText className="w-5 h-5 text-[#4a7c2c]" />
-            <div>
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
-                Dokument č. 4 - Výzva (pokračování) - 23. 2. 2022
-              </p>
-            </div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
-        </a>
-
-        <a
-          href="https://drive.google.com/file/d/1WvsiaGGdlh1Usu6_vb2hql9W2RY5E8ZR/view?usp=drive_link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
-        >
-          <div className="flex items-center gap-3">
-            <FileText className="w-5 h-5 text-[#4a7c2c]" />
-            <div>
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
-                Dokument č. 5 - Výzva č. 2 - 28. 2. 2022
-              </p>
-            </div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
-        </a>
-
-        <a
-          href="https://drive.google.com/file/d/1xtsSRDbc-K-2TvoO8ypuodHSR61XsG1F/view?usp=drive_link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
-        >
-          <div className="flex items-center gap-3">
-            <FileText className="w-5 h-5 text-[#4a7c2c]" />
-            <div>
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
-                Dokument č. 6 - Protokol z jednání - 3. 3. 2022
-              </p>
-            </div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
-        </a>
-
-        <a
-          href="https://drive.google.com/file/d/1gszxWgJWSOENPXU8AXdQHli-ahiI0mxa/view?usp=drive_link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
-        >
-          <div className="flex items-center gap-3">
-            <FileText className="w-5 h-5 text-[#4a7c2c]" />
-            <div>
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
-                Dokument č. 7 - Protokol z jednání - 4. 3. 2022
-              </p>
-            </div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
-        </a>
-
-        <a
-          href="https://drive.google.com/file/d/1KYPqEF4_UgoyaUeiT1Qc7hKK9EoPmgpC/view?usp=drive_link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
-        >
-          <div className="flex items-center gap-3">
-            <FileText className="w-5 h-5 text-[#4a7c2c]" />
-            <div>
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
-                Dokument č. 8 - Záznam z místního šetření - 27. 5. 2022
-              </p>
-            </div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
-        </a>
-
-        <a
-          href="https://drive.google.com/file/d/1CSyUlhbvjDeRzkHqj6DnTofeChVwCV8n/view?usp=drive_link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
-        >
-          <div className="flex items-center gap-3">
-            <FileText className="w-5 h-5 text-[#4a7c2c]" />
-            <div>
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
-                Dokument č. 9 - Protokol z jednání - 15. 7. 2022
-              </p>
-            </div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
-        </a>
-
-        <a
-          href="https://drive.google.com/file/d/1EJHwdj4LQ37aTvK63ZRgpDnp9RItHHLd/view?usp=drive_link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
-        >
-          <div className="flex items-center gap-3">
-            <FileText className="w-5 h-5 text-[#4a7c2c]" />
-            <div>
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
-                Dokument č. 10 - Protokol z jednání 2 - 26. 7. 2022
-              </p>
-            </div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
-        </a>
-
-        <a
-          href="https://drive.google.com/file/d/1R-VqqnCMZTmP73gG-Y0v_h09EgoRKFOT/view?usp=drive_link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
-        >
-          <div className="flex items-center gap-3">
-            <FileText className="w-5 h-5 text-[#4a7c2c]" />
-            <div>
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
-                Dokument č. 11 - Záznam z místního šetření - 2. 2. 2023
-              </p>
-            </div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
-        </a>
-
-        <a
-          href="https://drive.google.com/file/d/1ExGBchuzgWSJ126xSQYnQ5b3AC6V5-BG/view?usp=drive_link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
-        >
-          <div className="flex items-center gap-3">
-            <FileText className="w-5 h-5 text-[#4a7c2c]" />
-            <div>
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
-                Dokument č. 12 - Záznam z místního šetření - 12. 5. 2023
-              </p>
-            </div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
-        </a>
-
-        <a
-          href="https://drive.google.com/file/d/117xwiR0YTXKxDyhGMyTDL0L_mA-CB-tU/view?usp=drive_link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
-        >
-          <div className="flex items-center gap-3">
-            <FileText className="w-5 h-5 text-[#4a7c2c]" />
-            <div>
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
-                Dokument č. 13 - Záznam z místního šetření - 7. 9. 2023
-              </p>
-            </div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
-        </a>
-
-        <a
-          href="https://drive.google.com/file/d/1aGlzeOtCb_dLpaw1xkxdbYKvPRT87UT4/view?usp=drive_link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
-        >
-          <div className="flex items-center gap-3">
-            <FileText className="w-5 h-5 text-[#4a7c2c]" />
-            <div>
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
-                Dokument č. 14 - Záznam z místního šetření - 17. 4. 2024
-              </p>
-            </div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
-        </a>
-
-        <a
-          href="https://drive.google.com/file/d/18ar9IcGrJAqj9Y82U5lhpNJHAhAyznSI/view?usp=drive_link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
-        >
-          <div className="flex items-center gap-3">
-            <FileText className="w-5 h-5 text-[#4a7c2c]" />
-            <div>
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
-                Dokument č. 15 - Záznam z jednání - 4. 6. 2024
-              </p>
-            </div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
-        </a>
-
-        <a
-          href="https://drive.google.com/file/d/1Slhs2bIZcYB9aS0B6LsL0R2SxNDNMlE3/view?usp=drive_link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
-        >
-          <div className="flex items-center gap-3">
-            <FileText className="w-5 h-5 text-[#4a7c2c]" />
-            <div>
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
-                Dokument č. 16 - Záznam z místního šetření - 23. 5. 2025
-              </p>
-            </div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
-        </a>
-
-        <a
-          href="https://drive.google.com/file/d/1tcQCth-XPNznB04Y4JiSIuYL2XG099NN/view?usp=drive_link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
-        >
-          <div className="flex items-center gap-3">
-            <FileText className="w-5 h-5 text-[#4a7c2c]" />
-            <div>
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
-                Dokument č. 17 - Záznam z jednání - 16. 12. 2025
-              </p>
-            </div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
-        </a>
-
-        <a
-          href="https://drive.google.com/file/d/1do1tyNXI0wbL6LGzh5SQAUkDCxCPJpWQ/view?usp=drive_link"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-[#f0f7eb] transition-colors group"
-        >
-          <div className="flex items-center gap-3">
-            <FileText className="w-5 h-5 text-[#4a7c2c]" />
-            <div>
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-[#2d5016]">
-                Dokument č. 18 - Záznam z jednání - 30. 12. 2025
-              </p>
-            </div>
-          </div>
-          <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#4a7c2c] transition-colors" />
-        </a>
-      </div>
+      <DocumentList documents={FIELD_DOCUMENTS} />
     </div>
   </div>
 </section>
@@ -1519,10 +686,9 @@ export default function App() {
       {/* Oficiální podněty */}
 <section id="official-motion" className="py-20 bg-gray-50">
   <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-4 relative pb-4">
+    <SectionHeading className="mb-4">
       Oficiální podnět
-      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
-    </h2>
+    </SectionHeading>
     <p className="text-center text-gray-600 mb-12">
       Přehled všech podaných oficiálních podnětů a obdržených odpovědí – seřazeno od nejnovějšího. Očíslované položky jsou podněty, položka s obálkou je odpověď.
     </p>
@@ -1826,7 +992,7 @@ export default function App() {
             Váš podpis znamená tlak na odpovědné instituce. Pomozte ochránit přírodu, zajistit důstojné řešení pro všechny zúčastněné a ukázat, že nečinnost není akceptovatelná. Každý hlas se počítá!
           </p>
           <a 
-            href="https://gov.cz/e-petice/1569-petice-proti-opakovane-cerne-skladce-a-nelegalnimu-znecistovani-lesniho-pozemku-v-lokalite-v-kozovech-u-kladna"
+            href={PETITION_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 bg-[#e67e22] hover:bg-[#d35400] px-10 py-5 rounded-full font-bold text-xl transition-all transform hover:-translate-y-2 shadow-2xl uppercase tracking-wide"
@@ -1847,10 +1013,9 @@ export default function App() {
       {/* Kontakt */}
 <section id="contact" className="py-20 bg-gray-50">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 className="text-4xl font-bold text-center text-[#2d5016] mb-12 relative pb-4">
+    <SectionHeading>
       Kontakt a organizátoři
-      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#4a7c2c] rounded-full" />
-    </h2>
+    </SectionHeading>
 
     <div className="grid lg:grid-cols-2 gap-12">
       <div>
@@ -1932,18 +1097,8 @@ export default function App() {
             </p>
           </div>
           <div className="flex flex-wrap justify-center gap-6 mb-8 text-sm">
-            {[
-              { label: 'O webu', onClick: () => scrollToSection('home') },
-              { label: 'Kontakt', onClick: () => scrollToSection('contact') }
-            ].map((link, idx) => (
-              <button 
-                key={idx}
-                onClick={link.onClick}
-                className="hover:text-[#a8d08d] transition-colors"
-              >
-                {link.label}
-              </button>
-            ))}
+            <a href="#home" className="hover:text-[#a8d08d] transition-colors">O webu</a>
+            <a href="#contact" className="hover:text-[#a8d08d] transition-colors">Kontakt</a>
           </div>
           <div className="text-center text-sm opacity-80 pt-8 border-t border-white/10">
             <p>&copy; 2026 Ing. Dominik Žlebek, LL.M. Všechna práva vyhrazena.</p>
@@ -1955,10 +1110,11 @@ export default function App() {
       {/* Floating Petition Button */}
       {showFloatingButton && (
         <a 
-          href="https://gov.cz/e-petice/1569-petice-proti-opakovane-cerne-skladce-a-nelegalnimu-znecistovani-lesniho-pozemku-v-lokalite-v-kozovech-u-kladna"
+          href={PETITION_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="fixed bottom-8 right-8 w-16 h-16 bg-[#e67e22] hover:bg-[#d35400] rounded-full shadow-2xl flex flex-col items-center justify-center text-white transition-all transform hover:scale-110 z-50 text-[xs] font-semibold"
+          className="fixed bottom-8 right-8 w-16 h-16 bg-[#e67e22] hover:bg-[#d35400] rounded-full shadow-2xl flex flex-col items-center justify-center text-white transition-all transform hover:scale-110 z-50 text-xs font-semibold"
+          aria-label="Podepsat petici"
         >
           <PenLine className="w-6 h-6 mb-1" />
           Petice

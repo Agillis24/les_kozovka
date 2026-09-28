@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <title>404 – Stránka nenalezena | Les u Kladna</title>
     <style>
         * {
@@ -81,18 +83,5 @@
         <a href="/" class="btn">Zpět na hlavní stránku</a>
     </div>
     
-    <script>
-        // GitHub Pages SPA redirect workaround
-        // This redirects 404s back to index.html with the path as a query parameter
-        var pathSegmentsToKeep = 0;
-        var l = window.location;
-        l.replace(
-            l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-            l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-            l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-            (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-            l.hash
-        );
-    </script>
 </body>
 </html>

@@ -1,3 +1,20 @@
-@import './fonts.css';
 @import './tailwind.css';
 @import './theme.css';
+
+@layer base {
+  /* Odkazy na sekce (#documents apod.) plynule posunou stránku
+     a nadpis nezmizí pod pevnou horní lištou vysokou 5rem. */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+}

@@ -34,8 +34,9 @@ export function LiteYouTube({ id, title }: LiteYouTubeProps) {
     >
       <img
         src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
-        alt={title}
+        alt=""
         loading="lazy"
+        decoding="async"
         className="w-full h-full object-cover"
       />
       <span className="absolute inset-0 flex items-center justify-center">
