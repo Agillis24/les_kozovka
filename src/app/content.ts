@@ -487,6 +487,11 @@ export const DOCUMENT_GROUPS: DocumentGroup[] = [
         name: 'Žádost o informace č. 8',
         url: 'https://drive.google.com/file/d/1KvhTGuPJU1uOODMvvwmxY0BSX3Y_hlc0/view?usp=drive_link',
         date: 'Září 2026'
+      },
+      {
+        name: 'Odpověď na žádost o informace č. 8',
+        url: 'https://drive.google.com/drive/folders/1GMUUijzMNIWhIYw3PdCZnCtYix1MnrhB?usp=drive_link',
+        date: 'Říjen 2026'
       }
     ]
   },
